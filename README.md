@@ -18,3 +18,11 @@ MOTO : A fullstack self made  project for renting out a listed property by broke
 
 
 
+## Day 2 - 30/5/2026
+  
+  ### Goals
+   1. Add some functionaliets  on our OTP system , add features like otp expiration time and number of attempt means a user enter how many times otp incorect and add a limition of genarting otp like user only can genrate 3 otp at time if it reached then user will have to wait for some time and also add a feature when user genrate a otp then genraating next otp user should wait for some time (60s or 120s).
+
+   2. Now create a login route and controller for loging a user ,only take phoneNumber and otp,after loggiing the user genarte and save cookie in browser(Previous day task)
+
+   ### What i learned while solving the Goal 
