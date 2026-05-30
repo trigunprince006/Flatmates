@@ -48,17 +48,33 @@ async function genrateOtp(req, res) {
     });
   }
   const isTempUserExist = await tempUserModel.findOne({ phoneNumber });
-  if (isTempUserExist) {//This code for  check if user exist and try to genrate another otp
-    // if(isTempUserExist.howManyTimesOtpGenarted >=2){
+  //This code for  check if user exist and try to genrate another otp
+  if (isTempUserExist) {
+    if (isTempUserExist.howManyTimesOtpGenarted >= 5) {
+  const waitUntil = isTempUserExist.waitingForNextOtp;
 
-    // }
+  if (waitUntil && waitUntil < new Date()) {
+    // Cooldown has passed — reset and allow
+    isTempUserExist.howManyTimesOtpGenarted = 0;
+    isTempUserExist.waitingForNextOtp = null;
+    await isTempUserExist.save();
+  } else {
+    // Still in cooldown — set it if not already set
+    if (!waitUntil) {
+      isTempUserExist.waitingForNextOtp = new Date(Date.now() + 5 * 60 * 1000);
+      await isTempUserExist.save();
+    }
+    return res.status(429).json({
+      message: "OTP limit reached. Please try again after 5 minutes.",
+    });
+  }
+}
     const genratedOtp = randomize("0", 4);
-    console.log("otp", genratedOtp);
 
     await sendOtp(genratedOtp, phoneNumber);
     isTempUserExist.otp = genratedOtp;
-    isTempUserExist.otpExpiresAt = new Date(Date.now() + 1 * 60 * 1000) 
-    isTempUserExist.howManyTimesOtpGenarted +=1;
+    isTempUserExist.otpExpiresAt = new Date(Date.now() + 5 * 60 * 1000);
+    isTempUserExist.howManyTimesOtpGenarted += 1;
     await isTempUserExist.save();
 
     return res.status(200).json({
@@ -67,7 +83,7 @@ async function genrateOtp(req, res) {
   }
 
   const genratedOtp = randomize("0", 4);
-  console.log("otp", genratedOtp);
+
 
   await sendOtp(genratedOtp, phoneNumber);
 
@@ -77,10 +93,9 @@ async function genrateOtp(req, res) {
     phoneNumber,
     isVerified: false,
     otp: genratedOtp,
-    howManyTimesOtpGenarted:1,
-    otpExpiresAt:new Date(Date.now() + 1 * 60 * 1000) 
+    howManyTimesOtpGenarted: 1,
+    otpExpiresAt: new Date(Date.now() + 5 * 60 * 1000),
   });
-  
 
   return res.status(200).json({
     message: "Otp is succesfully send to your phone number",
@@ -89,37 +104,32 @@ async function genrateOtp(req, res) {
 
 async function verifyOtp(req, res) {
   const { fullname, email, phoneNumber, otp } = req.body;
-  if (!fullname || !phoneNumber || !email ||!otp) {
+  if (!fullname || !phoneNumber || !email || !otp) {
     return res.status(400).json({
       message: "Please,fill all the field",
     });
   }
   const isTempUserExist = await tempUserModel.findOne({ phoneNumber });
-  console.log(isTempUserExist)
+
   if (!isTempUserExist) {
     return res.status(400).json({
       message: "Please,Genarate Otp first!",
     });
-    }
-    console.log("Expiry:", isTempUserExist.otpExpiresAt);
-  console.log("Now:", new Date());
+  }
 
-  console.log(
-    "Expiry ms:", isTempUserExist.otpExpiresAt.getTime()
-  );
-
-  console.log(
-    "Now ms:", Date.now()
-  );
-  if(isTempUserExist.otpExpiresAt < new Date()){
+  if (isTempUserExist.otpExpiresAt < new Date()) {
     return res.status(400).json({
-      message:"Your otp is exipred,Please Genrate another one"
-    })
+      message: "Your otp is exipred,Please Genrate another one",
+    });
   }
   if (isTempUserExist.otp !== otp) {
-    if (isTempUserExist.attempt == 3) {
+    if (isTempUserExist.attempt >= 3) {
+      isTempUserExist.otp = null;
+      isTempUserExist.attempt = 0;
+      await isTempUserExist.save();
+
       return res.status(400).json({
-        message: "You otp attempt is over ,Plase try again",
+        message: "You otp attempt is over ,Plase genarte new OTP",
       });
     }
     isTempUserExist.attempt += 1;
@@ -128,7 +138,7 @@ async function verifyOtp(req, res) {
       message: "Otp is Incorrect",
     });
   }
-  console.log(isTempUserExist.otpExpiresAt)
+
   isTempUserExist.isVerified = true;
   isTempUserExist.attempt = 0;
   await isTempUserExist.save();

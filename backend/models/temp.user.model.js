@@ -28,6 +28,9 @@ const tempUserSchema = new mongoose.Schema(
     otpExpiresAt: {
       type: Date
      },
+     waitingForNextOtp:{
+      type:Date,
+     }
   },{timestamps:true})
 
 const tempUserModel = mongoose.model("tempUsers", tempUserSchema);
