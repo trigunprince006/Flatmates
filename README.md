@@ -26,6 +26,8 @@ MOTO : A fullstack self made  project for renting out a listed property by broke
    2. Now create a login route and controller for loging a user ,only take phoneNumber and otp,after loggiing the user genarte and save cookie in browser(Previous day task)
 
   ### What i learned while solving the Goal 
-    1. When you save otp in Db then convert it in hash format then save it
-    2. Indexes in database and why it is very important
+   1. When you save otp in Db then convert it in hash format then save it
+   2. Indexes in database and why it is very important
+   3. Databse store created and updated time in UTC format for converting it in IST add 5h.30m in UTC (always use "new" when you r working with date()
+   4. 
     
