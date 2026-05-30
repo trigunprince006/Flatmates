@@ -20,7 +20,14 @@ const tempUserSchema = new mongoose.Schema(
     attempt:{
       type:Number,
       default:0
-    }
+    },
+    howManyTimesOtpGenarted:{
+      type:Number,
+      default:1
+    },
+    otpExpiresAt: {
+      type: Date
+     },
   },{timestamps:true})
 
 const tempUserModel = mongoose.model("tempUsers", tempUserSchema);
