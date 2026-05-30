@@ -26,4 +26,6 @@ MOTO : A fullstack self made  project for renting out a listed property by broke
    2. Now create a login route and controller for loging a user ,only take phoneNumber and otp,after loggiing the user genarte and save cookie in browser(Previous day task)
 
    ### What i learned while solving the Goal 
-    - When you save otp in Db then convert it in hash format then save it
+    1. When you save otp in Db then convert it in hash format then save it
+    2.Indexes in database and why it is very important
+    
