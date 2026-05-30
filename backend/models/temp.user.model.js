@@ -12,7 +12,7 @@ const tempUserSchema = new mongoose.Schema(
     email: {
       type: String,
     },
-    otp:Number,
+    otp:String,
     isVerified:{
       type:Boolean,
       default:false
