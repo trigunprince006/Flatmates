@@ -42,6 +42,5 @@ MOTO : A fullstack self made  project for renting out a listed property by broke
   ### What i learned while solving the Goal 
     1. 
     2.
-
-
+ 
     
