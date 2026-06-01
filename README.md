@@ -21,9 +21,9 @@ MOTO : A fullstack self made  project for renting out a listed property by broke
 ## Day 2 - 30/5/2026
   
   ### Goals
-   1. Add some functionalists  on our OTP system , add features like otp expiration time and number of attempt means a user enter how many times otp incorrect and add a limitation of generating otp like user only can genrate 3 otp at time if it reached then user will have to wait for some time and also add a feature when user genrate a otp then generating next otp user should wait for some time (60s or 120s).
+  1. Add some functionalists  on our OTP system , add features like otp expiration time and number of attempt means a user enter how many times otp incorrect and add a limitation of generating otp like user only can genrate 3 otp at time if it reached then user will have to wait for some time and also add a feature when user genrate a otp then generating next otp user should wait for some time (60s or 120s).
 
-   2. Now create a login route and controller for logging a user ,only take phoneNumber and otp,after logging the user genrate and save cookie in browser(Previous day task)
+  2. Now create a login route and controller for logging a user ,only take phoneNumber and otp,after logging the user genrate and save cookie in browser(Previous day task)
 
   ### What i learned while solving the Goal 
     1. When you save otp in Db then convert it in hash format then save it(bcrypt)
