@@ -15,6 +15,24 @@ const userSchema = new mongoose.Schema(
     otp:{
       type:String
     },
+    isLoggedIn:{
+      type:Boolean,
+      default:false
+    },
+    attempt:{
+      type:Number,
+      default:0
+    },
+    howManyTimesOtpGenerated:{
+      type:Number,
+      default:1
+    },
+    otpExpiresAt: {
+      type: Date
+     },
+     waitingForNextOtp:{
+      type:Date,
+     },
     email: {
       type: String,
       unique: true,
@@ -31,8 +49,8 @@ const userSchema = new mongoose.Schema(
       },
       relationshipStatus: {
         type: String,
-        enum: ["bachlors", "family"],
-        default: "bachlors",
+        enum: ["bachelors", "family"],
+        default: "bachelors",
       },
       profilePhoto: {
         type: String,

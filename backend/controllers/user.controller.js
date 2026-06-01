@@ -2,7 +2,7 @@ const userModel = require("../models/user.model");
 const tempUserModel = require("../models/temp.user.model");
 const randomize = require("randomatic");
 const sendOtp = require("../services/sendOtp");
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcrypt");
 async function registerUser(req, res) {
   console.log(req.body);
   const { fullname, phoneNumber, email, userProfile } = req.body;
@@ -40,7 +40,7 @@ async function registerUser(req, res) {
   }
 }
 
-async function genrateOtp(req, res) {
+async function generateOtp(req, res) {
   const { fullname, email, phoneNumber } = req.body;
   if (!fullname || !phoneNumber || !email) {
     return res.status(400).json({
@@ -48,57 +48,55 @@ async function genrateOtp(req, res) {
     });
   }
   const isTempUserExist = await tempUserModel.findOne({ phoneNumber });
-  //This code for  check if user exist and try to genrate another otp
+  //This code for  check if user exist and try to generate another otp
   if (isTempUserExist) {
-    if (isTempUserExist.howManyTimesOtpGenarted >= 5) {
+    if (isTempUserExist.howManyTimesOtpGenerated >= 5) {
       const waitUntil = isTempUserExist.waitingForNextOtp;
 
-    if (waitUntil && waitUntil < new Date()) {
-    // Cooldown has passed — reset and allow
-    isTempUserExist.howManyTimesOtpGenarted = 0;
-    isTempUserExist.waitingForNextOtp = null;
-    await isTempUserExist.save();
-  } else {
-    // Still in cooldown — set it if not already set
-    if (!waitUntil) {
-      isTempUserExist.waitingForNextOtp = new Date(Date.now() + 5 * 60 * 1000);
-      await isTempUserExist.save();
+      if (waitUntil && waitUntil < new Date()) {
+        isTempUserExist.howManyTimesOtpGenerated = 0;
+        isTempUserExist.waitingForNextOtp = null;
+        await isTempUserExist.save();
+      } else {
+        if (!waitUntil) {
+          isTempUserExist.waitingForNextOtp = new Date(
+            Date.now() + 5 * 60 * 1000,
+          );
+          await isTempUserExist.save();
+        }
+        return res.status(429).json({
+          message: "OTP limit reached. Please try again after 5 minutes.",
+        });
+      }
     }
-    return res.status(429).json({
-      message: "OTP limit reached. Please try again after 5 minutes.",
-    });
-  }
-}
-    const genratedOtp = randomize("0", 4);
+    const generatedOtp = randomize("0", 4);
 
-    await sendOtp(genratedOtp, phoneNumber);
-    isTempUserExist.otp = genratedOtp;
+    isTempUserExist.otp = generatedOtp;
     isTempUserExist.otpExpiresAt = new Date(Date.now() + 5 * 60 * 1000);
-    isTempUserExist.howManyTimesOtpGenarted += 1;
+    isTempUserExist.howManyTimesOtpGenerated += 1;
     await isTempUserExist.save();
+    await sendOtp(generatedOtp, phoneNumber);
 
     return res.status(200).json({
-      message: "Otp is succesfully send to your phone number",
+      message: "Otp is successfully send to your phone number",
     });
   }
 
   const genratedOtp = randomize("0", 4);
-
-
-  await sendOtp(genratedOtp, phoneNumber);
 
   await tempUserModel.create({
     fullname,
     email,
     phoneNumber,
     isVerified: false,
-    otp: genratedOtp,
-    howManyTimesOtpGenarted: 1,
+    otp: generatedOtp,
+    howManyTimesOtpGenerated: 1,
     otpExpiresAt: new Date(Date.now() + 5 * 60 * 1000),
   });
+  await sendOtp(generatedOtp, phoneNumber);
 
   return res.status(200).json({
-    message: "Otp is succesfully send to your phone number",
+    message: "Otp is successfully send to your phone number",
   });
 }
 
@@ -113,13 +111,13 @@ async function verifyOtp(req, res) {
 
   if (!isTempUserExist) {
     return res.status(400).json({
-      message: "Please,Genarate Otp first!",
+      message: "Please,Generate Otp first!",
     });
   }
 
   if (isTempUserExist.otpExpiresAt < new Date()) {
     return res.status(400).json({
-      message: "Your otp is exipred,Please Genrate another one",
+      message: "Your otp is expired,Please Generate another one",
     });
   }
   if (isTempUserExist.otp !== otp) {
@@ -129,7 +127,7 @@ async function verifyOtp(req, res) {
       await isTempUserExist.save();
 
       return res.status(400).json({
-        message: "You otp attempt is over ,Plase genarte new OTP",
+        message: "You otp attempt is over ,Please generate new OTP",
       });
     }
     isTempUserExist.attempt += 1;
@@ -143,66 +141,114 @@ async function verifyOtp(req, res) {
   isTempUserExist.attempt = 0;
   await isTempUserExist.save();
   return res.status(200).json({
-    message: "Your Phone number is verified Succesfullly",
+    message: "Your Phone number is verified Successfully",
   });
 }
 
-async function sendOtpForLogin(req,res) {
-   const{phoneNumber}=req.body;
-  if(!phoneNumber){
+async function sendOtpForLogin(req, res) {
+  const { phoneNumber } = req.body;
+  if (!phoneNumber) {
     return res.status(400).json({
-      message:"Please enter phone number"
-    })
+      message: "Please enter phone number",
+    });
   }
-  const isUserExist = await userModel.findOne({phoneNumber});
-  if(!isUserExist){
-    return res.status(400).json({
-      message:"User does't exist,Please register yourself"
-    })
+  const isUserExist = await userModel.findOne({ phoneNumber });
+  if (isUserExist) {
+    
+    if (isUserExist.howManyTimesOtpGenerated >= 5) {
+      const waitUntil = isUserExist.waitingForNextOtp;
+
+      if (waitUntil && waitUntil < new Date()) {
+        isUserExist.howManyTimesOtpGenerated = 0;
+        isUserExist.waitingForNextOtp = null;
+        await isUserExist.save();
+      } else {
+        if (!waitUntil) {
+          isUserExist.waitingForNextOtp = new Date(Date.now() + 5 * 60 * 1000);
+          await isUserExist.save();
+        }
+        return res.status(429).json({
+          message: "OTP limit reached. Please try again after 5 minutes.",
+        });
+      }
+    }
+    const generatedOtp = randomize("0", 4);
+    const hashedOtp = await bcrypt.hash(generatedOtp, 10);
+
+    isUserExist.otp = hashedOtp;
+    isUserExist.otpExpiresAt = new Date(Date.now() + 5 * 60 * 1000);
+    isUserExist.howManyTimesOtpGenerated += 1;
+    await isUserExist.save();
+    await sendOtp(generatedOtp, phoneNumber);
+
+    return res.status(200).json({
+      message: "Otp send to your phone number",
+    });
   }
-  const genratedOtp = randomize("0", 4);
-  await sendOtp(genratedOtp,phoneNumber)
-  const hashedOtp = await bcrypt.hash(genratedOtp,10)
-  
-  isUserExist.otp = hashedOtp;
-  await isUserExist.save();
-  return res.status(200).json({
-    message :"Otp send to your phone number"
-  })
+
+  return res.status(400).json({
+    message:
+      "User not registered with this phone number,Please register yourself first",
+  });
 }
 
-async function login(req,res){
-  const{phoneNumber,otp}=req.body;
-  if(!phoneNumber ||!otp){
+async function login(req, res) {
+  const { phoneNumber, otp } = req.body;
+  if (!phoneNumber || !otp) {
     return res.status(400).json({
-      message:"Please enter all credentials"
-    })
+      message: "Please enter all credentials",
+    });
   }
-  const isUserExist = await userModel.findOne({phoneNumber});
-  if(!isUserExist){
+  const isUserExist = await userModel.findOne({ phoneNumber });
+  if (!isUserExist) {
     return res.status(400).json({
-      message:"User does't exist,Please register youself"
-    })
+      message: "User does't exist,Please register yourself",
+    });
   }
   const existOtp = isUserExist.otp;
-  console.log(existOtp)
-  if(!existOtp){
+  console.log(existOtp);
+  if (!existOtp) {
     return res.status(400).json({
-    message:"Otp is not genrated yet!"
-  })
+      message: "Otp is not generated yet!",
+    });
   }
- const isMatch = await bcrypt.compare(otp,existOtp)
- console.log(isMatch)
- if(!isMatch){
-  return res.status(400).json({
-    message:"Otp is incorrect"
-  })
- }
- isUserExist.otp =null;
- await isUserExist.save()
- return res.status(200).json({
-  message:"User logged in successfully"
-})
+  if (isUserExist.otpExpiresAt < new Date()) {
+      return res.status(400).json({
+        message: "Your otp is expired,Please Generate another one",
+      });
+    }
+  const isMatch = await bcrypt.compare(otp, existOtp);
+  console.log(isMatch);
+  if (!isMatch) {
+    if (isUserExist.attempt >= 3) {
+      isUserExist.otp = null;
+      isUserExist.attempt = 0;
+      await isUserExist.save();
+      return res.status(400).json({
+        message: "You otp attempt is over ,Please generate new OTP",
+      });
+    }
+    isUserExist.attempt += 1;
+    await isUserExist.save();
+    return res.status(400).json({
+      message: "Otp is Incorrect",
+    });
+  }
+  isUserExist.otp = null;
+  isUserExist.howManyTimesOtpGenerated = 0;
+  isUserExist.otpExpiresAt = null;
+  isUserExist.attempt = 0;
+  isUserExist.isLoggedIn = true;
+  await isUserExist.save();
+  return res.status(200).json({
+    message: "User logged in successfully",
+  });
 }
 
-module.exports = { registerUser, genrateOtp, verifyOtp ,sendOtpForLogin,login};
+module.exports = {
+  registerUser,
+  generateOtp,
+  verifyOtp,
+  sendOtpForLogin,
+  login,
+};
