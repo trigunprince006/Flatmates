@@ -51,9 +51,9 @@ async function genrateOtp(req, res) {
   //This code for  check if user exist and try to genrate another otp
   if (isTempUserExist) {
     if (isTempUserExist.howManyTimesOtpGenarted >= 5) {
-  const waitUntil = isTempUserExist.waitingForNextOtp;
+      const waitUntil = isTempUserExist.waitingForNextOtp;
 
-  if (waitUntil && waitUntil < new Date()) {
+    if (waitUntil && waitUntil < new Date()) {
     // Cooldown has passed — reset and allow
     isTempUserExist.howManyTimesOtpGenarted = 0;
     isTempUserExist.waitingForNextOtp = null;

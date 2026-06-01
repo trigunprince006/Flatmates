@@ -26,6 +26,22 @@ MOTO : A fullstack self made  project for renting out a listed property by broke
    2. Now create a login route and controller for loging a user ,only take phoneNumber and otp,after loggiing the user genarte and save cookie in browser(Previous day task)
 
   ### What i learned while solving the Goal 
-    1. When you save otp in Db then convert it in hash format then save it
+    1. When you save otp in Db then convert it in hash format then save it(bcrypt)
     2. Indexes in database and why it is very important
+  
+## Day 3 - 31/5/2026
+  ## Sunday 
+
+## Day 4 - 01/06/2026
+  
+  ### Goals
+   1.  Create a login route and controller for loging a user ,only take phoneNumber and otp,after loggiing the user genarte and save cookie in browser(Previous day task)
+   2. Learn about refresh token , why, when,and how we use it ?
+   3. Wrap codes in try And catch for better error handling
+
+  ### What i learned while solving the Goal 
+    1. 
+    2.
+
+
     
