@@ -9,6 +9,7 @@ const connectDB = require("./db/db");
 connectDB();
 
 const userRoute = require('./routes/user.route')
+const userAuthRoute = require('./routes/user.auth.route')
 //In-Built Middleware
 app.use(express.json());
 app.use(cors());
@@ -19,6 +20,8 @@ app.get("/", (req, res) => {
 });
 
 app.use('/user/',userRoute)
+app.use('/auth/',userAuthRoute)
+
 
 //Starting the server
 const port = process.env.PORT;

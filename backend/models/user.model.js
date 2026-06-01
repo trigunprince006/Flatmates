@@ -12,6 +12,9 @@ const userSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
+    otp:{
+      type:String
+    },
     email: {
       type: String,
       unique: true,

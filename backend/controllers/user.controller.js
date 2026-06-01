@@ -2,7 +2,7 @@ const userModel = require("../models/user.model");
 const tempUserModel = require("../models/temp.user.model");
 const randomize = require("randomatic");
 const sendOtp = require("../services/sendOtp");
-
+const bcrypt = require('bcrypt')
 async function registerUser(req, res) {
   console.log(req.body);
   const { fullname, phoneNumber, email, userProfile } = req.body;
@@ -147,4 +147,62 @@ async function verifyOtp(req, res) {
   });
 }
 
-module.exports = { registerUser, genrateOtp, verifyOtp };
+async function sendOtpForLogin(req,res) {
+   const{phoneNumber}=req.body;
+  if(!phoneNumber){
+    return res.status(400).json({
+      message:"Please enter phone number"
+    })
+  }
+  const isUserExist = await userModel.findOne({phoneNumber});
+  if(!isUserExist){
+    return res.status(400).json({
+      message:"User does't exist,Please register yourself"
+    })
+  }
+  const genratedOtp = randomize("0", 4);
+  await sendOtp(genratedOtp,phoneNumber)
+  const hashedOtp = await bcrypt.hash(genratedOtp,10)
+  
+  isUserExist.otp = hashedOtp;
+  await isUserExist.save();
+  return res.status(200).json({
+    message :"Otp send to your phone number"
+  })
+}
+
+async function login(req,res){
+  const{phoneNumber,otp}=req.body;
+  if(!phoneNumber ||!otp){
+    return res.status(400).json({
+      message:"Please enter all credentials"
+    })
+  }
+  const isUserExist = await userModel.findOne({phoneNumber});
+  if(!isUserExist){
+    return res.status(400).json({
+      message:"User does't exist,Please register youself"
+    })
+  }
+  const existOtp = isUserExist.otp;
+  console.log(existOtp)
+  if(!existOtp){
+    return res.status(400).json({
+    message:"Otp is not genrated yet!"
+  })
+  }
+ const isMatch = await bcrypt.compare(otp,existOtp)
+ console.log(isMatch)
+ if(!isMatch){
+  return res.status(400).json({
+    message:"Otp is incorrect"
+  })
+ }
+ isUserExist.otp =null;
+ await isUserExist.save()
+ return res.status(200).json({
+  message:"User logged in successfully"
+})
+}
+
+module.exports = { registerUser, genrateOtp, verifyOtp ,sendOtpForLogin,login};

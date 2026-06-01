@@ -35,12 +35,12 @@ MOTO : A fullstack self made  project for renting out a listed property by broke
 ## Day 4 - 01/06/2026
   
   ### Goals
-   1.  Create a login route and controller for loging a user ,only take phoneNumber and otp,after loggiing the user genarte and save cookie in browser(Previous day task)
-   2. Learn about refresh token , why, when,and how we use it ?
-   3. Wrap codes in try And catch for better error handling
+  1.  Create a login route and controller for loging a user ,only take phoneNumber and otp,after loggiing the user genarte and save cookie in browser(Previous day task)
+  2. Learn about refresh token , why, when,and how we use it ?
+  3. Wrap codes in try And catch for better error handling
 
   ### What i learned while solving the Goal 
-    1. 
-    2.
+  1. 
+  2.
  
     
