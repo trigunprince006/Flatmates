@@ -3,6 +3,8 @@ const tempUserModel = require("../models/temp.user.model");
 const randomize = require("randomatic");
 const sendOtp = require("../services/sendOtp");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 async function registerUser(req, res) {
   console.log(req.body);
   const { fullname, phoneNumber, email, userProfile } = req.body;
@@ -154,7 +156,6 @@ async function sendOtpForLogin(req, res) {
   }
   const isUserExist = await userModel.findOne({ phoneNumber });
   if (isUserExist) {
-    
     if (isUserExist.howManyTimesOtpGenerated >= 5) {
       const waitUntil = isUserExist.waitingForNextOtp;
 
@@ -213,10 +214,10 @@ async function login(req, res) {
     });
   }
   if (isUserExist.otpExpiresAt < new Date()) {
-      return res.status(400).json({
-        message: "Your otp is expired,Please Generate another one",
-      });
-    }
+    return res.status(400).json({
+      message: "Your otp is expired,Please Generate another one",
+    });
+  }
   const isMatch = await bcrypt.compare(otp, existOtp);
   console.log(isMatch);
   if (!isMatch) {
@@ -239,9 +240,18 @@ async function login(req, res) {
   isUserExist.otpExpiresAt = null;
   isUserExist.attempt = 0;
   isUserExist.isLoggedIn = true;
+  isUserExist.waitingForNextOtp = null;
   await isUserExist.save();
+
+  const token = await jwt.sign({
+     userId: isUserExist._id }, 
+    process.env.JWT_SECRET, {
+    expiresIn: "7d",
+  });
+  res.cookie("Token",token)
   return res.status(200).json({
     message: "User logged in successfully",
+    token :token
   });
 }
 
@@ -250,5 +260,5 @@ module.exports = {
   generateOtp,
   verifyOtp,
   sendOtpForLogin,
-  login,
+  login
 };
