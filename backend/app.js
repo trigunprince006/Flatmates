@@ -11,6 +11,8 @@ connectDB();
 
 const userRoute = require('./routes/user.route')
 const userAuthRoute = require('./routes/user.auth.route')
+const refreshTokenAuthRoute = require('./routes/refresh.auth.route');
+const { refreshToken } = require("./controllers/user.controller");
 //In-Built Middleware
 app.use(cookieParser())
 app.use(express.json());
@@ -23,6 +25,7 @@ app.get("/", (req, res) => {
 
 app.use('/user/',userRoute)
 app.use('/auth/',userAuthRoute)
+app.use('/user/auth/',refreshTokenAuthRoute)
 
 
 //Starting the server

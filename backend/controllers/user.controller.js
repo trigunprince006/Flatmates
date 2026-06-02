@@ -77,6 +77,7 @@ async function generateOtp(req, res) {
     isTempUserExist.otpExpiresAt = new Date(Date.now() + 5 * 60 * 1000);
     isTempUserExist.howManyTimesOtpGenerated += 1;
     await isTempUserExist.save();
+
     await sendOtp(generatedOtp, phoneNumber);
 
     return res.status(200).json({
@@ -84,7 +85,7 @@ async function generateOtp(req, res) {
     });
   }
 
-  const genratedOtp = randomize("0", 4);
+  const generatedOtp = randomize("0", 4);
 
   await tempUserModel.create({
     fullname,
@@ -207,7 +208,7 @@ async function login(req, res) {
     });
   }
   const existOtp = isUserExist.otp;
-  console.log(existOtp);
+
   if (!existOtp) {
     return res.status(400).json({
       message: "Otp is not generated yet!",
@@ -219,7 +220,6 @@ async function login(req, res) {
     });
   }
   const isMatch = await bcrypt.compare(otp, existOtp);
-  console.log(isMatch);
   if (!isMatch) {
     if (isUserExist.attempt >= 3) {
       isUserExist.otp = null;
@@ -243,22 +243,97 @@ async function login(req, res) {
   isUserExist.waitingForNextOtp = null;
   await isUserExist.save();
 
-  const token = await jwt.sign({
-     userId: isUserExist._id }, 
-    process.env.JWT_SECRET, {
-    expiresIn: "7d",
+  const accessToken = await jwt.sign(
+    {
+      userId: isUserExist._id,
+      type: "access",
+    },
+    process.env.ACCESS_JWT_SECRET_KEY,
+    {
+      expiresIn: "15m",
+    },
+  );
+  res.cookie("accessToken", accessToken, {
+    httpOnly: true,
+    secure: false,
+    sameSite: "strict",
+    maxAge: 15 * 60 * 1000,
   });
-  res.cookie("Token",token)
+
+  const refreshToken = await jwt.sign(
+    {
+      userId: isUserExist._id,
+      type: "refresh",
+    },
+    process.env.REFRESH_JWT_SECRET_KEY,
+    {
+      expiresIn: "90d",
+    },
+  );
+
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: false,
+    sameSite: "strict",
+    maxAge: 90 * 24 * 60 * 60 * 1000,
+  });
+  isUserExist.refreshToken = refreshToken;
+  await isUserExist.save();
   return res.status(200).json({
     message: "User logged in successfully",
-    token :token
+    refreshtoken: refreshToken,
+    accesstoken: accessToken,
   });
 }
 
+async function logout(req, res) {
+  return res.status(200).json({
+    message:"Logout function is working perfectly"
+  })
+}
+
+async function refreshToken(req, res) {
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) {
+    return res.status(400).json({
+      message: "Please login first",
+    });
+  }
+  const decoded = jwt.verify(refreshToken, process.env.REFRESH_JWT_SECRET_KEY);
+  const isUser = await userModel.findById(decoded.userId);
+  if (!isUser) {
+    return res.status(400).json({
+      message: "Invalid refresh Token",
+    });
+  }
+  if (decoded && isUser) {
+    const accessToken = await jwt.sign(
+      {
+        userId: isUser._id,
+        type: "access",
+      },
+      process.env.ACCESS_JWT_SECRET_KEY,
+      {
+        expiresIn: "15m",
+      },
+    );
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict",
+      maxAge: 15 * 60 * 1000,
+    });
+    return res.status(200).json({
+      message:"Access token created successfully"
+    })
+  }
+}
 module.exports = {
   registerUser,
   generateOtp,
   verifyOtp,
   sendOtpForLogin,
-  login
+  login,
+  logout,
+  refreshToken,
 };
