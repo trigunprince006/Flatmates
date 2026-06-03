@@ -1,5 +1,5 @@
 const userModel = require("../../models/user.model");
-const tempUserModel = require("../../models/temp.user.model");
+const otpModel = require("../../models/otp.Model");
 const randomize = require("randomatic");
 const sendOtp = require("../../services/sendOtp");
 const bcrypt = require("bcrypt");
@@ -19,45 +19,40 @@ async function login(req, res) {
       message: "User does't exist,Please register yourself",
     });
   }
-  const existOtp = isUserExist.otp;
-
-  if (!existOtp) {
+  const isOtpExist = await otpModel.findOne({ phoneNumber });
+  if (!isOtpExist) {
     return res.status(400).json({
-      message: "Otp is not generated yet!",
+      message: "Otp not generated yet",
     });
   }
-  if (isUserExist.otpExpiresAt < new Date()) {
+
+  if (isOtpExist.otpExpiresAt < new Date()) {
     return res.status(400).json({
       message: "Your otp is expired,Please Generate another one",
     });
   }
+  const existOtp = isOtpExist.otp;
   const isMatch = await bcrypt.compare(otp, existOtp);
   if (!isMatch) {
-    if (isUserExist.attempt >= 3) {
-      isUserExist.otp = null;
-      isUserExist.attempt = 0;
-      await isUserExist.save();
+    if (isOtpExist.attempt >= 3) {
+      isOtpExist.otp = null;
+      isOtpExist.attempt = 0;
+      await isOtpExist.save();
       return res.status(400).json({
         message: "You otp attempt is over ,Please generate new OTP",
       });
     }
-    isUserExist.attempt += 1;
-    await isUserExist.save();
+    isOtpExist.attempt += 1;
+    await isOtpExist.save();
     return res.status(400).json({
       message: "Otp is Incorrect",
     });
   }
-  isUserExist.otp = null;
-  isUserExist.howManyTimesOtpGenerated = 0;
-  isUserExist.otpExpiresAt = null;
-  isUserExist.attempt = 0;
-  isUserExist.isLoggedIn = true;
-  isUserExist.waitingForNextOtp = null;
-  await isUserExist.save();
+
 
   const accessToken = await jwt.sign(
     {
-      userId: isUserExist._id,
+      userId: isOtpExist._id,
       type: "access",
     },
     process.env.ACCESS_JWT_SECRET_KEY,
@@ -74,7 +69,7 @@ async function login(req, res) {
 
   const refreshToken = await jwt.sign(
     {
-      userId: isUserExist._id,
+      userId: isOtpExist._id,
       type: "refresh",
     },
     process.env.REFRESH_JWT_SECRET_KEY,
@@ -89,6 +84,7 @@ async function login(req, res) {
     sameSite: "strict",
     maxAge: 90 * 24 * 60 * 60 * 1000,
   });
+  await userModel.findByIdAndDelete(isOtpExist._id);
   isUserExist.refreshToken = refreshToken;
   await isUserExist.save();
   return res.status(200).json({

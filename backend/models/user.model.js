@@ -12,27 +12,6 @@ const userSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
-    otp:{
-      type:String
-    },
-    isLoggedIn:{
-      type:Boolean,
-      default:false
-    },
-    attempt:{
-      type:Number,
-      default:0
-    },
-    howManyTimesOtpGenerated:{
-      type:Number,
-      default:1
-    },
-    otpExpiresAt: {
-      type: Date
-     },
-     waitingForNextOtp:{
-      type:Date,
-     },
     email: {
       type: String,
       unique: true,

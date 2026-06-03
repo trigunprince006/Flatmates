@@ -1,5 +1,5 @@
 const userModel = require("../../models/user.model");
-const tempUserModel = require("../../models/temp.user.model");
+const otpModel = require("../../models/otp.Model");
 const randomize = require("randomatic");
 const sendOtp = require("../../services/sendOtp");
 const bcrypt = require("bcrypt");
@@ -7,24 +7,27 @@ const jwt = require("jsonwebtoken");
 
 async function sendOtpForLogin(req, res) {
   const { phoneNumber } = req.body;
-  if (!phoneNumber) {
+  if (!phoneNumber ) {
     return res.status(400).json({
-      message: "Please enter phone number",
+      message: "Please,Enter valid phone number",
     });
   }
-  const isUserExist = await userModel.findOne({ phoneNumber });
-  if (isUserExist) {
-    if (isUserExist.howManyTimesOtpGenerated >= 5) {
-      const waitUntil = isUserExist.waitingForNextOtp;
+  const isOtpExist = await otpModel.findOne({ phoneNumber });
+  //This code for  check if user exist and try to generate another otp
+  if (isOtpExist) {
+    if (isOtpExist.howManyTimesOtpGenerated >= 5) {
+      const waitUntil = isOtpExist.waitingForNextOtp;
 
       if (waitUntil && waitUntil < new Date()) {
-        isUserExist.howManyTimesOtpGenerated = 0;
-        isUserExist.waitingForNextOtp = null;
-        await isUserExist.save();
+        isOtpExist.howManyTimesOtpGenerated = 0;
+        isOtpExist.waitingForNextOtp = null;
+        await isOtpExist.save();
       } else {
         if (!waitUntil) {
-          isUserExist.waitingForNextOtp = new Date(Date.now() + 5 * 60 * 1000);
-          await isUserExist.save();
+          isOtpExist.waitingForNextOtp = new Date(
+            Date.now() + 5 * 60 * 1000,
+          );
+          await isOtpExist.save();
         }
         return res.status(429).json({
           message: "OTP limit reached. Please try again after 5 minutes.",
@@ -32,23 +35,34 @@ async function sendOtpForLogin(req, res) {
       }
     }
     const generatedOtp = randomize("0", 4);
-    const hashedOtp = await bcrypt.hash(generatedOtp, 10);
+    const hashedOtp = await bcrypt.hash(generatedOtp,10);
 
-    isUserExist.otp = hashedOtp;
-    isUserExist.otpExpiresAt = new Date(Date.now() + 5 * 60 * 1000);
-    isUserExist.howManyTimesOtpGenerated += 1;
-    await isUserExist.save();
+    isOtpExist.otp = hashedOtp;
+    isOtpExist.otpExpiresAt = new Date(Date.now() + 5 * 60 * 1000);
+    isOtpExist.howManyTimesOtpGenerated += 1;
+    await isOtpExist.save();
+
     await sendOtp(generatedOtp, phoneNumber);
 
     return res.status(200).json({
-      message: "Otp send to your phone number",
+      message: "Otp is successfully send to your phone number",
     });
   }
 
-  return res.status(400).json({
-    message:
-      "User not registered with this phone number,Please register yourself first",
+  const generatedOtp = randomize("0", 4);
+  const hashedOtp = await bcrypt.hash(generatedOtp,10);
+  await otpModel.create({
+    phoneNumber,
+    otp: hashedOtp,
+    howManyTimesOtpGenerated: 1,
+    otpExpiresAt: new Date(Date.now() + 5 * 60 * 1000),
+    purpose:'login'
+  });
+
+  await sendOtp(generatedOtp, phoneNumber);
+
+  return res.status(200).json({
+    message: "Otp is successfully send to your phone number",
   });
 }
-
 module.exports = sendOtpForLogin;

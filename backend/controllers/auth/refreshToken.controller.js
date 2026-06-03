@@ -1,5 +1,5 @@
 const userModel = require("../../models/user.model");
-const tempUserModel = require("../../models/temp.user.model");
+const tempUserModel = require("../../models/otp.Model");
 const randomize = require("randomatic");
 const sendOtp = require("../../services/sendOtp");
 const bcrypt = require("bcrypt");

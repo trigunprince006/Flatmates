@@ -13,6 +13,11 @@ const tempUserSchema = new mongoose.Schema(
       type: String,
     },
     otp:String,
+    purpose:{
+      type:String,
+      enum:['register','login'],
+      default:'register'
+    },
     isVerified:{
       type:Boolean,
       default:false
@@ -21,7 +26,7 @@ const tempUserSchema = new mongoose.Schema(
       type:Number,
       default:0
     },
-    howManyTimesOtpGenarted:{
+    howManyTimesOtpGenerated:{
       type:Number,
       default:1
     },
