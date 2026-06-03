@@ -40,18 +40,27 @@ MOTO : A fullstack self made  project for renting out a listed property by broke
   3. Wrap codes in try And catch for better error handling
 
   ### What i learned while solving the Goal 
-  1. RefreshToken And Accses token 
+  1. RefreshToken And Access token 
   2. OTP architecture
      
 ## Day 5 - 02/06/2026
   
   ### Goals
-  2. Learn about refresh token , why, when,and how we use it and implemente a code logic  ?
-  3. Wrap codes in try And catch for better error handling
+  1. Learn about refresh token , why, when,and how we use it and implement a code logic  ?
+  2. Wrap codes in try And catch for better error handling
+
+  ### What i learned while solving the Goal 
+  1. why we need refresh token ,how we work on it.
+  
+## Day 6 - 03/06/2026
+  
+  ### Goals
+  1. Implement a better version of refresh token storing , like user can store multiple token for multiple devices like chrome,tab,phone etc
+  3. Also create a another collection for user session
 
   ### What i learned while solving the Goal 
   1. 
-  2. 
+  
 
 
  

@@ -306,8 +306,13 @@ async function refreshToken(req, res) {
       message: "Invalid refresh Token",
     });
   }
+  if (isUser.refreshToken !== refreshToken) {
+  return res.status(401).json({
+    message: "Invalid refresh token",
+  });
+}
   if (decoded && isUser) {
-    const accessToken = await jwt.sign(
+    const accessToken = jwt.sign(
       {
         userId: isUser._id,
         type: "access",
