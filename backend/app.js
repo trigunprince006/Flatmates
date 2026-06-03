@@ -9,10 +9,8 @@ const cookieParser = require('cookie-parser');
 const connectDB = require("./db/db");
 connectDB();
 
-const userRoute = require('./routes/user.route')
-const userAuthRoute = require('./routes/user.auth.route')
-const refreshTokenAuthRoute = require('./routes/refresh.auth.route');
-const { refreshToken } = require("./controllers/user.controller");
+const authRoute = require('./routes/auth.routes')
+
 //In-Built Middleware
 app.use(cookieParser())
 app.use(express.json());
@@ -23,9 +21,7 @@ app.get("/", (req, res) => {
   res.send("Server is running......");
 });
 
-app.use('/user/',userRoute)
-app.use('/auth/',userAuthRoute)
-app.use('/user/auth/',refreshTokenAuthRoute)
+app.use('/auth/',authRoute)
 
 
 //Starting the server

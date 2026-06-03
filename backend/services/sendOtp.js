@@ -4,7 +4,7 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
 async function sendOtp(generatedOtp,phoneNumber) {
-  console.log(phoneNumber)
+
 
   await client.messages.create({
     body: `Your One-Time-Password is ${generatedOtp}`,
