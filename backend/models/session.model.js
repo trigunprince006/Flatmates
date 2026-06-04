@@ -8,16 +8,20 @@ const sessionSchema = new mongoose.Schema({
   },
   refreshToken : {
     type:String,
-    defaultL:'null'
+    default:null
   },
-  deviceType : {
-    type:Object,
+  device: {
+    deviceType:String,
+    deviceModel:String,
+    deviceCompany:String
   },
-  browserType:{
-    type:Object
+  browser:{
+    browserName:String,
+    browserVersion:String
   },
-  OsType:{
-    type:Object
+  Os:{
+    OsName:String,
+    OsVersion:String 
   },
   ipAddress : {
     type:String,
@@ -26,7 +30,8 @@ const sessionSchema = new mongoose.Schema({
     type:String,
   },
   isRevoked:{
-    type:Boolean
+    type:Boolean,
+    default:false
   },
   expiresAt:{
     type:Date

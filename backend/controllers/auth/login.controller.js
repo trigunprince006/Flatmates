@@ -4,7 +4,7 @@ const randomize = require("randomatic");
 const sendOtp = require("../../services/sendOtp");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const sessionModel = require ('../../models/session.model')
+const sessionModel = require("../../models/session.model");
 const UAParser = require("ua-parser-js");
 const { BrowserName } = require("ua-parser-js/enums");
 
@@ -51,7 +51,6 @@ async function login(req, res) {
     });
   }
 
-
   const accessToken = await jwt.sign(
     {
       userId: isUserExist._id,
@@ -90,32 +89,40 @@ async function login(req, res) {
   await otpModel.findByIdAndDelete(isOtpExist._id);
   const parser = new UAParser(req.headers["user-agent"]);
   const result = parser.getResult();
-  const browser = {
-    browserName:result.browser.name,
-    browserVersion: result.browser.version
-  }
-  const OS = {
-    OsName:result.os.name,
-    OsVersion: result.os.version
-  }
-  const device = {
-    deviceType:result.device.type,
-    deviceModel: result.device.model,
-    deviceCompany:result.device.vendor
-  }
+
+  const browserName = result.browser.name;
+  const browserVersion = result.browser.version;
+
+  const OsName = result.os.name;
+  const OsVersion = result.os.version;
+
+  const deviceType = result.device.type;
+  const deviceModel = result.device.model;
+  const deviceCompany = result.device.vendor;
+
   const ipAddress = req.ip;
-  const UA = req.headers['user-agent'];
+  const UA = req.headers["user-agent"];
 
   await sessionModel.create({
     userId: isUserExist._id,
-    refreshToken:refreshToken,
-    deviceType:device,
-    userAgent:UA,
-    browserType:browser,
-    OsType:OS,
-    ipAddress:ipAddress,
-    expiresAt:new Date(Date.now()+90*24*60*60*1000)
-  })
+    refreshToken: refreshToken,
+    device: {
+      deviceType,
+      deviceModel,
+      deviceCompany,
+    },
+    userAgent: UA,
+    browser: {
+      browserName,
+      browserVersion,
+    },
+    Os: {
+      OsName,
+      OsVersion,
+    },
+    ipAddress: ipAddress,
+    expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+  });
   return res.status(200).json({
     message: "User logged in successfully",
   });
