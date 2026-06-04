@@ -62,7 +62,8 @@ MOTO : A fullstack self made  project for renting out a listed property by broke
   
   ### Goals
   1. Implement a better version of refresh token storing , like user can store multiple token for multiple devices like chrome,tab,phone etc
-  2. Also create a another collection for user session 
+  2. Also create a another collection for user session
+  3. Understand the working od npm us-parser-js
   
 
 
