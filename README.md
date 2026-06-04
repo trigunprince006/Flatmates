@@ -30,7 +30,7 @@ MOTO : A fullstack self made  project for renting out a listed property by broke
    2. Indexes in database and why it is very important
   
 ## Day 3 - 31/5/2026
-  ## Sunday 
+ ## Sunday 
 
 ## Day 4 - 01/06/2026
   
@@ -55,11 +55,14 @@ MOTO : A fullstack self made  project for renting out a listed property by broke
 ## Day 6 - 03/06/2026
   
   ### Goals
+  1. Enhance the system of otp for login while storing all necessary definition in another collection.
+  2. Enhance the folder structure of the project
+  
+## Day 7 - 04/06/2026
+  
+  ### Goals
   1. Implement a better version of refresh token storing , like user can store multiple token for multiple devices like chrome,tab,phone etc
-  3. Also create a another collection for user session
-
-  ### What i learned while solving the Goal 
-  1. 
+  2. Also create a another collection for user session 
   
 
 

@@ -4,6 +4,8 @@ const app = express();
 require("dotenv").config();
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
+const UAParser = require("ua-parser-js");
+
 
 //Importing in-built files
 const connectDB = require("./db/db");
@@ -18,6 +20,13 @@ app.use(cors());
 
 //Manual Middleware
 app.get("/", (req, res) => {
+  const parser = new UAParser(req.headers["user-agent"]);
+  const result = parser.getResult();
+  console.log(result);
+  console.log("BrowserName:",result.browser.name)
+  console.log("BrowserVersion:",result.browser.version)
+  console.log("OSName:",result.os.name)
+  console.log("OsVersion:",result.os.version)
   res.send("Server is running......");
 });
 

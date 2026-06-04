@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 async function auth(req, res, next) {
   try {
+    console.log("Middleware working....")
     const accessToken = req.cookies.accessToken;
 
     if (!accessToken) {
