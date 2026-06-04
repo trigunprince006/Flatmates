@@ -65,6 +65,8 @@ MOTO : A fullstack self made  project for renting out a listed property by broke
   2. Also create a another collection for user session
   3. Understand the working od npm us-parser-js
   
+ ### What i learned while solving the Goal 
+  1. When u req from a postman then it only shoes UA(user-Agent) and remaining information like deviceType,browserType,OsType it all becomes Undefined.
 
 
  
