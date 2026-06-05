@@ -27,6 +27,9 @@ async function registerUser(req, res) {
       message: "Please verify your phone number first",
     });
   }
+  if(isTempUserExist && isUserExist){
+    await tempUserModel.findByIdAndDelete(isTempUserExist._id)
+  }
   let user;
   if (isTempUserExist.isVerified == true) {
     user = await userModel.create({
@@ -105,7 +108,7 @@ async function generateOtp(req, res) {
 
 async function verifyOtp(req, res) {
   const { fullname, email, phoneNumber, otp } = req.body;
-  if (!fullname || !phoneNumber || !email || !otp) {
+  if ( !phoneNumber  || !otp) {
     return res.status(400).json({
       message: "Please,fill all the field",
     });
