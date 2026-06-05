@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auth System</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:450px;
+    backdrop-filter:blur(20px);
+    background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:25px;
+    padding:35px;
+    box-shadow:0 10px 40px rgba(0,0,0,.2);
+}
+
+.logo{
+    text-align:center;
+    color:white;
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.tabs{
+    display:flex;
+    background:rgba(255,255,255,.15);
+    border-radius:15px;
+    overflow:hidden;
+    margin-bottom:25px;
+}
+
+.tabs button{
+    flex:1;
+    border:none;
+    padding:15px;
+    cursor:pointer;
+    color:white;
+    background:transparent;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.tabs button.active{
+    background:white;
+    color:#667eea;
+}
+
+.form{
+    display:none;
+}
+
+.form.active{
+    display:block;
+}
+
+.input-group{
+    margin-bottom:15px;
+}
+
+.input-group input{
+    width:100%;
+    padding:15px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:rgba(255,255,255,.2);
+    color:white;
+    font-size:14px;
+}
+
+.input-group input::placeholder{
+    color:rgba(255,255,255,.7);
+}
+
+.otp-row{
+    display:flex;
+    gap:10px;
+}
+
+.otp-row input{
+    flex:1;
+}
+
+.send-btn{
+    border:none;
+    background:white;
+    color:#667eea;
+    padding:0 15px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.main-btn{
+    width:100%;
+    border:none;
+    padding:15px;
+    border-radius:12px;
+    background:white;
+    color:#667eea;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:10px;
+    transition:.3s;
+}
+
+.main-btn:hover{
+    transform:translateY(-2px);
+}
+
+.verify-btn{
+    width:100%;
+    border:none;
+    padding:12px;
+    border-radius:12px;
+    margin-top:10px;
+    background:#4ade80;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.footer{
+    text-align:center;
+    color:white;
+    margin-top:20px;
+    font-size:13px;
+}
+
+@media(max-width:500px){
+
+.container{
+    padding:25px;
+}
+
+.logo{
+    font-size:28px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        AuthFlow
+    </div>
+
+    <div class="tabs">
+        <button id="registerTab" class="active">
+            Register
+        </button>
+
+        <button id="loginTab">
+            Login
+        </button>
+    </div>
+
+    <!-- REGISTER -->
+
+    <form id="registerForm" class="form active">
+
+        <div class="input-group">
+            <input
+                type="text"
+                placeholder="Full Name"
+                id="fullname"
+            >
+        </div>
+
+        <div class="input-group">
+            <input
+                type="email"
+                placeholder="Email Address"
+                id="email"
+            >
+        </div>
+
+        <div class="input-group">
+            <input
+                type="text"
+                placeholder="Phone Number"
+                id="registerPhone"
+            >
+        </div>
+
+        <div class="input-group otp-row">
+
+            <input
+                type="text"
+                placeholder="OTP"
+                id="registerOtp"
+            >
+
+            <button
+                type="button"
+                class="send-btn"
+                id="registerSendOtp"
+            >
+                Send OTP
+            </button>
+
+        </div>
+
+        <button
+            type="button"
+            class="verify-btn"
+            id="verifyOtpBtn"
+        >
+            Verify OTP
+        </button>
+
+        <button
+            type="submit"
+            class="main-btn"
+        >
+            Register
+        </button>
+
+    </form>
+
+    <!-- LOGIN -->
+
+    <form id="loginForm" class="form">
+
+        <div class="input-group">
+            <input
+                type="text"
+                placeholder="Phone Number"
+                id="loginPhone"
+            >
+        </div>
+
+        <div class="input-group otp-row">
+
+            <input
+                type="text"
+                placeholder="OTP"
+                id="loginOtp"
+            >
+
+            <button
+                type="button"
+                class="send-btn"
+                id="loginSendOtp"
+            >
+                Send OTP
+            </button>
+
+        </div>
+
+        <button
+            type="submit"
+            class="main-btn"
+        >
+            Login
+        </button>
+
+    </form>
+
+    <div class="footer">
+        Secure OTP Authentication
+    </div>
+
+</div>
+
+<script>
+  const API_BASE = "http://localhost:3000/auth";
+
+const registerTab =
+document.getElementById("registerTab");
+
+const loginTab =
+document.getElementById("loginTab");
+
+const registerForm =
+document.getElementById("registerForm");
+
+const loginForm =
+document.getElementById("loginForm");
+
+registerTab.onclick = () => {
+    registerTab.classList.add("active");
+    loginTab.classList.remove("active");
+
+    registerForm.classList.add("active");
+    loginForm.classList.remove("active");
+};
+
+loginTab.onclick = () => {
+    loginTab.classList.add("active");
+    registerTab.classList.remove("active");
+
+    loginForm.classList.add("active");
+    registerForm.classList.remove("active");
+};
+
+/* =====================
+   REGISTER SEND OTP
+===================== */
+
+document
+.getElementById("registerSendOtp")
+.addEventListener("click", async () => {
+
+    const phoneNumber =
+    document.getElementById("registerPhone").value;
+   const fullname =
+    document.getElementById("fullname").value;
+
+    const email =
+    document.getElementById("email").value;
+    try {
+
+        const res = await fetch(
+            `${API_BASE}/generate-otp`,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    fullname,email,phoneNumber
+                })
+            }
+        );
+
+        const data = await res.json();
+
+        alert(data.message);
+
+    } catch(err) {
+
+        console.error(err);
+
+        alert("Failed to send OTP");
+    }
+});
+
+/* =====================
+   VERIFY OTP
+===================== */
+
+document
+.getElementById("verifyOtpBtn")
+.addEventListener("click", async () => {
+
+    const phoneNumber =
+    document.getElementById("registerPhone").value;
+
+    const otp =
+    document.getElementById("registerOtp").value;
+
+    try {
+
+        const res = await fetch(
+            `${API_BASE}/verify-otp`,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    phoneNumber,
+                    otp
+                })
+            }
+        );
+
+        const data = await res.json();
+
+        alert(
+            data.message ||
+            "OTP Verified"
+        );
+
+    } catch(err) {
+
+        console.error(err);
+
+        alert("OTP verification failed");
+    }
+});
+
+/* =====================
+   REGISTER USER
+===================== */
+
+registerForm.addEventListener(
+"submit",
+async (e)=>{
+
+    e.preventDefault();
+
+    const fullname =
+    document.getElementById("fullname").value;
+
+    const email =
+    document.getElementById("email").value;
+
+    const phoneNumber =
+    document.getElementById("registerPhone").value;
+
+    try {
+
+        const res = await fetch(
+            `${API_BASE}/register`,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    fullname,
+                    email,
+                    phoneNumber
+                })
+            }
+        );
+
+        const data =
+        await res.json();
+
+        alert(
+            data.message ||
+            "Registration Successful"
+        );
+
+    } catch(err) {
+
+        console.error(err);
+
+        alert("Registration Failed");
+    }
+});
+
+/* =====================
+   LOGIN SEND OTP
+===================== */
+
+document
+.getElementById("loginSendOtp")
+.addEventListener("click", async ()=>{
+
+    const phoneNumber =
+    document.getElementById("loginPhone").value;
+
+    try {
+
+        const res = await fetch(
+            `${API_BASE}/send-otp`,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    phoneNumber
+                })
+            }
+        );
+
+        const data =
+        await res.json();
+
+        alert(data.message);
+
+    } catch(err) {
+
+        console.error(err);
+
+        alert("Failed to send OTP");
+    }
+});
+
+/* =====================
+   LOGIN
+===================== */
+
+loginForm.addEventListener(
+"submit",
+async (e)=>{
+
+    e.preventDefault();
+
+    const phoneNumber =
+    document.getElementById("loginPhone").value;
+
+    const otp =
+    document.getElementById("loginOtp").value;
+
+    try {
+
+        const res = await fetch(
+            `${API_BASE}/login`,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                credentials:"include",
+                body:JSON.stringify({
+                    phoneNumber,
+                    otp
+                })
+            }
+        );
+
+        const data =
+        await res.json();
+
+        if(data.accessToken){
+
+            localStorage.setItem(
+                "accessToken",
+                data.accessToken
+            );
+
+            alert("Login Successful");
+
+            window.location.href =
+            "/dashboard.html";
+        }
+
+    } catch(err) {
+
+        console.error(err);
+
+        alert("Login Failed");
+    }
+});
+</script>
+
+</body>
+</html>
