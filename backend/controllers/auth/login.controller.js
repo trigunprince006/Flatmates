@@ -4,9 +4,8 @@ const randomize = require("randomatic");
 const sendOtp = require("../../services/sendOtp");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const sessionModel = require("../../models/session.model");
-const UAParser = require("ua-parser-js");
-const { BrowserName } = require("ua-parser-js/enums");
+const UAParser = require('ua-parser-js')
+const sessionModel = require('../../models/session.model')
 
 async function login(req, res) {
   const { phoneNumber, otp } = req.body;
@@ -89,7 +88,7 @@ async function login(req, res) {
   await otpModel.findByIdAndDelete(isOtpExist._id);
   const parser = new UAParser(req.headers["user-agent"]);
   const result = parser.getResult();
-
+  // Here u can use Destructuring for better look of code
   const browserName = result.browser.name;
   const browserVersion = result.browser.version;
 
@@ -102,6 +101,11 @@ async function login(req, res) {
 
   const ipAddress = req.ip;
   const UA = req.headers["user-agent"];
+
+  const session = await sessionModel.findById(isUserExist._id);
+  // if(session){
+  //   if(session.)
+  // }
 
   await sessionModel.create({
     userId: isUserExist._id,

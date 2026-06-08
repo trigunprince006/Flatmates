@@ -15,20 +15,20 @@ async function registerUser(req, res) {
     });
   }
   const isUserExist = await userModel.findOne({ phoneNumber });
-  if (isUserExist) {
-    return res.status(400).json({
-      message: "User already registered with current phone number",
-    });
-  }
-
   const isTempUserExist = await tempUserModel.findOne({ phoneNumber });
+
+  if(isTempUserExist && isUserExist){
+    await tempUserModel.findByIdAndDelete(isTempUserExist._id)
+    return res.status(400).json({
+      message: "User already registered",
+    });
+
   if (!isTempUserExist) {
     return res.status(400).json({
       message: "Please verify your phone number first",
     });
   }
-  if(isTempUserExist && isUserExist){
-    await tempUserModel.findByIdAndDelete(isTempUserExist._id)
+  
   }
   let user;
   if (isTempUserExist.isVerified == true) {
@@ -46,6 +46,7 @@ async function registerUser(req, res) {
 }
 
 async function generateOtp(req, res) {
+  console.log("Generate Otp is working...")
   const { fullname, email, phoneNumber } = req.body;
   if (!fullname || !phoneNumber || !email) {
     return res.status(400).json({
