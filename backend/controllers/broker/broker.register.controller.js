@@ -1,5 +1,5 @@
 const brokerModel = require("../../models/broker.model");
-const tempUserModel = require("../../models/otp.Model");
+const tempBrokerModel = require("../../models/otp.Model");
 const randomize = require("randomatic");
 const sendOtp = require("../../services/sendOtp");
 const bcrypt = require("bcrypt");
@@ -7,20 +7,20 @@ const jwt = require("jsonwebtoken");
 
 async function registerBroker(req, res) {
   try {
-    const { fullname, phoneNumber, email, userProfile } = req.body;
+    const { fullname, phoneNumber, email,password, brokerProfile } = req.body;
 
-    if (!fullname || !phoneNumber || !email) {
+    if (!fullname || !phoneNumber || !email ||!password) {
       return res.status(400).json({
         message: "Please,fill all the field",
       });
     }
     const isBrokerExist = await brokerModel.findOne({ phoneNumber });
-    const isTempBrokerExist = await tempUserModel.findOne({ phoneNumber });
+    const isTempBrokerExist = await tempBrokerModel.findOne({ phoneNumber });
 
     if (isTempBrokerExist && isBrokerExist) {
-      await tempUserModel.findByIdAndDelete(isTempBrokerExist._id);
+      await tempBrokerModel.findByIdAndDelete(isTempBrokerExist._id);
       return res.status(400).json({
-        message: "User already registered",
+        message: "Broker already registered",
       });
 
       if (!isTempBrokerExist) {
@@ -30,14 +30,16 @@ async function registerBroker(req, res) {
       }
     }
     let broker;
+    const hashedPassword = await bcrypt.hash(password,10)
     if (isTempBrokerExist.isVerified == true) {
       broker = await brokerModel.create({
         fullname,
         email,
         phoneNumber,
+        password:hashedPassword,
         brokerProfile
       });
-      await tempUserModel.findByIdAndDelete(isTempUserExist._id);
+      await tempBrokerModel.findByIdAndDelete(isTempUserExist._id);
       return res.status(201).json({
         message: "Broker Registered successfully",
         broker: broker,
@@ -49,14 +51,14 @@ async function registerBroker(req, res) {
 }
 
 async function generateOtp(req, res) {
-  // console.log("Generate Otp is working...");
+  try {
   const { fullname, email, phoneNumber } = req.body;
   if (!fullname || !phoneNumber || !email) {
     return res.status(400).json({
       message: "Please,fill all the field",
     });
   }
-  const isTempBrokerExist = await tempUserModel.findOne({ phoneNumber });
+  const isTempBrokerExist = await tempBrokerMode.findOne({ phoneNumber });
   //This code for  check if user exist and try to generate another otp
   if (isTempBrokerExist) {
     if (isTempBrokerExist.howManyTimesOtpGenerated >= 5) {
@@ -94,7 +96,7 @@ async function generateOtp(req, res) {
 
   const generatedOtp = randomize("0", 4);
 
-  await tempUserModel.create({
+  await tempBrokerMode.create({
     fullname,
     email,
     phoneNumber,
@@ -108,16 +110,20 @@ async function generateOtp(req, res) {
   return res.status(200).json({
     message: "Otp is successfully send to your phone number",
   });
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 async function verifyOtp(req, res) {
-  const { fullname, email, phoneNumber, otp } = req.body;
+  try {
+    const { fullname, email, phoneNumber, otp } = req.body;
   if (!phoneNumber || !otp) {
     return res.status(400).json({
       message: "Please,fill all the field",
     });
   }
-  const isTempBrokerExist = await tempUserModel.findOne({ phoneNumber });
+  const isTempBrokerExist = await tempBrokerMode.findOne({ phoneNumber });
 
   if (!isTempBrokerExist) {
     return res.status(400).json({
@@ -153,5 +159,8 @@ async function verifyOtp(req, res) {
   return res.status(200).json({
     message: "Your Phone number is verified Successfully",
   });
+  } catch (error) {
+    console.log(error)
+  }
 }
 module.exports = { registerBroker, generateOtp, verifyOtp };

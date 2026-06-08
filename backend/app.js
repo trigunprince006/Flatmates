@@ -12,6 +12,7 @@ const connectDB = require("./db/db");
 connectDB();
 
 const authRoute = require('./routes/auth.routes')
+const brokerRoute = require('./routes/broker.route')
 
 //In-Built Middleware
 app.use(cookieParser())
@@ -48,7 +49,7 @@ app.get("/", (req, res) => {
 });
 
 app.use('/auth/',authRoute)
-
+app.use('/broker',brokerRoute)
 
 //Starting the server
 const port = process.env.PORT;
