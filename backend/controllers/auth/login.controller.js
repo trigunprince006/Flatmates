@@ -95,14 +95,16 @@ async function login(req, res) {
   const OsName = result.os.name;
   const OsVersion = result.os.version;
 
-  const deviceType = result.device.type;
-  const deviceModel = result.device.model;
-  const deviceCompany = result.device.vendor;
+  const deviceType = result.device.type || 'Desktop';;
+  const deviceModel = result.device.model || 'null';
+  const deviceCompany = result.device.vendor || 'null';
 
   const ipAddress = req.ip;
   const UA = req.headers["user-agent"];
-
-  const session = await sessionModel.findById(isUserExist._id);
+  const userId  = isUserExist._id;
+  const session = await sessionModel.find({userId});
+  console.log(session)
+  /* Here we can implement a features on session management for better login handling for a user with multiple devices login but my mind is note yet able to process and design it so move forward and work on to next features of this project */ 
   // if(session){
   //   if(session.)
   // }

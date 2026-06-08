@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
     const OsName = result.os.name;
     const OsVersion = result.os.version;
   
-    const deviceType = result.device.type;
+    const deviceType = result.device.type ||'desktop';
     const deviceModel = result.device.model;
     const deviceCompany = result.device.vendor;
   
