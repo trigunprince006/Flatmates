@@ -16,19 +16,20 @@ async function registerBroker(req, res) {
     }
     const isBrokerExist = await brokerModel.findOne({ phoneNumber });
     const isTempBrokerExist = await tempBrokerModel.findOne({ phoneNumber });
-
+    console.log(isBrokerExist)
+    console.log(isBrokerExist)
     if (isTempBrokerExist && isBrokerExist) {
       await tempBrokerModel.findByIdAndDelete(isTempBrokerExist._id);
       return res.status(400).json({
         message: "Broker already registered",
       });
-
-      if (!isTempBrokerExist) {
+    }
+    if (!isTempBrokerExist) {
         return res.status(400).json({
           message: "Please verify your phone number first",
         });
       }
-    }
+    
     let broker;
     const hashedPassword = await bcrypt.hash(password,10)
     if (isTempBrokerExist.isVerified == true) {
@@ -39,7 +40,7 @@ async function registerBroker(req, res) {
         password:hashedPassword,
         brokerProfile
       });
-      await tempBrokerModel.findByIdAndDelete(isTempUserExist._id);
+      await tempBrokerModel.findByIdAndDelete(isTempBrokerExist._id);
       return res.status(201).json({
         message: "Broker Registered successfully",
         broker: broker,
@@ -58,7 +59,7 @@ async function generateOtp(req, res) {
       message: "Please,fill all the field",
     });
   }
-  const isTempBrokerExist = await tempBrokerMode.findOne({ phoneNumber });
+  const isTempBrokerExist = await tempBrokerModel.findOne({ phoneNumber });
   //This code for  check if user exist and try to generate another otp
   if (isTempBrokerExist) {
     if (isTempBrokerExist.howManyTimesOtpGenerated >= 5) {
@@ -96,7 +97,7 @@ async function generateOtp(req, res) {
 
   const generatedOtp = randomize("0", 4);
 
-  await tempBrokerMode.create({
+  await tempBrokerModel.create({
     fullname,
     email,
     phoneNumber,
@@ -123,7 +124,7 @@ async function verifyOtp(req, res) {
       message: "Please,fill all the field",
     });
   }
-  const isTempBrokerExist = await tempBrokerMode.findOne({ phoneNumber });
+  const isTempBrokerExist = await tempBrokerModel.findOne({ phoneNumber });
 
   if (!isTempBrokerExist) {
     return res.status(400).json({
@@ -163,4 +164,4 @@ async function verifyOtp(req, res) {
     console.log(error)
   }
 }
-module.exports = { registerBroker, generateOtp, verifyOtp };
+module.exports = { registerBroker, generateOtp, verifyOtp }
