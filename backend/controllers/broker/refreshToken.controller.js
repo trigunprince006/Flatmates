@@ -1,4 +1,4 @@
-const brokerModel = require("../../models/user.model");
+const brokerModel = require("../../models/broker.model");
 const tempUserModel = require("../../models/otp.Model");
 const randomize = require("randomatic");
 const sendOtp = require("../../services/sendOtp");
@@ -7,13 +7,16 @@ const jwt = require("jsonwebtoken");
 
 async function refreshToken(req, res) {
   const refreshToken = req.cookies.refreshToken;
+  // console.log("RefreshToken is:",refreshToken)
   if (!refreshToken) {
     return res.status(400).json({
-      message: "Please login first",
+      message: "Please login first , for generating new token",
     });
   }
   const decoded = jwt.verify(refreshToken, process.env.REFRESH_JWT_SECRET_KEY);
-  const isBroker = await brokerModel.findById(decoded.broker_.Id);
+  console.log("refresh token decoded : ",decoded)
+  const isBroker = await brokerModel.findById(decoded.brokerId);
+  console.log("isBroker:",isBroker)
   if (!isBroker) {
     return res.status(400).json({
       message: "Invalid refresh Token",

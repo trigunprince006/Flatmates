@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const refreshToken = require('../controllers/broker/refreshToken.controller');
 
 const  brokerSchema = new mongoose.Schema({
 
@@ -38,9 +39,11 @@ const  brokerSchema = new mongoose.Schema({
     bio:{
       type:String,
     },
-
-  }
-
+   
+  },
+ refreshToken:{
+    type:String
+   }
 },{timestamp:true})
 
 const brokerModel = mongoose.model('Brokers',brokerSchema);

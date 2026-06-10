@@ -13,7 +13,7 @@ connectDB();
 
 const authRoute = require('./routes/auth.routes')
 const brokerRoute = require('./routes/broker.route')
-
+const propertyRoute = require('./routes/property.routes')
 //In-Built Middleware
 app.use(cookieParser())
 app.use(express.json());
@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
 
 app.use('/auth/',authRoute)
 app.use('/broker',brokerRoute)
-
+app.use('/properties',propertyRoute)
 //Starting the server
 const port = process.env.PORT;
 app.listen(port, () => {

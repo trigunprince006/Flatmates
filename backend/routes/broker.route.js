@@ -17,6 +17,6 @@ router.post('/login',loginController);
 
 // router.post('/logout',authMiddleware,logoutController)
 
-router.post('/refresh-token',authMiddleware,refreshTokenController)
+router.post('/refresh-token',refreshTokenController)
 
 module.exports=router;
