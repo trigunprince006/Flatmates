@@ -1,8 +1,5 @@
 const brokerModel = require("../../models/broker.model");
 const tempUserModel = require("../../models/otp.Model");
-const randomize = require("randomatic");
-const sendOtp = require("../../services/sendOtp");
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 async function refreshToken(req, res) {
@@ -14,8 +11,8 @@ async function refreshToken(req, res) {
     });
   }
   const decoded = jwt.verify(refreshToken, process.env.REFRESH_JWT_SECRET_KEY);
-  console.log("refresh token decoded : ",decoded)
-  const isBroker = await brokerModel.findById(decoded.brokerId);
+  const brokerId = decoded.brokerId
+  const isBroker = await brokerModel.findOne({brokerId});
   console.log("isBroker:",isBroker)
   if (!isBroker) {
     return res.status(400).json({

@@ -1,24 +1,28 @@
 const propertyModel = require('../../models/property.model')
+const cloudinary = require("../../config/cloudinary");
 
 
 async function listProperty(req,res){
   try {
-    console.log(req.body)
-    const{address,bhk,type,price,bedrooms,bathroom,furnishingStatus,images} = req.body;
+    console.log(req.body);
+    const{address,bhk,type,price,bedrooms,bathroom,furnishingStatus,} = req.body;
+    const images = req.file;
     if(!address||!bhk||!type||!price||!bedrooms||!bathroom||!images||!furnishingStatus){
       return res.status(400).json({
         messages:"Please, Provide all the information"
       })
     }
+    const result = await cloudinary.uploader.upload(
+      req.file.path
+    );
       const broker = req.user.brokerId;
-      console.log("BrokerFrom property",broker)
       const property = await propertyModel.create({
         address,
         bhk,
         price,
         bedrooms,
         bathroom,
-        images,
+        images:result.secure_url,
         furnishingStatus,
         type,
         listedBy:broker
@@ -30,9 +34,6 @@ async function listProperty(req,res){
     
   } catch (error) {
     console.log(error)
-    // return res.status(500).json({
-    //   message:"Something bad happened"
-    // })
   }
 }
 

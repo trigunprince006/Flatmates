@@ -6,7 +6,6 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const UAParser = require("ua-parser-js");
 const helmet = require('helmet')
-
 //Importing in-built files
 const connectDB = require("./db/db");
 connectDB();
