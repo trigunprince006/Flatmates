@@ -30,7 +30,7 @@ const propertySchema = new mongoose.Schema({
     required:true
   },
   images:{
-    type:[],
+    type:[String],
     required:true
   },
   listedBy:{

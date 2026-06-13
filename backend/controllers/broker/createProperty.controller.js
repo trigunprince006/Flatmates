@@ -4,17 +4,23 @@ const cloudinary = require("../../config/cloudinary");
 
 async function listProperty(req,res){
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const{address,bhk,type,price,bedrooms,bathroom,furnishingStatus,} = req.body;
-    const images = req.file;
-    if(!address||!bhk||!type||!price||!bedrooms||!bathroom||!images||!furnishingStatus){
+    const images = req.files;
+    // console.log("images-->",images)
+    // console.log("req.files--->",req.files)
+    if(!address||!bhk||!type||!price||!bedrooms||!bathroom||!furnishingStatus){
       return res.status(400).json({
         messages:"Please, Provide all the information"
       })
     }
-    const result = await cloudinary.uploader.upload(
-      req.file.path
-    );
+  const imageUrls = [];
+
+  for (const file of req.files) {
+    const result = await cloudinary.uploader.upload(file.path);
+    imageUrls.push(result.secure_url);
+  }
+    console.log("imageURLs-->",imageUrls)
       const broker = req.user.brokerId;
       const property = await propertyModel.create({
         address,
@@ -22,7 +28,7 @@ async function listProperty(req,res){
         price,
         bedrooms,
         bathroom,
-        images:result.secure_url,
+        images:imageUrls,
         furnishingStatus,
         type,
         listedBy:broker
