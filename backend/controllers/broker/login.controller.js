@@ -1,6 +1,5 @@
 const brokerModel = require("../../models/broker.model");
 const otpModel = require("../../models/otp.Model");
-const randomize = require("randomatic");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const UAParser = require('ua-parser-js')
