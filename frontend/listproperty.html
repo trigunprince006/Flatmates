@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add New Property | FlatMate</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f8f9ff",
+                        "primary-container": "#008378",
+                        "on-tertiary-fixed-variant": "#3d4947",
+                        "surface-container-high": "#dce9ff",
+                        "primary-fixed": "#89f5e7",
+                        "primary": "#00685f",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#dae2fd",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "secondary-fixed": "#dae2fd",
+                        "on-background": "#0b1c30",
+                        "on-tertiary-fixed": "#121e1c",
+                        "surface-dim": "#cbdbf5",
+                        "outline-variant": "#bcc9c6",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-secondary-container": "#5c647a",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#f4fffc",
+                        "inverse-primary": "#6bd8cb",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#131b2e",
+                        "surface-variant": "#d3e4fe",
+                        "secondary": "#565e74",
+                        "on-tertiary-container": "#f3fffc",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#eff4ff",
+                        "on-surface-variant": "#3d4947",
+                        "surface-tint": "#006a61",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#6b7775",
+                        "on-surface": "#0b1c30",
+                        "on-error": "#ffffff",
+                        "outline": "#6d7a77",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#525e5c",
+                        "inverse-surface": "#213145",
+                        "on-primary-fixed": "#00201d",
+                        "tertiary-fixed": "#d8e5e2",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "tertiary-fixed-dim": "#bcc9c6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "lg": "2.5rem",
+                        "xs": "0.5rem",
+                        "xl": "4rem",
+                        "max-width": "1280px",
+                        "gutter": "24px",
+                        "base": "4px",
+                        "margin-desktop": "80px",
+                        "md": "1.5rem",
+                        "sm": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "headline-lg": ["30px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                        "display-md": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .step-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #008378 !important;
+            box-shadow: 0 0 0 4px rgba(0, 131, 120, 0.1);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bcc9c6;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface/80 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant/30 shadow-sm">
+<div class="flex justify-between items-center px-6 md:px-margin-desktop h-20 w-full max-w-max-width mx-auto">
+<div class="flex items-center gap-8">
+<a class="font-headline-lg text-headline-lg font-bold text-primary" href="#">FlatMate</a>
+<nav class="hidden md:flex gap-6">
+<a class="font-label-md text-label-md text-on-surface-variant/80 hover:text-primary transition-colors" href="#">Home</a>
+<a class="font-label-md text-label-md text-primary font-bold border-b-2 border-primary pb-1" href="#">Properties</a>
+<a class="font-label-md text-label-md text-on-surface-variant/80 hover:text-primary transition-colors" href="#">About</a>
+<a class="font-label-md text-label-md text-on-surface-variant/80 hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden sm:block font-label-md text-label-md text-on-surface-variant hover:text-primary px-4 py-2 transition-all">Sign In</button>
+<button class="bg-primary-container text-on-primary-container font-label-md text-label-md px-6 py-2.5 rounded-full hover:shadow-lg active:scale-95 transition-all">List Property</button>
+</div>
+</div>
+</header>
+<main class="flex-grow flex flex-col items-center py-12 px-margin-mobile md:px-0">
+<!-- Form Container -->
+<div class="w-full max-w-3xl space-y-8">
+<div class="text-center space-y-2">
+<h1 class="font-display-md text-display-md text-on-background">Create Your Listing</h1>
+<p class="font-body-md text-on-surface-variant">Reach thousands of potential tenants in minutes.</p>
+</div>
+<!-- Stepper -->
+<div class="relative px-4">
+<div class="flex justify-between items-center relative z-10">
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="goToStep(1)">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-primary text-white font-bold transition-all duration-300" id="step-circle-1">1</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">Details</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="goToStep(2)">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-high text-on-surface-variant font-bold transition-all duration-300" id="step-circle-2">2</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Location</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="goToStep(3)">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-high text-on-surface-variant font-bold transition-all duration-300" id="step-circle-3">3</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Amenities</span>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="goToStep(4)">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-high text-on-surface-variant font-bold transition-all duration-300" id="step-circle-4">4</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Media</span>
+</div>
+</div>
+<!-- Progress Line -->
+<div class="absolute top-5 left-8 right-8 h-0.5 bg-surface-container-highest -z-0">
+<div class="h-full bg-primary transition-all duration-500 w-0" id="step-progress-bar"></div>
+</div>
+</div>
+<!-- Form Content -->
+<form class="glass-panel p-8 md:p-12 rounded-3xl shadow-sm space-y-10 min-h-[500px] flex flex-col justify-between" id="property-form">
+<!-- Step 1: Property Info -->
+<div class="step-transition space-y-6" id="step-1">
+<div class="space-y-4">
+<h2 class="font-headline-md text-headline-md text-on-background">Property Basic Information</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="col-span-full space-y-2">
+<label class="font-label-md text-label-md text-on-surface">Property Title</label>
+<input class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-white focus:ring-2 focus:ring-primary/20 transition-all" placeholder="e.g. Modern Studio in Downtown" required="" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface">Property Type</label>
+<select class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-white appearance-none focus:ring-2 focus:ring-primary/20 transition-all">
+<option>Apartment</option>
+<option>Studio</option>
+<option>Shared Room</option>
+<option>House</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface">Square Feet</label>
+<input class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-white focus:ring-2 focus:ring-primary/20 transition-all" placeholder="800" type="number"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface">Monthly Rent ($)</label>
+<input class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-white focus:ring-2 focus:ring-primary/20 transition-all" placeholder="2500" type="number"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface">Security Deposit ($)</label>
+<input class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-white focus:ring-2 focus:ring-primary/20 transition-all" placeholder="5000" type="number"/>
+</div>
+<div class="col-span-full space-y-2">
+<label class="font-label-md text-label-md text-on-surface">Description</label>
+<textarea class="w-full p-4 rounded-xl border border-outline-variant bg-white focus:ring-2 focus:ring-primary/20 transition-all resize-none" placeholder="Describe the atmosphere, community, and special features of your place..." rows="4"></textarea>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 2: Location (Hidden by default) -->
+<div class="step-transition space-y-6 hidden opacity-0 translate-y-4" id="step-2">
+<div class="space-y-4">
+<h2 class="font-headline-md text-headline-md text-on-background">Where is it located?</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="col-span-full space-y-2">
+<label class="font-label-md text-label-md text-on-surface">Street Address</label>
+<input class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-white transition-all" placeholder="123 Harmony Lane" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface">City</label>
+<input class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-white transition-all" placeholder="New York" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface">Postal Code</label>
+<input class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-white transition-all" placeholder="10001" type="text"/>
+</div>
+<div class="col-span-full h-48 rounded-2xl bg-surface-container-low overflow-hidden relative border border-outline-variant/30">
+<img class="w-full h-full object-cover grayscale opacity-50" data-alt="A highly detailed 3D digital map visualization of an urban city center area with clean white streets, teal colored pins marking locations, and soft ambient lighting. The style is minimalist and high-tech, fitting for a premium real estate application's location selector interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIZ9pN_CqOZjlyuv7LUdtm_nkQ7S4CoHt8fxLilEoYzJ9-rJcw-uI-e8y34nWHH7ah1MroU6xJ5gXfJQbKA9SA6b3NbZfFaJoyFGoAhm10cPb5e8kiX1KK3km6EIs_AsN7mVT2zZzkp3GY34bHHqw9d45E7vg6UxVxmGbDk0xb2ty31igZEQElgD99aSAaTakuXLS9nS7gPGvV7nprnFu_oDZOCDmeRQNqEJdf2TKsfWA1x7ND0xGO8MLgKUJyfXXeiBw3DFKKASNj"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-white px-4 py-2 rounded-full shadow-lg border border-primary/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="font-label-md text-label-md">Pin on Map</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 3: Features (Hidden by default) -->
+<div class="step-transition space-y-6 hidden opacity-0 translate-y-4" id="step-3">
+<div class="space-y-4">
+<h2 class="font-headline-md text-headline-md text-on-background">Amenities &amp; Features</h2>
+<p class="font-body-sm text-on-surface-variant">Select all that apply to your property.</p>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+<label class="flex items-center gap-3 p-4 rounded-xl border border-outline-variant/50 hover:bg-primary/5 hover:border-primary/30 transition-all cursor-pointer group">
+<input class="w-5 h-5 rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="material-symbols-outlined text-primary-container">wifi</span>
+<span class="font-body-md text-on-surface">WiFi</span>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-xl border border-outline-variant/50 hover:bg-primary/5 hover:border-primary/30 transition-all cursor-pointer group">
+<input class="w-5 h-5 rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="material-symbols-outlined text-primary-container">pool</span>
+<span class="font-body-md text-on-surface">Pool</span>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-xl border border-outline-variant/50 hover:bg-primary/5 hover:border-primary/30 transition-all cursor-pointer group">
+<input class="w-5 h-5 rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="material-symbols-outlined text-primary-container">fitness_center</span>
+<span class="font-body-md text-on-surface">Gym</span>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-xl border border-outline-variant/50 hover:bg-primary/5 hover:border-primary/30 transition-all cursor-pointer group">
+<input class="w-5 h-5 rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="material-symbols-outlined text-primary-container">ac_unit</span>
+<span class="font-body-md text-on-surface">AC</span>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-xl border border-outline-variant/50 hover:bg-primary/5 hover:border-primary/30 transition-all cursor-pointer group">
+<input class="w-5 h-5 rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="material-symbols-outlined text-primary-container">local_parking</span>
+<span class="font-body-md text-on-surface">Parking</span>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-xl border border-outline-variant/50 hover:bg-primary/5 hover:border-primary/30 transition-all cursor-pointer group">
+<input class="w-5 h-5 rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="material-symbols-outlined text-primary-container">pets</span>
+<span class="font-body-md text-on-surface">Pet Friendly</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Step 4: Photos (Hidden by default) -->
+<div class="step-transition space-y-6 hidden opacity-0 translate-y-4" id="step-4">
+<div class="space-y-4">
+<h2 class="font-headline-md text-headline-md text-on-background">Upload Photos</h2>
+<div class="border-2 border-dashed border-outline-variant rounded-2xl p-12 flex flex-col items-center justify-center gap-4 bg-surface-container-lowest hover:border-primary/50 transition-all cursor-pointer group">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-on-background">Click or drag photos to upload</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">PNG, JPG up to 10MB each</p>
+</div>
+<input class="hidden" multiple="" type="file"/>
+</div>
+<div class="grid grid-cols-3 gap-4 mt-6">
+<div class="aspect-square rounded-xl bg-surface-container overflow-hidden group relative">
+<img class="w-full h-full object-cover" data-alt="A brightly lit, airy modern living room with large floor-to-ceiling windows showing a hint of greenery outside. The interior features a soft white sofa, minimalist wooden coffee table, and teal decorative pillows. High-key natural lighting and a crisp, clean aesthetic convey a sense of premium real estate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTGxIUos4IkhOe-arFhMQWqt2Fhl10nDtEbcKKCLVABBKcb-Bx5dT_X6tYW2sfQ1Iom40Mlju8GvwD98SxokBXqMvYIwl7gIKdzLCVa28NybrJ9xe2TxoM0ol6jwWDfsmuLRFlfEadqzAaR7zCLPx0pPAGkiSeuOJRiYgEFfQOzCHwXdncWcCfEDWWQ0-eAI9ZeJeJfwxYtJ3oWAQXa-UsuxpW3oYcdgntpiPM1hN24sHWq7lkoC_MzN1xszUGJAAlg8W6SS8XY3oe"/>
+<button class="absolute top-2 right-2 bg-error text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" type="button">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<div class="aspect-square rounded-xl bg-surface-container overflow-hidden group relative border-2 border-primary">
+<img class="w-full h-full object-cover" data-alt="A clean and modern kitchen with sleek white cabinetry, stainless steel appliances, and a polished marble countertop. Soft morning light enters from a side window, highlighting the glass textures and teal backsplash tiles. The vibe is sophisticated, corporate yet warm." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHSXgGd1j_vYkCJIDGLvEA0aJv4IbWvvqYBbY2GebDi_WZ4lLH9-zj2nqoSxTiNpDnCtEMt2v8cTzWfKBQBFi95NZrtVjp8ooQEopaBsv6Pqh5sr7HpAvfhrlJlQSaIZ31DBm344GLucNPz_HGEt-L9VJqVmAuvBSz0ICG4NxVyOdpC_9BBNf5S_Z4epTWzZgXjXq7VQqowsp3jLxNv1Eh6rkX5bUGT5HkSuFud1egRgPjnJQBVsDkISNYUf4178PmCCFAjDkSjjxP"/>
+<div class="absolute inset-0 bg-primary/20 flex items-end p-2">
+<span class="bg-primary text-white text-[10px] px-2 py-1 rounded-md font-bold uppercase tracking-wider">Cover</span>
+</div>
+</div>
+<div class="aspect-square rounded-xl border border-outline-variant/30 border-dashed flex items-center justify-center text-on-surface-variant/40">
+<span class="material-symbols-outlined">add</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="flex items-center justify-between pt-8 border-t border-outline-variant/20">
+<button class="flex items-center gap-2 px-6 py-3 rounded-full text-on-surface-variant hover:bg-surface-container transition-all invisible" id="prev-btn" onclick="prevStep()" type="button">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="font-label-md text-label-md">Previous</span>
+</button>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-10 py-3.5 rounded-full hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all flex items-center gap-2" id="next-btn" onclick="nextStep()" type="button">
+<span>Save &amp; Continue</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest border-t border-outline-variant/20">
+<div class="w-full py-16 px-6 md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-12 max-w-max-width mx-auto">
+<div class="space-y-4 text-center md:text-left">
+<div class="font-headline-md text-headline-md font-bold text-on-surface">FlatMate</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">Connecting urban professionals and students with their perfect living spaces across the globe.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-label-sm text-label-sm text-on-surface-variant/80 hover:text-primary transition-opacity" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant/80 hover:text-primary transition-opacity" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant/80 hover:text-primary transition-opacity" href="#">Cookie Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant/80 hover:text-primary transition-opacity" href="#">Support</a>
+</div>
+<div class="text-on-surface-variant/80 font-body-sm text-body-sm">
+                © 2024 FlatMate Inc. All rights reserved.
+            </div>
+</div>
+</footer>
+<script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateStepper() {
+            const progressBar = document.getElementById('step-progress-bar');
+            progressBar.style.width = `${((currentStep - 1) / (totalSteps - 1)) * 100}%`;
+
+            for (let i = 1; i <= totalSteps; i++) {
+                const circle = document.getElementById(`step-circle-${i}`);
+                const label = circle.nextElementSibling;
+                
+                if (i < currentStep) {
+                    circle.innerHTML = '<span class="material-symbols-outlined text-lg">check</span>';
+                    circle.classList.replace('bg-surface-container-high', 'bg-primary');
+                    circle.classList.replace('text-on-surface-variant', 'text-white');
+                    label.classList.replace('text-on-surface-variant', 'text-primary');
+                } else if (i === currentStep) {
+                    circle.innerHTML = i;
+                    circle.classList.replace('bg-surface-container-high', 'bg-primary');
+                    circle.classList.replace('text-on-surface-variant', 'text-white');
+                    label.classList.replace('text-on-surface-variant', 'text-primary');
+                    label.classList.add('font-bold');
+                } else {
+                    circle.innerHTML = i;
+                    circle.classList.replace('bg-primary', 'bg-surface-container-high');
+                    circle.classList.replace('text-white', 'text-on-surface-variant');
+                    label.classList.replace('text-primary', 'text-on-surface-variant');
+                    label.classList.remove('font-bold');
+                }
+            }
+
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            if (currentStep === 1) {
+                prevBtn.classList.add('invisible');
+            } else {
+                prevBtn.classList.remove('invisible');
+            }
+
+            if (currentStep === totalSteps) {
+                nextBtn.innerHTML = 'Publish Listing <span class="material-symbols-outlined">rocket_launch</span>';
+                nextBtn.classList.replace('bg-primary', 'bg-primary-container');
+            } else {
+                nextBtn.innerHTML = 'Save & Continue <span class="material-symbols-outlined">arrow_forward</span>';
+                nextBtn.classList.replace('bg-primary-container', 'bg-primary');
+            }
+        }
+
+        function showStep(step) {
+            for (let i = 1; i <= totalSteps; i++) {
+                const el = document.getElementById(`step-${i}`);
+                if (i === step) {
+                    el.classList.remove('hidden');
+                    setTimeout(() => {
+                        el.classList.remove('opacity-0', 'translate-y-4');
+                    }, 50);
+                } else {
+                    el.classList.add('opacity-0', 'translate-y-4');
+                    setTimeout(() => {
+                        el.classList.add('hidden');
+                    }, 300);
+                }
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateStepper();
+                showStep(currentStep);
+                window.scrollTo({ top: 100, behavior: 'smooth' });
+            } else {
+                alert('Success! Your listing has been published.');
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepper();
+                showStep(currentStep);
+                window.scrollTo({ top: 100, behavior: 'smooth' });
+            }
+        }
+
+        function goToStep(step) {
+            // Allow clicking to go back, but maybe not forward without validation (simulated here)
+            if (step < currentStep) {
+                currentStep = step;
+                updateStepper();
+                showStep(currentStep);
+            }
+        }
+
+        // Handle micro-interactions
+        document.querySelectorAll('input, select, textarea').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+    </script>
+</body></html>
