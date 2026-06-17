@@ -1,429 +1,1000 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Auth System</title>
 
+<html class="scroll-smooth" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              surface: "#f8f9ff",
+              "primary-container": "#008378",
+              "on-tertiary-fixed-variant": "#3d4947",
+              "surface-container-high": "#dce9ff",
+              "primary-fixed": "#89f5e7",
+              primary: "#00685f",
+              "surface-bright": "#f8f9ff",
+              "secondary-container": "#dae2fd",
+              "on-tertiary": "#ffffff",
+              "primary-fixed-dim": "#6bd8cb",
+              "secondary-fixed": "#dae2fd",
+              "on-background": "#0b1c30",
+              "on-tertiary-fixed": "#121e1c",
+              "surface-dim": "#cbdbf5",
+              "outline-variant": "#bcc9c6",
+              background: "#f8f9ff",
+              "on-primary-fixed-variant": "#005049",
+              "on-secondary-container": "#5c647a",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-container": "#f4fffc",
+              "inverse-primary": "#6bd8cb",
+              "on-secondary-fixed-variant": "#3f465c",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed": "#131b2e",
+              "surface-variant": "#d3e4fe",
+              secondary: "#565e74",
+              "on-tertiary-container": "#f3fffc",
+              error: "#ba1a1a",
+              "surface-container-low": "#eff4ff",
+              "on-surface-variant": "#3d4947",
+              "surface-tint": "#006a61",
+              "error-container": "#ffdad6",
+              "on-secondary": "#ffffff",
+              "tertiary-container": "#6b7775",
+              "on-surface": "#0b1c30",
+              "on-error": "#ffffff",
+              outline: "#6d7a77",
+              "secondary-fixed-dim": "#bec6e0",
+              "on-primary": "#ffffff",
+              tertiary: "#525e5c",
+              "inverse-surface": "#213145",
+              "on-primary-fixed": "#00201d",
+              "tertiary-fixed": "#d8e5e2",
+              "surface-container-highest": "#d3e4fe",
+              "surface-container": "#e5eeff",
+              "tertiary-fixed-dim": "#bcc9c6",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              "margin-mobile": "16px",
+              lg: "2.5rem",
+              xs: "0.5rem",
+              xl: "4rem",
+              "max-width": "1280px",
+              gutter: "24px",
+              base: "4px",
+              "margin-desktop": "80px",
+              md: "1.5rem",
+              sm: "1rem",
+            },
+            fontFamily: {
+              "headline-md": ["Plus Jakarta Sans"],
+              "headline-lg-mobile": ["Plus Jakarta Sans"],
+              "headline-lg": ["Plus Jakarta Sans"],
+              "display-lg": ["Plus Jakarta Sans"],
+              "body-sm": ["Inter"],
+              "label-sm": ["Inter"],
+              "display-md": ["Plus Jakarta Sans"],
+              "body-lg": ["Inter"],
+              "body-md": ["Inter"],
+              "label-md": ["Inter"],
+            },
+            fontSize: {
+              "headline-md": ["20px", { lineHeight: "1.4", fontWeight: "600" }],
+              "headline-lg-mobile": [
+                "24px",
+                { lineHeight: "1.3", fontWeight: "600" },
+              ],
+              "headline-lg": ["30px", { lineHeight: "1.3", fontWeight: "600" }],
+              "display-lg": [
+                "48px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+              "label-sm": ["12px", { lineHeight: "1", fontWeight: "500" }],
+              "display-md": [
+                "36px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                { lineHeight: "1", letterSpacing: "0.05em", fontWeight: "600" },
+              ],
+            },
+          },
+        },
+      };
+    </script>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
       }
-
-      body {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        padding: 20px;
+      .glass-effect {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.3);
       }
-
-      .container {
-        width: 100%;
-        max-width: 450px;
-        backdrop-filter: blur(20px);
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 25px;
-        padding: 35px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      .property-card-shadow {
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
       }
-
-      .logo {
-        text-align: center;
-        color: white;
-        font-size: 32px;
-        font-weight: 700;
-        margin-bottom: 25px;
-      }
-
-      .tabs {
-        display: flex;
-        background: rgba(255, 255, 255, 0.15);
-        border-radius: 15px;
-        overflow: hidden;
-        margin-bottom: 25px;
-      }
-
-      .tabs button {
-        flex: 1;
-        border: none;
-        padding: 15px;
-        cursor: pointer;
-        color: white;
-        background: transparent;
-        font-size: 15px;
-        font-weight: 600;
-        transition: 0.3s;
-      }
-
-      .tabs button.active {
-        background: white;
-        color: #667eea;
-      }
-
-      .form {
-        display: none;
-      }
-
-      .form.active {
-        display: block;
-      }
-
-      .input-group {
-        margin-bottom: 15px;
-      }
-
-      .input-group input {
-        width: 100%;
-        padding: 15px;
-        border: none;
-        outline: none;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        font-size: 14px;
-      }
-
-      .input-group input::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-      }
-
-      .otp-row {
-        display: flex;
-        gap: 10px;
-      }
-
-      .otp-row input {
-        flex: 1;
-      }
-
-      .send-btn {
-        border: none;
-        background: white;
-        color: #667eea;
-        padding: 0 15px;
-        border-radius: 12px;
-        cursor: pointer;
-        font-weight: 600;
-      }
-
-      .main-btn {
-        width: 100%;
-        border: none;
-        padding: 15px;
-        border-radius: 12px;
-        background: white;
-        color: #667eea;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        margin-top: 10px;
-        transition: 0.3s;
-      }
-
-      .main-btn:hover {
-        transform: translateY(-2px);
-      }
-
-      .verify-btn {
-        width: 100%;
-        border: none;
-        padding: 12px;
-        border-radius: 12px;
-        margin-top: 10px;
-        background: #4ade80;
-        color: white;
-        font-weight: 600;
-        cursor: pointer;
-      }
-
-      .footer {
-        text-align: center;
-        color: white;
-        margin-top: 20px;
-        font-size: 13px;
-      }
-
-      @media (max-width: 500px) {
-        .container {
-          padding: 25px;
-        }
-
-        .logo {
-          font-size: 28px;
-        }
+      .property-card-shadow:hover {
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+        transform: translateY(-4px);
+        transition: all 0.3s ease;
       }
     </style>
   </head>
-  <body>
-    <div class="container">
-      <div class="logo">AuthFlow</div>
-
-      <div class="tabs">
-        <button id="registerTab" class="active">Register</button>
-
-        <button id="loginTab">Login</button>
+  <body class="bg-surface text-on-surface font-body-md">
+    <!-- Header / TopAppBar -->
+    <header
+      class="bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md docked full-width top-0 sticky border-b border-outline-variant/30 shadow-sm z-50"
+    >
+      <div
+        class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 w-full max-w-max-width mx-auto"
+      >
+        <div
+          class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed"
+        >
+          FlatMate
+        </div>
+        <nav class="hidden md:flex items-center gap-md">
+          <a
+            class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1 font-label-md text-label-md"
+            href="#"
+            >Home</a
+          >
+          <a
+            class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-md text-label-md"
+            href="#"
+            >Properties</a
+          >
+          <a
+            class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-md text-label-md"
+            href="#"
+            >About</a
+          >
+          <a
+            class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-md text-label-md"
+            href="#"
+            >Contact</a
+          >
+        </nav>
+        <div class="flex items-center gap-sm">
+          <button
+            class="hidden lg:block text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low px-4 py-2 rounded-full font-label-md text-label-md transition-all"
+          >
+            Sign In
+          </button>
+          <a href="h"
+            class="bg-primary text-on-primary px-6 py-3 rounded-full font-label-md text-label-md shadow-md hover:scale-95 transition-all"
+          >
+            List Property
+          </a>
+        </div>
       </div>
-
-      <!-- REGISTER -->
-
-      <form id="registerForm" class="form active">
-        <div class="input-group">
-          <input type="text" placeholder="Full Name" id="fullname" />
+    </header>
+    <main>
+      <!-- Hero Section -->
+      <section
+        class="relative h-[870px] min-h-[600px] flex items-center justify-center overflow-hidden"
+      >
+        <div class="absolute inset-0 z-0">
+          <img
+            class="w-full h-full object-cover"
+            data-alt="A sprawling, ultra-modern luxury penthouse apartment featuring floor-to-ceiling glass windows that overlook a shimmering city skyline at twilight. The interior is bathed in warm, soft ambient lighting highlighting minimalist furniture and a sophisticated architectural design. The overall atmosphere is premium, serene, and aspirational, utilizing a palette of soft whites and deep teals."
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkddZDhQ3U2qevWZKZ0EoqdKvJd2avUWLhDwL338X3WjKnFBDSg-6fU74njThMxGiL_egzuMfYEB4XgX1ca5x_v4PWkDSX8YF73YjAIKL2z36FSj-SJjxe6Wh5DXrxKBTH2ykzAu5KhY-7giU6mfNNNSx9dJikPHZijbIEDyVebZdk5VU1oITZz-mRHb-c_crN80SWhklrAU-jOpA9eg3aBc8Guvc3WC4jdo9jUkD5r5-I7tokpFSG_Oi-LyxMP3FmyAqXFbigemXX"
+          />
+          <div class="absolute inset-0 bg-black/30"></div>
         </div>
-
-        <div class="input-group">
-          <input type="email" placeholder="Email Address" id="email" />
+        <div class="relative z-10 text-center px-margin-mobile max-w-4xl">
+          <h1
+            class="font-display-lg text-display-lg text-white mb-sm drop-shadow-lg"
+          >
+            Find Your Perfect Home
+          </h1>
+          <p
+            class="font-body-lg text-body-lg text-white/90 mb-lg max-w-2xl mx-auto drop-shadow-md"
+          >
+            Browse thousands of verified rental properties near you. From
+            student studios to family homes.
+          </p>
+          <!-- Search Bar -->
+          <div
+            class="glass-effect p-2 rounded-full flex flex-col md:flex-row items-center gap-2 max-w-3xl mx-auto shadow-2xl"
+          >
+            <div
+              class="flex-1 flex items-center px-6 gap-2 w-full md:border-r border-outline-variant/30"
+            >
+              <span class="material-symbols-outlined text-primary"
+                >location_on</span
+              >
+              <input
+                class="bg-transparent border-none focus:ring-0 w-full text-on-surface placeholder:text-on-surface-variant/60 font-body-md"
+                placeholder="Location"
+                type="text"
+              />
+            </div>
+            <div
+              class="flex-1 flex items-center px-6 gap-2 w-full md:border-r border-outline-variant/30"
+            >
+              <span class="material-symbols-outlined text-primary">home</span>
+              <select
+                class="bg-transparent border-none focus:ring-0 w-full text-on-surface font-body-md appearance-none"
+              >
+                <option>Property Type</option>
+                <option>Apartment</option>
+                <option>House</option>
+                <option>Studio</option>
+              </select>
+            </div>
+            <div class="flex-1 flex items-center px-6 gap-2 w-full">
+              <span class="material-symbols-outlined text-primary"
+                >payments</span
+              >
+              <input
+                class="bg-transparent border-none focus:ring-0 w-full text-on-surface placeholder:text-on-surface-variant/60 font-body-md"
+                placeholder="Budget"
+                type="text"
+              />
+            </div>
+            <button
+              class="bg-primary-container text-on-primary-container p-4 rounded-full flex items-center justify-center hover:scale-95 transition-all"
+            >
+              <span class="material-symbols-outlined">search</span>
+            </button>
+          </div>
         </div>
+      </section>
+      <!-- Main Content with Sidebar & Grid -->
+      <section
+        class="py-xl px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto"
+      >
+        <div class="flex flex-col lg:flex-row gap-lg">
+          <!-- Sidebar Filters -->
+          <aside class="w-full lg:w-72 space-y-md shrink-0">
+            <div
+              class="bg-surface-container-low p-md rounded-xl border border-outline-variant/20"
+            >
+              <h3 class="font-headline-md text-headline-md mb-md">Filters</h3>
+              <div class="space-y-sm">
+                <p
+                  class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider"
+                >
+                  Price Range
+                </p>
+                <input
+                  class="w-full accent-primary"
+                  max="10000"
+                  min="500"
+                  type="range"
+                />
+                <div
+                  class="flex justify-between text-body-sm font-body-sm text-on-surface-variant"
+                >
+                  <span>$500</span>
+                  <span>$10,000+</span>
+                </div>
+              </div>
+              <div class="pt-md mt-md border-t border-outline-variant/20">
+                <p
+                  class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-sm"
+                >
+                  Sort By
+                </p>
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-2 cursor-pointer group">
+                    <input
+                      checked=""
+                      class="text-primary focus:ring-primary h-4 w-4"
+                      name="sort"
+                      type="radio"
+                    />
+                    <span
+                      class="font-body-md text-on-surface-variant group-hover:text-primary transition-colors"
+                      >Newest</span
+                    >
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer group">
+                    <input
+                      class="text-primary focus:ring-primary h-4 w-4"
+                      name="sort"
+                      type="radio"
+                    />
+                    <span
+                      class="font-body-md text-on-surface-variant group-hover:text-primary transition-colors"
+                      >Price: Low to High</span
+                    >
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer group">
+                    <input
+                      class="text-primary focus:ring-primary h-4 w-4"
+                      name="sort"
+                      type="radio"
+                    />
+                    <span
+                      class="font-body-md text-on-surface-variant group-hover:text-primary transition-colors"
+                      >Price: High to Low</span
+                    >
+                  </label>
+                </div>
+              </div>
+              <button
+                class="w-full mt-lg py-3 border border-primary text-primary font-label-md text-label-md rounded-full hover:bg-primary/5 transition-colors"
+              >
+                Reset All Filters
+              </button>
+            </div>
+            <!-- Promo Ad/Banner in Sidebar -->
+            <div class="relative rounded-xl overflow-hidden aspect-[4/5]">
+              <img
+                class="w-full h-full object-cover"
+                data-alt="A brightly lit real estate office with a professional broker smiling and shaking hands with a young couple. The scene is full of natural light, showcasing a modern, professional, and trustworthy environment that aligns with the brand's teal and white corporate identity."
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoabqQYtuyiix24R6gnoSctJ2KFb_-d2snIe-R__-mMOqMk5lIpjXI0CkDio1FVCRKeUDYzYG_YEyDAhfOEWrHR1oAHfnI9MpAqPqdxo1s3Cr1CN-Km9DIG20fln4JGkHURc545VsUINatrZvB2qSjq_sLRGY3OvyFLcHkXrLLayLRn-fi2ev3GpYtWvcg0bWcaz_4gqeD6lvjlI1fjMk8_g83fSY-FhTR2LQj55ChHDIpPQHa59Ha92Lg_solz3VzeHe3WkIgnFlW"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-md flex flex-col justify-end"
+              >
+                <h4 class="text-white font-headline-md text-headline-md mb-xs">
+                  List Your Property
+                </h4>
+                <p class="text-white/80 font-body-sm text-body-sm mb-md">
+                  Reach 100k+ potential tenants today.
+                </p>
+                <button
+                  class="bg-white text-primary font-label-md text-label-md py-2 rounded-full w-fit px-6"
+                >
+                  Get Started
+                </button>
+              </div>
+            </div>
+          </aside>
+          <!-- Property Grid -->
+          <div class="flex-1">
+            <div class="flex justify-between items-end mb-lg">
+              <div>
+                <h2 class="font-display-md text-display-md text-on-surface">
+                  Featured Properties
+                </h2>
+                <p class="text-on-surface-variant font-body-md">
+                  Discover curated homes tailored to your lifestyle.
+                </p>
+              </div>
+              <div
+                class="hidden sm:block text-on-surface-variant font-label-md text-label-md"
+              >
+                Showing <span class="text-primary font-bold">1</span> of 1,240
+                results
+              </div>
+            </div>
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter"
+            >
+              <!-- Property Card Template Loop (Generated manually for 3x3) -->
+              <div id="property-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  </div>
 
-        <div class="input-group">
-          <input type="text" placeholder="Phone Number" id="registerPhone" />
+<script>
+  // 2. Target the container
+  const container = document.getElementById("property-container");
+
+  fetch("http://localhost:3000/properties/property")
+    .then(res => {
+      if (!res.ok) throw new Error("Network response was not ok");
+      return res.json();
+    })
+    .then(data => {
+      console.log(data);
+
+      // 3. Generate the HTML inside the .then block where 'data' exists
+      const propertyHTML = data.Property.map((p) => `
+        <div class="bg-white rounded-xl overflow-hidden property-card-shadow flex flex-col group relative">
+            <div class="relative overflow-hidden aspect-[4/3]">
+                <img src="${p.imges[0]}" 
+                     data-alt="An interior shot of a ${p.title} property in ${p.address}. The room is styled with elegant modern furniture and features high-quality finishes."
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute top-4 left-4">
+                    <span class="glass-effect px-3 py-1 rounded-full font-label-sm text-label-sm text-primary-container font-semibold">${p.furnishingStatus}</span>
+                </div>
+                <button class="absolute top-4 right-4 bg-white/80 backdrop-blur hover:bg-white p-2 rounded-full shadow-sm text-on-surface-variant hover:text-red-500 transition-colors">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+                </button>
+            </div>
+            <div class="p-md flex-1 flex flex-col">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="font-headline-md text-headline-md text-on-surface">${p.title}</h3>
+                    <span class="text-primary font-bold text-headline-md">₹${p.price}<span class="text-on-surface-variant font-normal text-body-sm">/mo</span></span>
+                </div>
+                <div class="flex items-center gap-1 text-on-surface-variant font-body-sm mb-4">
+                    <span class="material-symbols-outlined text-[18px]">location_on</span>
+                    ${p.address}
+                </div>
+                <div class="flex items-center gap-md border-t border-outline-variant/10 pt-4 mb-4">
+                    <div class="flex items-center gap-1 text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[20px]">bed</span>
+                        <span class="font-label-md text-label-md">${p.bedrooms} Beds</span>
+                    </div>
+                    <div class="flex items-center gap-1 text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[20px]">bathtub</span>
+                        <span class="font-label-md text-label-md">${p.bathroom} Baths</span>
+                    </div>
+                </div>
+                <button class="mt-auto w-full bg-surface-container-low text-primary font-label-md text-label-md py-3 rounded-lg group-hover:bg-primary group-hover:text-white transition-all">
+                    View Details
+                </button>
+            </div>
         </div>
+      `).join("");
 
-        <div class="input-group otp-row">
-          <input type="text" placeholder="OTP" id="registerOtp" />
-
-          <button type="button" class="send-btn" id="registerSendOtp">
-            Send OTP
-          </button>
+      // 4. Inject the markup safely into the DOM
+      container.innerHTML = propertyHTML;
+    })
+    .catch(err => console.error("Error fetching properties:", err));
+</script>
+            </div>
+            <!-- Pagination -->
+            <div class="flex justify-center mt-xl gap-2">
+              <button
+                class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant/30 text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors"
+              >
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+              <button
+                class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md"
+              >
+                1
+              </button>
+              <button
+                class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant/30 text-on-surface-variant font-label-md text-label-md"
+              >
+                2
+              </button>
+              <button
+                class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant/30 text-on-surface-variant font-label-md text-label-md"
+              >
+                3
+              </button>
+              <button
+                class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant/30 text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors"
+              >
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          </div>
         </div>
-
-        <button type="button" class="verify-btn" id="verifyOtpBtn">
-          Verify OTP
-        </button>
-
-        <button type="submit" class="main-btn">Register</button>
-      </form>
-
-      <!-- LOGIN -->
-
-      <form id="loginForm" class="form">
-        <div class="input-group">
-          <input type="text" placeholder="Phone Number" id="loginPhone" />
+      </section>
+      <!-- Why Choose Us -->
+      <section class="bg-surface-container-low py-xl">
+        <div
+          class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop"
+        >
+          <div class="text-center mb-xl">
+            <h2 class="font-display-md text-display-md text-on-surface mb-sm">
+              Why Choose FlatMate
+            </h2>
+            <p class="text-on-surface-variant font-body-md max-w-2xl mx-auto">
+              We redefine the rental experience with industry-leading security
+              and verification standards.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+            <div
+              class="bg-white p-lg rounded-2xl border border-outline-variant/20 flex flex-col items-center text-center hover:shadow-xl transition-all"
+            >
+              <div
+                class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-md"
+              >
+                <span class="material-symbols-outlined text-[32px]"
+                  >verified</span
+                >
+              </div>
+              <h4 class="font-headline-md text-headline-md mb-xs">
+                Verified Listings
+              </h4>
+              <p class="text-on-surface-variant font-body-sm">
+                Every property on our platform is manually verified by our local
+                experts.
+              </p>
+            </div>
+            <div
+              class="bg-white p-lg rounded-2xl border border-outline-variant/20 flex flex-col items-center text-center hover:shadow-xl transition-all"
+            >
+              <div
+                class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-md"
+              >
+                <span class="material-symbols-outlined text-[32px]"
+                  >support_agent</span
+                >
+              </div>
+              <h4 class="font-headline-md text-headline-md mb-xs">
+                Trusted Brokers
+              </h4>
+              <p class="text-on-surface-variant font-body-sm">
+                Connect with authorized professionals who prioritize your needs.
+              </p>
+            </div>
+            <div
+              class="bg-white p-lg rounded-2xl border border-outline-variant/20 flex flex-col items-center text-center hover:shadow-xl transition-all"
+            >
+              <div
+                class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-md"
+              >
+                <span class="material-symbols-outlined text-[32px]"
+                  >security</span
+                >
+              </div>
+              <h4 class="font-headline-md text-headline-md mb-xs">
+                Secure Communication
+              </h4>
+              <p class="text-on-surface-variant font-body-sm">
+                Our end-to-end encrypted chat keeps your personal data safe.
+              </p>
+            </div>
+            <div
+              class="bg-white p-lg rounded-2xl border border-outline-variant/20 flex flex-col items-center text-center hover:shadow-xl transition-all"
+            >
+              <div
+                class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-md"
+              >
+                <span class="material-symbols-outlined text-[32px]"
+                  >search_insights</span
+                >
+              </div>
+              <h4 class="font-headline-md text-headline-md mb-xs">
+                Easy Search
+              </h4>
+              <p class="text-on-surface-variant font-body-sm">
+                Find exactly what you need with advanced spatial and budget
+                filters.
+              </p>
+            </div>
+          </div>
         </div>
-
-        <div class="input-group otp-row">
-          <input type="text" placeholder="OTP" id="loginOtp" />
-
-          <button type="button" class="send-btn" id="loginSendOtp">
-            Send OTP
-          </button>
+      </section>
+      <!-- Testimonials -->
+      <section class="py-xl overflow-hidden relative">
+        <div
+          class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop"
+        >
+          <div class="flex justify-between items-center mb-xl">
+            <h2 class="font-display-md text-display-md">
+              What Our Community Says
+            </h2>
+            <div class="flex gap-2">
+              <button
+                class="w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-all"
+                onclick="scrollTestimonials(-1)"
+              >
+                <span class="material-symbols-outlined">arrow_back</span>
+              </button>
+              <button
+                class="w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-all"
+                onclick="scrollTestimonials(1)"
+              >
+                <span class="material-symbols-outlined">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="flex gap-md overflow-x-auto snap-x snap-mandatory no-scrollbar transition-transform duration-500 pb-8"
+            id="testimonial-track"
+          >
+            <!-- Testimonial 1 -->
+            <div
+              class="min-w-[320px] md:min-w-[400px] snap-start bg-white p-lg rounded-2xl border border-outline-variant/20 shadow-sm"
+            >
+              <div class="flex gap-1 text-yellow-500 mb-md">
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+              </div>
+              <p class="font-body-md text-on-surface mb-lg italic">
+                "FlatMate made finding my new studio in Brooklyn so easy. The
+                verified badge gave me the peace of mind I couldn't find on
+                other sites."
+              </p>
+              <div class="flex items-center gap-md">
+                <img
+                  class="w-12 h-12 rounded-full object-cover"
+                  data-alt="A professional headshot of a smiling young woman against a neutral studio background. The lighting is soft and even, emphasizing her friendly and confident expression. The style is modern and clean, fitting a corporate testimonial section."
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuC21gCws9FELKS-yK7mfD0CzkfoOb4SLGXO54EXecsqqJP4-UKsCNaCbgDkka8GRERUHwb61CGD93hZJHmuGP5DDNMT0BvVhSBpv3JSkM0ABBE4PsyAKFq0Kcqp4dD8OWdxUThleVDkEYkkcA9k88nOX6NLfaSuSPKIe84Yw1QYx8k7odFPCUYGql62fGAyRhQ_zPdr-wJW4KU_PgMJFevzABRV2gyM8dljKffzk9MGWmhLzkyDqsDldURVDMpu2-UMnp-XK9WLV2fg"
+                />
+                <div>
+                  <p class="font-label-md text-label-md">Sarah Jenkins</p>
+                  <p class="text-body-sm text-on-surface-variant">
+                    Tenant, New York
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Testimonial 2 -->
+            <div
+              class="min-w-[320px] md:min-w-[400px] snap-start bg-white p-lg rounded-2xl border border-outline-variant/20 shadow-sm"
+            >
+              <div class="flex gap-1 text-yellow-500 mb-md">
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+              </div>
+              <p class="font-body-md text-on-surface mb-lg italic">
+                "As a landlord, the listing process is incredibly smooth. I had
+                three qualified viewings scheduled within 48 hours of posting."
+              </p>
+              <div class="flex items-center gap-md">
+                <img
+                  class="w-12 h-12 rounded-full object-cover"
+                  data-alt="A professional headshot of a middle-aged man with a friendly, trustworthy face. He is dressed in a smart-casual shirt, and the background is a blurred office interior. The image conveys success, reliability, and professionalism."
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl2zyjnhUJ8LaG-Kf_Q8unW0z2pGeSy_COXvbckdhqfcMy_K_qGdOKirRxvzihQJMbC1ORoGm0Fl_LwlAKZIsix5aH5uoyUnFkj0GAeLMlBnvelOWHDlcpa9Hb-oeXfkgVbmER4HBQZu0-cBbmG0STbRKQp8gWSHMFLDtWUGtVMRn_rrv7G31mim6uNOVCeF8zFIGyFA51ZJYhBkyXU4hoqk7mvE3rRg2yFSxBa20u3ZfanM2RHZpLAahQkA6CPDrIzhG2ODT1MwFt"
+                />
+                <div>
+                  <p class="font-label-md text-label-md">Michael Chen</p>
+                  <p class="text-body-sm text-on-surface-variant">
+                    Property Owner
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Testimonial 3 -->
+            <div
+              class="min-w-[320px] md:min-w-[400px] snap-start bg-white p-lg rounded-2xl border border-outline-variant/20 shadow-sm"
+            >
+              <div class="flex gap-1 text-yellow-500 mb-md">
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+              </div>
+              <p class="font-body-md text-on-surface mb-lg italic">
+                "The search filters are the best I've used. Being able to filter
+                by furnishing and budget saved me hours of scrolling."
+              </p>
+              <div class="flex items-center gap-md">
+                <img
+                  class="w-12 h-12 rounded-full object-cover"
+                  data-alt="A smiling woman in a professional business setting, looking confident and approachable. The office background is bright with large windows, and the image lighting is clear and professional, reflecting high-end corporate aesthetics."
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA3tf2i7fWggyqN0es_1Xes05MQpzvamBwAgiSKkNwurRBUJnGQcbozl94NM-vfXHbdSRkqMSBDk9IjX_IkFCa226jk24wJzXiU4YFLDoFuD3FVIRBwt22ok4GODA1P6DfvorKcpr73khX5iLQV80s3wDF_dhhVcHSbJ_SUIZIaHgcW-aJv6uoetebIPOhkdh5Tr5V2V7zLD7qpoD0iJezUwi8L8_v-Qc7ft5orrGM7uF9TSpHXGiz5xlpt1rK2IwnO5JyRvfKStUI"
+                />
+                <div>
+                  <p class="font-label-md text-label-md">Emily Rodriguez</p>
+                  <p class="text-body-sm text-on-surface-variant">
+                    Digital Nomad
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Testimonial 4 -->
+            <div
+              class="min-w-[320px] md:min-w-[400px] snap-start bg-white p-lg rounded-2xl border border-outline-variant/20 shadow-sm"
+            >
+              <div class="flex gap-1 text-yellow-500 mb-md">
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+              </div>
+              <p class="font-body-md text-on-surface mb-lg italic">
+                "Top notch service and great interface. The secure chat really
+                helped me coordinate with roommates safely."
+              </p>
+              <div class="flex items-center gap-md">
+                <img
+                  class="w-12 h-12 rounded-full object-cover"
+                  data-alt="A portrait of a young man with a modern haircut, smiling warmly. The lighting is bright, natural daylight. He is standing in an urban outdoor setting with modern architecture softly blurred behind him, signifying a modern urban lifestyle."
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDzhvbpft7S4aN3HG_D1qaSxGtOQ_d1T2ihZo6-2ZJm8EWrYHtnMhdg_VT3aOK4YThE-jyxc_ip6V3HoR8YA3B7STmokGCtAU07BgsEf6rYsWOeg1rZrwrpIRjpYtj8vPeIcrTCjfaGEtzQ3y3ppZutsiijVty6vDWKmvmMY9Yxc_iHK03ezAq9z4sLFemEO1IacAZmClRUTRsXUM8z_obsB3H0JMYdDm5G2IHVwgtWPkUv1QVHngjrOT1PCHjqJS9v7WDb4mPK9Av"
+                />
+                <div>
+                  <p class="font-label-md text-label-md">James Thompson</p>
+                  <p class="text-body-sm text-on-surface-variant">Student</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <button type="submit" class="main-btn">Login</button>
-      </form>
-
-      <div class="footer">Secure OTP Authentication</div>
-    </div>
-
+      </section>
+      <!-- CTA Section -->
+      <section class="px-margin-mobile md:px-margin-desktop py-xl">
+        <div
+          class="bg-primary rounded-[32px] overflow-hidden relative p-lg md:p-xl flex flex-col items-center text-center"
+        >
+          <div class="absolute inset-0 opacity-10 pointer-events-none"></div>
+          <div class="relative z-10 max-w-2xl">
+            <h2 class="font-display-md text-display-md text-on-primary mb-md">
+              Ready to Find Your Next Home?
+            </h2>
+            <p class="text-on-primary-container/80 font-body-lg mb-xl">
+              Join thousands of happy tenants and landlords who trust FlatMate
+              for their rental journey.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-md justify-center">
+              <button
+                class="bg-white text-primary font-label-md text-label-md px-10 py-4 rounded-full shadow-lg hover:scale-95 transition-all"
+              >
+                Browse Properties
+              </button>
+              <button
+                class="border border-white text-white font-label-md text-label-md px-10 py-4 rounded-full hover:bg-white/10 transition-all"
+              >
+                List Your Property
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer
+      class="bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant/20"
+    >
+      <div
+        class="w-full py-xl px-margin-mobile md:px-margin-desktop flex flex-col max-w-max-width mx-auto"
+      >
+        <div
+          class="flex flex-col md:flex-row justify-between items-start gap-xl mb-xl"
+        >
+          <div class="max-w-xs">
+            <div
+              class="font-headline-md text-headline-md font-bold text-on-surface dark:text-surface-bright mb-md"
+            >
+              FlatMate
+            </div>
+            <p class="text-on-surface-variant/80 font-body-sm">
+              Your trusted partner in finding the perfect rental property.
+              Experience transparency, security, and ease in your home search.
+            </p>
+            <div class="flex gap-4 mt-md">
+              <a
+                class="text-primary hover:opacity-80 transition-opacity"
+                href="#"
+                ><span class="material-symbols-outlined">public</span></a
+              >
+              <a
+                class="text-primary hover:opacity-80 transition-opacity"
+                href="#"
+                ><span class="material-symbols-outlined">share</span></a
+              >
+              <a
+                class="text-primary hover:opacity-80 transition-opacity"
+                href="#"
+                ><span class="material-symbols-outlined"
+                  >contact_support</span
+                ></a
+              >
+            </div>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-xl">
+            <div class="space-y-sm">
+              <p
+                class="font-label-md text-label-md text-on-surface uppercase tracking-widest font-bold"
+              >
+                Company
+              </p>
+              <nav class="flex flex-col gap-2">
+                <a
+                  class="text-on-surface-variant/80 hover:text-primary transition-colors font-body-sm"
+                  href="#"
+                  >About Us</a
+                >
+                <a
+                  class="text-on-surface-variant/80 hover:text-primary transition-colors font-body-sm"
+                  href="#"
+                  >Careers</a
+                >
+                <a
+                  class="text-on-surface-variant/80 hover:text-primary transition-colors font-body-sm"
+                  href="#"
+                  >Blog</a
+                >
+              </nav>
+            </div>
+            <div class="space-y-sm">
+              <p
+                class="font-label-md text-label-md text-on-surface uppercase tracking-widest font-bold"
+              >
+                Explore
+              </p>
+              <nav class="flex flex-col gap-2">
+                <a
+                  class="text-on-surface-variant/80 hover:text-primary transition-colors font-body-sm"
+                  href="#"
+                  >Properties</a
+                >
+                <a
+                  class="text-on-surface-variant/80 hover:text-primary transition-colors font-body-sm"
+                  href="#"
+                  >Rent Guides</a
+                >
+                <a
+                  class="text-on-surface-variant/80 hover:text-primary transition-colors font-body-sm"
+                  href="#"
+                  >For Landlords</a
+                >
+              </nav>
+            </div>
+            <div class="space-y-sm col-span-2 sm:col-span-1">
+              <p
+                class="font-label-md text-label-md text-on-surface uppercase tracking-widest font-bold"
+              >
+                Support
+              </p>
+              <nav class="flex flex-col gap-2">
+                <a
+                  class="text-on-surface-variant/80 hover:text-primary transition-colors font-body-sm"
+                  href="#"
+                  >Help Center</a
+                >
+                <a
+                  class="text-on-surface-variant/80 hover:text-primary transition-colors font-body-sm"
+                  href="#"
+                  >Contact Us</a
+                >
+                <a
+                  class="text-on-surface-variant/80 hover:text-primary transition-colors font-body-sm"
+                  href="#"
+                  >Report Issue</a
+                >
+              </nav>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pt-xl border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-md"
+        >
+          <p class="text-on-surface-variant/80 font-body-sm">
+            © 2024 FlatMate Inc. All rights reserved.
+          </p>
+          <div class="flex gap-md">
+            <a
+              class="text-on-surface-variant/80 hover:text-primary transition-colors font-label-sm"
+              href="#"
+              >Privacy Policy</a
+            >
+            <a
+              class="text-on-surface-variant/80 hover:text-primary transition-colors font-label-sm"
+              href="#"
+              >Terms of Service</a
+            >
+            <a
+              class="text-on-surface-variant/80 hover:text-primary transition-colors font-label-sm"
+              href="#"
+              >Cookie Policy</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
     <script>
-      const API_BASE = "http://10.62.215.253:3000/auth";
-
-      const registerTab = document.getElementById("registerTab");
-
-      const loginTab = document.getElementById("loginTab");
-
-      const registerForm = document.getElementById("registerForm");
-
-      const loginForm = document.getElementById("loginForm");
-
-      registerTab.onclick = () => {
-        registerTab.classList.add("active");
-        loginTab.classList.remove("active");
-
-        registerForm.classList.add("active");
-        loginForm.classList.remove("active");
-      };
-
-      loginTab.onclick = () => {
-        loginTab.classList.add("active");
-        registerTab.classList.remove("active");
-
-        loginForm.classList.add("active");
-        registerForm.classList.remove("active");
-      };
-
-      /* =====================
-   REGISTER SEND OTP
-===================== */
-
-      document
-        .getElementById("registerSendOtp")
-        .addEventListener("click", async () => {
-          const phoneNumber = document.getElementById("registerPhone").value;
-          const fullname = document.getElementById("fullname").value;
-
-          const email = document.getElementById("email").value;
-          try {
-            const res = await fetch(`${API_BASE}/generate-otp`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                fullname,
-                email,
-                phoneNumber,
-              }),
-            });
-
-            const data = await res.json();
-
-            alert(data.message);
-          } catch (err) {
-            console.error(err);
-
-            alert("Failed to send OTP");
-          }
+      
+      function scrollTestimonials(direction) {
+        const track = document.getElementById("testimonial-track");
+        const scrollAmount = 400;
+        track.scrollBy({
+          left: direction * scrollAmount,
+          behavior: "smooth",
         });
-
-      /* =====================
-   VERIFY OTP
-===================== */
-
-      document
-        .getElementById("verifyOtpBtn")
-        .addEventListener("click", async () => {
-          const phoneNumber = document.getElementById("registerPhone").value;
-
-          const otp = document.getElementById("registerOtp").value;
-
-          try {
-            const res = await fetch(`${API_BASE}/verify-otp`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                phoneNumber,
-                otp,
-              }),
-            });
-
-            const data = await res.json();
-
-            alert(data.message || "OTP Verified");
-          } catch (err) {
-            console.error(err);
-
-            alert("OTP verification failed");
-          }
-        });
-
-      /* =====================
-   REGISTER USER
-===================== */
-
-      registerForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const fullname = document.getElementById("fullname").value;
-
-        const email = document.getElementById("email").value;
-
-        const phoneNumber = document.getElementById("registerPhone").value;
-
-        try {
-          const res = await fetch(`${API_BASE}/register`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              fullname,
-              email,
-              phoneNumber,
-            }),
-          });
-
-          const data = await res.json();
-
-          alert(data.message || "Registration Successful");
-        } catch (err) {
-          console.error(err);
-
-          alert("Registration Failed");
-        }
-      });
-
-      /* =====================
-   LOGIN SEND OTP
-===================== */
-
-      document
-        .getElementById("loginSendOtp")
-        .addEventListener("click", async () => {
-          const phoneNumber = document.getElementById("loginPhone").value;
-
-          try {
-            const res = await fetch(`${API_BASE}/send-otp`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                phoneNumber,
-              }),
-            });
-
-            const data = await res.json();
-
-            alert(data.message);
-          } catch (err) {
-            console.error(err);
-
-            alert("Failed to send OTP");
-          }
-        });
-
-      /* =====================
-   LOGIN
-===================== */
-
-  loginForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const phoneNumber = document.getElementById("loginPhone").value;
-  const otp = document.getElementById("loginOtp").value;
-
-  try {
-    const res = await fetch(`${API_BASE}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        phoneNumber,
-        otp,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      alert(data.message || "Login Failed");
-      return;
-    }
-
-    alert("Login Successful");
-
-    window.location.href = "/dashboard.html";
-
-  } catch (err) {
-    console.error("Error:", err);
-    alert("Server Error");
-  }
-});
+      }
     </script>
   </body>
 </html>
