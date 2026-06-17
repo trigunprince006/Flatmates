@@ -1,0 +1,45 @@
+::root{
+  --tw-text-opacity: 1;
+  --logo-color: rgba(0 104 95 / var(--tw-text-opacity, 1));
+}
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Plus";
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+.navbar{
+  height: 85px;
+  width: 100vw;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content :space-evenly;
+  border: 1px solid red;
+}
+
+.logo h1{
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color:var(--logo-color) ;
+}
+.nav-links{
+  display: flex;
+  justify-self: center;
+  justify-content:space-between ;
+  border: 1px solid red;
+  gap: 1.7rem;
+  font-weight: 700;
+}
+.signIn a{
+  color: grey;
+}
+.listProperty{
+  padding: 9px 15px;
+  border-radius: 2rem;
+  background:rgb(69, 235, 69);
+  color: white;
+}
