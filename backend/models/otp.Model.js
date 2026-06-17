@@ -15,7 +15,7 @@ const tempUserSchema = new mongoose.Schema(
     otp:String,
     purpose:{
       type:String,
-      enum:['register','login'],
+      enum:['register','login','reset'],
       default:'register'
     },
     isVerified:{
