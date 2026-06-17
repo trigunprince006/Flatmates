@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 async function changePassword(req, res) {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const { oldPassword, newPassword } = req.body;
     if ( !oldPassword || !newPassword) {
       return res.status(400).json({

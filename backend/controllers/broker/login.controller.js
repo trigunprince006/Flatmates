@@ -23,6 +23,7 @@ async function login(req, res) {
   const isMatch = await bcrypt.compare(password,isBrokerExist.password);
   console.log(isMatch)
   if(!isMatch){
+//isme ek dikkat hai hme attmept block lgana padega wrna user jitni marji utni par try krte rahgea password dal dal ke
     return res.status(400).json({
       message: "Password is incorrect"
     });
