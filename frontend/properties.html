@@ -1,0 +1,799 @@
+<!doctype html>
+
+<html class="scroll-smooth" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>FlatMate | Premium Urban Living Details</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              surface: "#f8f9ff",
+              "primary-container": "#008378",
+              "on-tertiary-fixed-variant": "#3d4947",
+              "surface-container-high": "#dce9ff",
+              "primary-fixed": "#89f5e7",
+              primary: "#00685f",
+              "surface-bright": "#f8f9ff",
+              "secondary-container": "#dae2fd",
+              "on-tertiary": "#ffffff",
+              "primary-fixed-dim": "#6bd8cb",
+              "secondary-fixed": "#dae2fd",
+              "on-background": "#0b1c30",
+              "on-tertiary-fixed": "#121e1c",
+              "surface-dim": "#cbdbf5",
+              "outline-variant": "#bcc9c6",
+              background: "#f8f9ff",
+              "on-primary-fixed-variant": "#005049",
+              "on-secondary-container": "#5c647a",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-container": "#f4fffc",
+              "inverse-primary": "#6bd8cb",
+              "on-secondary-fixed-variant": "#3f465c",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed": "#131b2e",
+              "surface-variant": "#d3e4fe",
+              secondary: "#565e74",
+              "on-tertiary-container": "#f3fffc",
+              error: "#ba1a1a",
+              "surface-container-low": "#eff4ff",
+              "on-surface-variant": "#3d4947",
+              "surface-tint": "#006a61",
+              "error-container": "#ffdad6",
+              "on-secondary": "#ffffff",
+              "tertiary-container": "#6b7775",
+              "on-surface": "#0b1c30",
+              "on-error": "#ffffff",
+              outline: "#6d7a77",
+              "secondary-fixed-dim": "#bec6e0",
+              "on-primary": "#ffffff",
+              tertiary: "#525e5c",
+              "inverse-surface": "#213145",
+              "on-primary-fixed": "#00201d",
+              "tertiary-fixed": "#d8e5e2",
+              "surface-container-highest": "#d3e4fe",
+              "surface-container": "#e5eeff",
+              "tertiary-fixed-dim": "#bcc9c6",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              "margin-mobile": "16px",
+              lg: "2.5rem",
+              xs: "0.5rem",
+              xl: "4rem",
+              "max-width": "1280px",
+              gutter: "24px",
+              base: "4px",
+              "margin-desktop": "80px",
+              md: "1.5rem",
+              sm: "1rem",
+            },
+            fontFamily: {
+              "headline-md": ["Plus Jakarta Sans"],
+              "headline-lg": ["Plus Jakarta Sans"],
+              "display-lg": ["Plus Jakarta Sans"],
+              "body-sm": ["Inter"],
+              "label-sm": ["Inter"],
+              "display-md": ["Plus Jakarta Sans"],
+              "body-lg": ["Inter"],
+              "body-md": ["Inter"],
+              "label-md": ["Inter"],
+            },
+            fontSize: {
+              "headline-md": ["20px", { lineHeight: "1.4", fontWeight: "600" }],
+              "headline-lg": ["30px", { lineHeight: "1.3", fontWeight: "600" }],
+              "display-lg": [
+                "48px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+              "label-sm": ["12px", { lineHeight: "1", fontWeight: "500" }],
+              "display-md": [
+                "36px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                { lineHeight: "1", letterSpacing: "0.05em", fontWeight: "600" },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed"
+  >
+    <!-- TopNavBar -->
+    <header
+      class="bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md docked full-width top-0 sticky border-b border-outline-variant/30 shadow-sm z-50"
+    >
+      <nav
+        class="flex justify-between items-center px-margin-desktop w-full max-w-max-width mx-auto py-4"
+      >
+        <div class="flex items-center gap-xl">
+          <a
+            class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed"
+            href="#"
+            >FlatMate</a
+          >
+          <div class="hidden md:flex items-center gap-md">
+            <a
+              class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors"
+              href="#"
+              >Home</a
+            >
+            <a
+              class="font-label-md text-label-md text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1"
+              href="#"
+              >Properties</a
+            >
+            <a
+              class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors"
+              href="#"
+              >About</a
+            >
+            <a
+              class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors"
+              href="#"
+              >Contact</a
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-sm">
+          <button
+            class="hidden lg:flex items-center font-label-md text-label-md px-md py-xs text-primary transition-all hover:bg-surface-container-low rounded-full"
+          >
+            Sign In
+          </button>
+          <button
+            class="bg-primary-container text-on-primary-container font-label-md text-label-md px-md py-xs rounded-full shadow-sm hover:translate-y-[-2px] active:scale-95 transition-all"
+          >
+            List Property
+          </button>
+        </div>
+      </nav>
+    </header>
+    <main class="w-full">
+      <!-- Hero Gallery Section -->
+      <section class="max-w-max-width mx-auto px-margin-desktop pt-md pb-xl">
+        <div
+          class="grid grid-cols-1 md:grid-cols-4 gap-xs h-[500px] rounded-xl overflow-hidden group"
+        >
+          <div class="md:col-span-2 relative overflow-hidden h-full">
+            <img
+              alt="Property Main"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              data-alt="A spacious modern luxury living room with floor-to-ceiling windows overlooking a cityscape. The interior features minimalist furniture in neutral tones, accented by a teal velvet sofa and high-end marble flooring. Warm afternoon sunlight floods the room, creating a cozy yet sophisticated atmosphere in a clean, high-key light mode style."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRIPfLim1sH8c49CRKpBaDWnGt55hEBHBRoQ9pPO3hVyLk5fsNWNnItDGgDDSj83f5mFFuGjWDjUTViQkmCYhaKF7_n8tRHLlFfty7nf-nb5V2PnUsefTqQXmMk6dqS8p2XLA9U8wGcC9xzxrcWapTXtbZTOLIc_C4xJ2VMRj-lZReFceFmxnETP-CNPWtvSJi13RHLHNiyIEHZ0e6hm6wFBQMAw7N8OSiJSVslFoNRyJQk1lvgdy3ER0JLmS0yVdayDE5XX7UoHGn"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end p-md"
+            >
+              <span
+                class="bg-white/20 backdrop-blur-md border border-white/30 text-white px-md py-1 rounded-full font-label-sm text-label-sm"
+                >Premium Listing</span
+              >
+            </div>
+          </div>
+          <div class="hidden md:grid grid-rows-2 gap-xs h-full">
+            <img
+              alt="Kitchen"
+              class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+              data-alt="A bright and airy contemporary kitchen with white shaker cabinets, premium quartz countertops, and industrial-style brass pendant lights. The space is immaculately clean with high-end appliances, reflecting a minimalist and professional design aesthetic with soft daylighting and a warm, inviting glow."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBENQ03FVbxFwY8zNxD19n3rjUFqOb9c9mT98rKE_E90dPdonZeGyaarDU8T7W0zJTRTyhzgPqHhb9L84bOb8qbJx4byCrV9uK3CAmHrcYVJsB_YhxKAoUyI8luQde8ULliG0hgI1wLdVJW86sdTgSIBb_n7GWlo6-nyGmSEbmy5FK8JPqEUv-Ca9YzsEyRdKxuHiJMFvP16OoGweo_y63PUpl15IH45w7-ofrWmTwMIDiax-oZ9D8dsLGqjRVK0H8aRc0FYGufnGW"
+            />
+            <img
+              alt="Bedroom"
+              class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+              data-alt="A serene master bedroom design featuring a plush king-sized bed with layered linen bedding in soft grays and white. Large windows show greenery outside, while the interior uses soft ambient lighting and natural wood accents to create a peaceful, tranquil environment within a modern urban apartment."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDVlmGGkNi7vdPYcYPzBhhONDV6M2UZ_EGmQgWKrZwL1_zcgm9_pl_fqgmRsU8dSSkCP_jxZDTWkpsYmbqiaeT06CYAjRw5ojf997fbFWQNu7VuodHvgmlmKIENTWNSYouy2W9K7uq9zKGaaPhBleFZoFysbY1MJwffm3kK_9pcBNVg94J-A1LVi72ug27hQkkARBxZfdj7KTN8nLdZytUUwLCqeoZMyQ3tVIUXDDSi-D0sW0DdP0AoGkc1Ie6WMKN8qJ3Bz6W-KeG"
+            />
+          </div>
+          <div class="hidden md:grid grid-rows-2 gap-xs h-full">
+            <img
+              alt="Bathroom"
+              class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+              data-alt="A luxurious modern bathroom with a freestanding soaking tub and a walk-in shower with glass walls. The walls are clad in large-format light gray stone tiles, and a minimalist vanity with black fixtures adds a touch of modern contrast under bright, clean white lighting."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuABltOMLnGKIzYeX4UaqLGxkPVIRYrDkVpuCeihQKv11mX2yX4ezVfdzGJiKh7KFqQsPrcJYRc3p2Zuwiwhe4xx6sajWAFoE9TCBlq9bjtIe_UfsW-21BsDegC6bF9lgopemOp_2M9dZacm-ZKcLAspNZboOWjUhLDvjV8AQiQkP9bN1Yuz2Ly2UKkqAQym07I1muZ-8GDN6iOQHvoyGZWeF_dVeg-5RZ_kk42ge97thkNLG5vZ6SSlreZ3y2m4izmCWAVDlo4y0VP8"
+            />
+            <div class="relative h-full overflow-hidden">
+              <img
+                alt="Dining Area"
+                class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                data-alt="A wide-angle shot of a stylish modern dining area and open-concept living space. The design features light oak wood flooring, minimalist black dining chairs, and a sleek dining table. The lighting is bright and even, highlighting the airy, open flow of the luxury urban residence."
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaxshlPBjLCJIwvC-Oyb5ZLteqpjchD8pLtx3SRudY-Wd-Gp2GOFT8exEvrMFM15VYYl-3wwaYgYtJ5gHMG81iepV4D2y9OoLwU9HQK9JsHvVktj9mOkNKCuD6TaY1Al0tk-iupB0pyJNNRF248q1J_9e9WTuu_Jr5MfOY3aCTbbbYpRoklm3fmef5XH9WVXQCuBvvzRZoNNbQbNn37n1gA0BxJ5UVRts_NglmJ_2XM1G4MZajBpPjxa2H1Ps5QCM_tEF1-FkaloMc"
+              />
+              <button
+                class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white group-hover:bg-black/60 transition-colors"
+              >
+                <span class="material-symbols-outlined text-headline-lg mb-2"
+                  >grid_view</span
+                >
+                <span class="font-label-md text-label-md"
+                  >View all 24 photos</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Main Content & Sidebar -->
+      <section
+        class="max-w-max-width mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-xl pb-xl"
+      >
+        <!-- Left Column: Main Details -->
+        <div class="lg:col-span-8 space-y-xl">
+          <div>
+            <div class="flex flex-wrap items-center gap-xs mb-sm">
+              <span
+                class="bg-primary/10 text-primary px-sm py-1 rounded-full font-label-sm text-label-sm"
+                >Entire Apartment</span
+              >
+              <span
+                class="bg-surface-container-high text-on-surface-variant px-sm py-1 rounded-full font-label-sm text-label-sm"
+                >Verified Property</span
+              >
+            </div>
+            <h1
+              class="font-display-md text-display-md text-on-background mb-base"
+            >
+              Skyline Penthouse in Downtown
+            </h1>
+            <div class="flex items-center text-on-surface-variant gap-xs">
+              <span class="material-symbols-outlined text-base"
+                >location_on</span
+              >
+              <span class="font-body-md text-body-md"
+                >742 Evergreen Terrace, Downtown District, New York</span
+              >
+            </div>
+          </div>
+          <div
+            class="grid grid-cols-3 md:grid-cols-6 gap-md py-md border-y border-outline-variant/20"
+          >
+            <div class="flex flex-col items-center text-center">
+              <span class="material-symbols-outlined text-primary mb-1"
+                >bed</span
+              >
+              <span class="font-label-md text-label-md">3 Beds</span>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <span class="material-symbols-outlined text-primary mb-1"
+                >bathtub</span
+              >
+              <span class="font-label-md text-label-md">2 Baths</span>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <span class="material-symbols-outlined text-primary mb-1"
+                >square_foot</span
+              >
+              <span class="font-label-md text-label-md">1,250 sqft</span>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <span class="material-symbols-outlined text-primary mb-1"
+                >chair</span
+              >
+              <span class="font-label-md text-label-md">Furnished</span>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <span class="material-symbols-outlined text-primary mb-1"
+                >balcony</span
+              >
+              <span class="font-label-md text-label-md">Balcony</span>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <span class="material-symbols-outlined text-primary mb-1"
+                >floor</span
+              >
+              <span class="font-label-md text-label-md">22nd Floor</span>
+            </div>
+          </div>
+          <div class="space-y-sm">
+            <h2 class="font-headline-md text-headline-md">Description</h2>
+            <p class="text-on-surface-variant font-body-md leading-relaxed">
+              Experience the pinnacle of urban living in this stunning
+              22nd-floor penthouse. Boasting panoramic views of the city
+              skyline, this sun-drenched sanctuary features high ceilings,
+              floor-to-ceiling windows, and premium finishes throughout. The
+              open-concept living area flows seamlessly into a gourmet kitchen,
+              perfect for entertaining.
+            </p>
+            <p class="text-on-surface-variant font-body-md leading-relaxed">
+              Both bedrooms are generously sized with ample closet space, while
+              the master suite includes a private spa-like bathroom. Situated in
+              the heart of the Downtown District, you're steps away from the
+              finest dining, shopping, and transportation the city has to offer.
+            </p>
+          </div>
+          <div class="space-y-md">
+            <h2 class="font-headline-md text-headline-md">Amenities</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-md">
+              <div
+                class="flex items-center gap-sm p-sm rounded-lg hover:bg-surface-container transition-colors"
+              >
+                <span class="material-symbols-outlined text-primary">wifi</span>
+                <span class="font-body-md">High-speed WiFi</span>
+              </div>
+              <div
+                class="flex items-center gap-sm p-sm rounded-lg hover:bg-surface-container transition-colors"
+              >
+                <span class="material-symbols-outlined text-primary"
+                  >ac_unit</span
+                >
+                <span class="font-body-md">Central AC</span>
+              </div>
+              <div
+                class="flex items-center gap-sm p-sm rounded-lg hover:bg-surface-container transition-colors"
+              >
+                <span class="material-symbols-outlined text-primary"
+                  >local_parking</span
+                >
+                <span class="font-body-md">Reserved Parking</span>
+              </div>
+              <div
+                class="flex items-center gap-sm p-sm rounded-lg hover:bg-surface-container transition-colors"
+              >
+                <span class="material-symbols-outlined text-primary"
+                  >fitness_center</span
+                >
+                <span class="font-body-md">24/7 Gym</span>
+              </div>
+              <div
+                class="flex items-center gap-sm p-sm rounded-lg hover:bg-surface-container transition-colors"
+              >
+                <span class="material-symbols-outlined text-primary">pool</span>
+                <span class="font-body-md">Rooftop Pool</span>
+              </div>
+              <div
+                class="flex items-center gap-sm p-sm rounded-lg hover:bg-surface-container transition-colors"
+              >
+                <span class="material-symbols-outlined text-primary"
+                  >security</span
+                >
+                <span class="font-body-md">24h Security</span>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-md">
+            <div class="flex justify-between items-center">
+              <h2 class="font-headline-md text-headline-md">Location</h2>
+              <span
+                class="font-label-md text-label-md text-primary cursor-pointer hover:underline"
+                >Get Directions</span
+              >
+            </div>
+            <div
+              class="w-full h-80 rounded-xl overflow-hidden shadow-sm relative group"
+            >
+              <img
+                alt="Map Location"
+                class="w-full h-full object-cover"
+                data-alt="A stylized minimalist digital map of a modern metropolitan city grid. The map uses a clean, light-mode palette of soft grays and whites, with primary teal accents marking key landmarks and the property's location. The visual style is professional and clear, resembling a high-end real estate application interface."
+                data-location="New York"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGzJQbKO7x1bzXe4jXIO6A0VRxS-MXyPuWKP0dzjD2W0EKioHENHrTj4wVvZGFZiHly6JYkM_2sT_byRgFHPfwNJjB2UWuVfn5qFdD2PVtmHopm33yt9f3Z43HVxhyIavvEreDDDXT9M_6vVehR2eNYLcVhK3uipgW6tmFBfzEJsU3i3I6kzAVtlEL_CwBzIf4sgBotLhN0K4JN-hVPpYcPDW8C0OIsGhNLGg-JRQdEJMvATD-p2EL0_GYjnGI96fJX4trwDIW_1Ga"
+              />
+              <div
+                class="absolute inset-0 flex items-center justify-center pointer-events-none"
+              >
+                <div
+                  class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center animate-pulse"
+                >
+                  <span
+                    class="material-symbols-outlined text-primary text-3xl"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >location_on</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right Column: Sidebar -->
+        <aside class="lg:col-span-4">
+          <div class="sticky top-[100px] space-y-md">
+            <div
+              class="glass-card rounded-xl p-md shadow-lg border border-outline-variant/30"
+            >
+              <div class="flex items-end gap-xs mb-md">
+                <span class="font-display-md text-display-md text-primary"
+                  >$4,500</span
+                >
+                <span class="font-body-md text-on-surface-variant mb-1"
+                  >/ month</span
+                >
+              </div>
+              <div class="space-y-sm mb-md">
+                <div
+                  class="p-sm bg-surface-container-low rounded-lg border border-outline-variant/10"
+                >
+                  <span
+                    class="font-label-sm text-label-sm text-on-surface-variant uppercase block mb-1"
+                    >Availability</span
+                  >
+                  <span class="font-body-md font-semibold text-primary"
+                    >Available from June 1st</span
+                  >
+                </div>
+                <div class="grid grid-cols-2 gap-sm">
+                  <div
+                    class="p-sm bg-surface-container-low rounded-lg border border-outline-variant/10"
+                  >
+                    <span
+                      class="font-label-sm text-label-sm text-on-surface-variant block mb-1"
+                      >Security Deposit</span
+                    >
+                    <span class="font-body-md font-semibold">$9,000</span>
+                  </div>
+                  <div
+                    class="p-sm bg-surface-container-low rounded-lg border border-outline-variant/10"
+                  >
+                    <span
+                      class="font-label-sm text-label-sm text-on-surface-variant block mb-1"
+                      >Min. Lease</span
+                    >
+                    <span class="font-body-md font-semibold">12 Months</span>
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-sm">
+                <button
+                  class="w-full bg-primary text-white py-md rounded-xl font-label-md text-label-md shadow-md hover:bg-primary-container transition-all hover:translate-y-[-2px]"
+                >
+                  Contact Broker
+                </button>
+                <button
+                  class="w-full bg-white border border-primary text-primary py-md rounded-xl font-label-md text-label-md hover:bg-primary/5 transition-all"
+                >
+                  Schedule Visit
+                </button>
+              </div>
+              <div class="mt-md pt-md border-t border-outline-variant/20">
+                <div class="flex items-center gap-sm">
+                  <img
+                    alt="Broker Avatar"
+                    class="w-12 h-12 rounded-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuFGYREPrIlC_Tke9RbqPT9YcmM6P8f-Q6TL60MRUGx1M7WhAI4Q8O4wqy-fiO19V1STmsVG4iTRGAn8Ta09eA0wGK10wakZkpgz3EERsi2NcfADIrRVqgKwc7TwR04SfnYiCN8C4h_Ek6BvqEQGwKMuFstKIJJeIHlWddY0eBRlf1ULc_YPw9K0prA76QLr0KXh1ZaUPy4H8Kp-aEgTraKD4tmxHX1XutSjTTmITfFfopCtENVY9v3bfwRaIS6NaKTILugg8Gf7MY"
+                  />
+                  <div>
+                    <span class="font-label-md text-label-md block"
+                      >David Sterling</span
+                    >
+                    <span
+                      class="font-body-sm text-body-sm text-on-surface-variant"
+                      >Top Rated Broker</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-surface-container-high/50 p-md rounded-xl space-y-sm"
+            >
+              <h3 class="font-headline-md text-[18px]">Thinking of listing?</h3>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">
+                Rent your property 2x faster with FlatMate's premium listing
+                service.
+              </p>
+              <a
+                class="text-primary font-label-sm text-label-sm font-bold flex items-center gap-xs"
+                href="#"
+                >Learn More
+                <span class="material-symbols-outlined text-sm"
+                  >arrow_forward</span
+                ></a
+              >
+            </div>
+          </div>
+        </aside>
+      </section>
+      <!-- Similar Properties Section -->
+      <section class="bg-surface-container-low py-xl">
+        <div class="max-w-max-width mx-auto px-margin-desktop">
+          <div class="flex justify-between items-end mb-xl">
+            <div>
+              <h2 class="font-display-md text-display-md mb-xs">
+                Similar Properties
+              </h2>
+              <p class="font-body-md text-on-surface-variant">
+                Curated matches based on your preferences
+              </p>
+            </div>
+            <button
+              class="hidden md:flex items-center gap-xs font-label-md text-label-md text-primary hover:underline"
+            >
+              View all properties
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+            <!-- Property Card 1 -->
+            <div
+              class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:translate-y-[-4px]"
+            >
+              <div class="h-64 relative overflow-hidden">
+                <img
+                  alt="Property 1"
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  data-alt="A chic modern studio apartment with large windows and a minimalist design. The interior features light-colored walls, a compact yet high-end kitchenette, and stylish Scandinavian-style furniture. The lighting is soft and bright, emphasizing the clean lines and airy feel of a premium urban living space."
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDS9SgRURmWJnrRIE4rYIJbZ-dld3w0XFE2aSDjpCRd7w47VXEKqyE8l1_LVZBRC4PDFZgrp6YO57r8pQxpzkexvwVqxXFtZk0xVbfAfUj4Udc-jY1WaN-TUyhHsvOd_8QuKyO2ttPtxH4fnA9Oi8wPWxPM_a0_ntRABj1ZhZ0ZUySo2ULxTJkIhlzhkq_Sn2YZ9DJ3dCaLlAfJT5bFCYr47hm4KG55Ssv1XzvMVy_e1FbzyYFiZbvKtarL0s1aD4YXg-QJr8tP1-xO"
+                />
+                <div
+                  class="absolute top-sm right-sm bg-white/90 backdrop-blur-sm px-sm py-1 rounded-full font-label-sm text-label-sm text-primary shadow-sm"
+                >
+                  $3,200/mo
+                </div>
+              </div>
+              <div class="p-md space-y-sm">
+                <div class="flex justify-between items-start">
+                  <h3 class="font-headline-md text-headline-md truncate">
+                    Modern Loft in Soho
+                  </h3>
+                  <button
+                    class="material-symbols-outlined text-on-surface-variant hover:text-error transition-colors"
+                  >
+                    favorite
+                  </button>
+                </div>
+                <div class="flex items-center text-on-surface-variant gap-xs">
+                  <span class="material-symbols-outlined text-sm"
+                    >location_on</span
+                  >
+                  <span class="font-body-sm text-body-sm">Soho, New York</span>
+                </div>
+                <div
+                  class="flex gap-md pt-sm border-t border-outline-variant/10"
+                >
+                  <div class="flex items-center gap-xs text-on-surface-variant">
+                    <span class="material-symbols-outlined text-sm">bed</span>
+                    <span class="font-label-sm text-label-sm">1 Bed</span>
+                  </div>
+                  <div class="flex items-center gap-xs text-on-surface-variant">
+                    <span class="material-symbols-outlined text-sm"
+                      >bathtub</span
+                    >
+                    <span class="font-label-sm text-label-sm">1 Bath</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Property Card 2 -->
+            <div
+              class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:translate-y-[-4px]"
+            >
+              <div class="h-64 relative overflow-hidden">
+                <img
+                  alt="Property 2"
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  data-alt="A luxury terrace apartment overlooking a river at sunset. The balcony features modern outdoor seating and glass railings. The interior glimpse shows warm, high-end wooden flooring and designer lighting. The overall mood is sophisticated and exclusive, set against a golden-hour sky for a warm light-mode aesthetic."
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYGgapnQ4vFhOPDW7tbeOTYJh-78F7n6rBoiqC8HSYRStGnaMFdd-89rjX9y-qKs2f3xPnK3b3WFjDTA7qgq8XBwy39aJk4BVWg_crIhAByWlkVAdJi2a7uxMo2jjRPtKS2WPij5X10p4z5HcCY7WdJ18SsB0asvVPKMU9jJQICi6J-Pm2UOoCY1BnOrQqeg2IF5DVSyHFDNSiI7t8DG1zDXRQr2JIScQbynnERPt2v8VQVC4_lYUR4whhmkHgNCz-5CKMCyR4KRjN"
+                />
+                <div
+                  class="absolute top-sm right-sm bg-white/90 backdrop-blur-sm px-sm py-1 rounded-full font-label-sm text-label-sm text-primary shadow-sm"
+                >
+                  $5,800/mo
+                </div>
+              </div>
+              <div class="p-md space-y-sm">
+                <div class="flex justify-between items-start">
+                  <h3 class="font-headline-md text-headline-md truncate">
+                    Riverview Terrace
+                  </h3>
+                  <button
+                    class="material-symbols-outlined text-on-surface-variant hover:text-error transition-colors"
+                  >
+                    favorite
+                  </button>
+                </div>
+                <div class="flex items-center text-on-surface-variant gap-xs">
+                  <span class="material-symbols-outlined text-sm"
+                    >location_on</span
+                  >
+                  <span class="font-body-sm text-body-sm"
+                    >Brooklyn Heights, NY</span
+                  >
+                </div>
+                <div
+                  class="flex gap-md pt-sm border-t border-outline-variant/10"
+                >
+                  <div class="flex items-center gap-xs text-on-surface-variant">
+                    <span class="material-symbols-outlined text-sm">bed</span>
+                    <span class="font-label-sm text-label-sm">2 Beds</span>
+                  </div>
+                  <div class="flex items-center gap-xs text-on-surface-variant">
+                    <span class="material-symbols-outlined text-sm"
+                      >bathtub</span
+                    >
+                    <span class="font-label-sm text-label-sm">2 Baths</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Property Card 3 -->
+            <div
+              class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:translate-y-[-4px]"
+            >
+              <div class="h-64 relative overflow-hidden">
+                <img
+                  alt="Property 3"
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  data-alt="A bright and minimalist modern living space with a large window showing a quiet residential street. The design includes a neutral-colored area rug, sleek gray sofa, and minimalist wall art. The lighting is very clean and high-key, creating a professional and welcoming image for a premium rental listing."
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz2ZuWGm1RkpVROb-Jw2E__-6WtHFt7v58XJwwxoQf0YBS4w__2AAQstdAaVl0Kg0VKC-h4m9j6_qbZUbDwjAR2fuSESB_tftlw8m-0ztTPM-pF0a5uOWy-dlKTCRuaa1j6jg31_ysi0WcfkRDD_AUiJKSp3oJZ6FULrDP-4-V7W2-ZaMHoWjQDLdJ8ZLgB8WGZ01-0nO20SBJjXDm6G4KuriN4VmTBIzBqgdjBq0T8IADkT0BUsYfwmPw4gZwaaEHuNuuLzdWuVf0"
+                />
+                <div
+                  class="absolute top-sm right-sm bg-white/90 backdrop-blur-sm px-sm py-1 rounded-full font-label-sm text-label-sm text-primary shadow-sm"
+                >
+                  $4,100/mo
+                </div>
+              </div>
+              <div class="p-md space-y-sm">
+                <div class="flex justify-between items-start">
+                  <h3 class="font-headline-md text-headline-md truncate">
+                    The Glass House
+                  </h3>
+                  <button
+                    class="material-symbols-outlined text-on-surface-variant hover:text-error transition-colors"
+                  >
+                    favorite
+                  </button>
+                </div>
+                <div class="flex items-center text-on-surface-variant gap-xs">
+                  <span class="material-symbols-outlined text-sm"
+                    >location_on</span
+                  >
+                  <span class="font-body-sm text-body-sm"
+                    >West Village, NY</span
+                  >
+                </div>
+                <div
+                  class="flex gap-md pt-sm border-t border-outline-variant/10"
+                >
+                  <div class="flex items-center gap-xs text-on-surface-variant">
+                    <span class="material-symbols-outlined text-sm">bed</span>
+                    <span class="font-label-sm text-label-sm">2 Beds</span>
+                  </div>
+                  <div class="flex items-center gap-xs text-on-surface-variant">
+                    <span class="material-symbols-outlined text-sm"
+                      >bathtub</span
+                    >
+                    <span class="font-label-sm text-label-sm">1.5 Baths</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer
+      class="bg-surface-container-highest dark:bg-inverse-surface full-width border-t border-outline-variant/20 shadow-none"
+    >
+      <div
+        class="w-full py-xl px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md max-w-max-width mx-auto"
+      >
+        <div class="flex flex-col items-center md:items-start gap-xs">
+          <span
+            class="font-headline-md text-headline-md font-bold text-on-surface dark:text-surface-bright"
+            >FlatMate</span
+          >
+          <p
+            class="font-body-sm text-body-sm text-on-surface-variant/80 max-w-xs text-center md:text-left"
+          >
+            Effortless discovery for premium urban living spaces.
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-md">
+          <a
+            class="font-label-sm text-label-sm text-on-surface-variant/80 hover:text-primary transition-opacity"
+            href="#"
+            >Privacy Policy</a
+          >
+          <a
+            class="font-label-sm text-label-sm text-on-surface-variant/80 hover:text-primary transition-opacity"
+            href="#"
+            >Terms of Service</a
+          >
+          <a
+            class="font-label-sm text-label-sm text-on-surface-variant/80 hover:text-primary transition-opacity"
+            href="#"
+            >Cookie Policy</a
+          >
+          <a
+            class="font-label-sm text-label-sm text-on-surface-variant/80 hover:text-primary transition-opacity"
+            href="#"
+            >Support</a
+          >
+        </div>
+        <div class="flex flex-col items-center md:items-end gap-xs">
+          <p class="font-body-sm text-body-sm text-on-surface-variant/80">
+            © 2024 FlatMate Inc. All rights reserved.
+          </p>
+          <div class="flex gap-sm">
+            <span
+              class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary"
+              >language</span
+            >
+            <span
+              class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary"
+              >share</span
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      // Simple micro-interaction for scroll effects
+      window.addEventListener("scroll", () => {
+        const header = document.querySelector("header");
+        if (window.scrollY > 20) {
+          header.classList.add("shadow-md");
+        } else {
+          header.classList.remove("shadow-md");
+        }
+      });
+
+      // Gallery hover logic is handled via CSS, but we could add a light box here
+      document.querySelectorAll("img").forEach((img) => {
+        img.addEventListener("click", () => {
+          console.log("Open Gallery Lightbox for:", img.src);
+        });
+      });
+    </script>
+  </body>
+</html>
