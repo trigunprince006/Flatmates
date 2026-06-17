@@ -6,7 +6,7 @@ const UAParser = require('ua-parser-js')
 const sessionModel = require('../../models/session.model')
 
 async function login(req, res) {
-  console.log("Login request",req.body)
+  // console.log("Login request",req.body)
   const { phoneNumber, password } = req.body;
   if (!phoneNumber || !password) {
     return res.status(400).json({
@@ -14,7 +14,7 @@ async function login(req, res) {
     });
   }
   const isBrokerExist = await brokerModel.findOne({ phoneNumber });
-  console.log("isBrokerExist",isBrokerExist)
+  // console.log("isBrokerExist",isBrokerExist)
   if (!isBrokerExist) {
     return res.status(400).json({
       message: "Broker does't exist,Please register yourself",

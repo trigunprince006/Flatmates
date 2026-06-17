@@ -7,14 +7,15 @@ const brokerController = require('../controllers/broker/broker.register.controll
 const loginController = require('../controllers/broker/login.controller')
 
 // const logoutController = require('../controllers/broker/')
-const refreshTokenController = require('../controllers/broker/refreshToken.controller')
+const refreshTokenController = require('../controllers/broker/refreshToken.controller');
+const changePasswordController = require('../controllers/broker/changepassword.controller');
 
 router.post('/register',brokerController.registerBroker);
 router.post('/send-otp',brokerController.generateOtp);
 router.post('/verify-otp',brokerController.verifyOtp);
 
 router.post('/login',loginController);
-
+router.patch('/change-password',authMiddleware,changePasswordController);
 // router.post('/logout',authMiddleware,logoutController)
 
 router.post('/refresh-token',refreshTokenController)
