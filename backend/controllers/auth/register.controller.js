@@ -16,19 +16,18 @@ async function registerUser(req, res) {
   }
   const isUserExist = await userModel.findOne({ phoneNumber });
   const isTempUserExist = await tempUserModel.findOne({ phoneNumber });
-
+  console.log(isTempUserExist)
   if(isTempUserExist && isUserExist){
     await tempUserModel.findByIdAndDelete(isTempUserExist._id)
     return res.status(400).json({
       message: "User already registered",
     });
-
+  
+  }
   if (!isTempUserExist) {
     return res.status(400).json({
       message: "Please verify your phone number first",
     });
-  }
-  
   }
   let user;
   if (isTempUserExist.isVerified == true) {
