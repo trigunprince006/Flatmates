@@ -13,6 +13,7 @@ connectDB();
 const authRoute = require('./routes/auth.routes')
 const brokerRoute = require('./routes/broker.route')
 const propertyRoute = require('./routes/property.routes')
+const chatRoute = require('./routes/chat.routes')
 //In-Built Middleware
 app.use(cookieParser())
 app.use(express.json());
@@ -50,8 +51,9 @@ app.get("/", (req, res) => {
 app.use('/auth/',authRoute)
 app.use('/broker',brokerRoute)
 app.use('/properties',propertyRoute)
+app.use('/chats',chatRoute)
 //Starting the server
 const port = process.env.PORT;
 app.listen(port, () => {
-  console.log(`Server is running , http://${process.env.IP_ADDRESS_FOR_MOBILE}:${port}`);
+  console.log(`Server is running , http://localhost:${port}`);
 });
