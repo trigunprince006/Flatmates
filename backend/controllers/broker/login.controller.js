@@ -31,11 +31,12 @@ async function login(req, res) {
   const accessToken = await jwt.sign(
     {
       brokerId: isBrokerExist._id,
+      role:"broker",
       type: "access",
     },
     process.env.ACCESS_JWT_SECRET_KEY,
     {
-      expiresIn: "15m",
+      expiresIn: "15d",
     },
   );
   res.cookie("accessToken", accessToken, {
@@ -48,6 +49,7 @@ async function login(req, res) {
   const refreshToken = await jwt.sign(
     {
       brokerId: isBrokerExist._id,
+      role:"user",
       type: "refresh",
     },
     process.env.REFRESH_JWT_SECRET_KEY,

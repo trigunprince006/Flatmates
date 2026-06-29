@@ -2,14 +2,15 @@ const mongoose = require('mongoose')
 
 const conversationSchema = new mongoose.Schema({
 
-  userId:{
+  senderId:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'Users',
     required:true
   },
-  userId:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'Brokers',
+  receiverId:{
+    // type:mongoose.Schema.Types.ObjectId,
+    type:String,
+    // ref:'Brokers',
     required:true
   },
   messages:{

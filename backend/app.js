@@ -6,14 +6,17 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const UAParser = require("ua-parser-js");
 const helmet = require('helmet')
+
 //Importing in-built files
 const connectDB = require("./db/db");
 connectDB();
-
 const authRoute = require('./routes/auth.routes')
 const brokerRoute = require('./routes/broker.route')
 const propertyRoute = require('./routes/property.routes')
-const chatRoute = require('./routes/chat.routes')
+const chatRoute = require('./routes/chat.routes');
+const startSocketServer = require("./socket");
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'msgFrontend')));
 //In-Built Middleware
 app.use(cookieParser())
 app.use(express.json());
@@ -51,9 +54,13 @@ app.get("/", (req, res) => {
 app.use('/auth/',authRoute)
 app.use('/broker',brokerRoute)
 app.use('/properties',propertyRoute)
-app.use('/chats',chatRoute)
+// app.use('/chats',chatRoute)
 //Starting the server
 const port = process.env.PORT;
-app.listen(port, () => {
-  console.log(`Server is running , http://localhost:${port}`);
-});
+ const expressServer =  app.listen(port,()=>{
+    console.log(`Server is running on http://localhost:${port}`)
+  })
+
+//creating a socket.io server 
+startSocketServer(expressServer);
+

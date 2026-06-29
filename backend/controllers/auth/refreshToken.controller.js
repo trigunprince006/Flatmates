@@ -19,6 +19,7 @@ async function refreshToken(req, res) {
       message: "Invalid refresh Token",
     });
   }
+  //ye kam nhi krega kyuki ham refreshtoken ko kahi store kr hi nhi rhe ahi (ye abhi adha dhura hai )
   if (isUser.refreshToken !== refreshToken) {
   return res.status(401).json({
     message: "Invalid refresh token",
