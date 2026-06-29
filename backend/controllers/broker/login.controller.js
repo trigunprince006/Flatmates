@@ -36,7 +36,7 @@ async function login(req, res) {
     },
     process.env.ACCESS_JWT_SECRET_KEY,
     {
-      expiresIn: "15m",
+      expiresIn: "15d",
     },
   );
   res.cookie("accessToken", accessToken, {
