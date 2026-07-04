@@ -7,7 +7,8 @@ const jwt = require("jsonwebtoken");
 
 
 async function logout(req, res) {
-  return res.status(200).json({
+  return res.json({
+    status:200,
     message:"Logout function is working perfectly"
   })
 }
