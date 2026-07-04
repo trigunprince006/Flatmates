@@ -325,7 +325,7 @@
 
         <span id="username">Guest</span>
 
-        <img src="https://i.pravatar.cc/100" alt="" />
+        <img src="./assets/user.png" alt="" />
       </div>
     </header>
      
@@ -343,7 +343,7 @@
 
       <a href="#">💬 Messages</a>
 
-      <a href="#">👤 Profile</a>
+      <a href="profile.html">👤 Profile</a>
 
       <a href="#">⚙ Settings</a>
 
@@ -453,12 +453,12 @@
     <script>
       // Login Check
 
-      const token = localStorage.getItem("token");
-      console.log(token)
-      if (!token) {
-        alert("Please Login First");
-        window.location.href = "login.html";
-      }
+      // const token = localStorage.getItem("token");
+      // console.log(token)
+      // if (!token) {
+      //   alert("Please Login First");
+      //   window.location.href = "login.html";
+      // }
 
       // Dummy Username
 
@@ -486,6 +486,19 @@
       function myListings() {
         alert("Go to My Listings Page");
       }
+      async function loadProfile() {
+
+        const response = await fetch(
+        "http://localhost:4000/api/profile",
+        {
+            credentials: "include"
+        });
+
+    const data = await response.json();
+        document.getElementById("username").innerHTML = data.user.fullname;
+    // console.log(data);
+}
+loadProfile()
   async function fetchProperty(){
 
     const loading=document.getElementById("loading");

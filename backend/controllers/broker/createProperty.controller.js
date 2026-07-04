@@ -35,7 +35,7 @@ async function listProperty(req,res){
       })
       return res.status(200).json({
         message:"Property listed successfully",
-        PropertyDetails:property
+        property
       })
     
   } catch (error) {

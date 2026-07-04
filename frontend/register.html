@@ -13,184 +13,271 @@
 
     <style>
       * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
-      }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 
-      body {
-        background: linear-gradient(135deg, #4f46e5, #06b6d4);
+body {
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+}
 
-        height: 100vh;
+.container {
+  width: 1100px;
+  max-width: 100%;
+  min-height: 650px;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+.left {
+  flex: 1;
+  background: linear-gradient(160deg, #2563eb, #06b6d4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 50px;
+  color: white;
+}
 
-        padding: 20px;
-      }
+.left img {
+  width: 100%;
+  max-width: 420px;
+}
 
-      .container {
-        width: 1100px;
-        height: 650px;
-        background: #fff;
-        border-radius: 20px;
-        overflow: hidden;
-        display: flex;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-      }
+.left h1 {
+  margin-top: 25px;
+  font-size: 34px;
+}
 
-      .left {
-        width: 50%;
-        background: linear-gradient(160deg, #2563eb, #06b6d4);
+.left p {
+  margin-top: 12px;
+  text-align: center;
+  opacity: .9;
+}
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        padding: 40px;
-        color: white;
-      }
+.right {
+  flex: 1;
+  padding: 45px;
+  overflow-y: auto;
 
-      .left img {
-        width: 85%;
-        max-width: 420px;
-      }
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 
-      .left h1 {
-        margin-top: 20px;
-        font-size: 35px;
-      }
+.form {
+  width: 100%;
+  max-width: 420px;
+}
 
-      .left p {
-        margin-top: 15px;
-        text-align: center;
-        opacity: 0.9;
-      }
+.form h2 {
+  font-size: 34px;
+  margin-bottom: 6px;
+}
 
-      .right {
-        width: 50%;
-        padding: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+.form p {
+  color: #666;
+  margin-bottom: 28px;
+}
 
-      .form {
-        width: 100%;
-      }
+.input-group {
+  margin-bottom: 18px;
+}
 
-      .form h2 {
-        font-size: 34px;
-        margin-bottom: 5px;
-      }
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
 
-      .form p {
-        color: #666;
-        margin-bottom: 30px;
-      }
+.input-group input {
+  width: 100%;
+  padding: 14px 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: .3s;
+}
 
-      .input-group {
-        margin-bottom: 18px;
-      }
+.input-group input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, .15);
+}
 
-      .input-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-      }
+button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: .3s;
+}
 
-      .input-group input {
-        width: 100%;
-        padding: 14px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        font-size: 15px;
-        transition: 0.3s;
-      }
+button:hover {
+  transform: translateY(-2px);
+}
 
-      .input-group input:focus {
-        outline: none;
-        border-color: #2563eb;
-      }
+button:disabled {
+  cursor: not-allowed;
+  opacity: .6;
+  transform: none;
+}
 
-      button {
-        width: 100%;
-        padding: 15px;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 10px;
-        transition: 0.3s;
-      }
+.primary {
+  background: #2563eb;
+  color: white;
+}
 
-      .primary {
-        background: #2563eb;
-        color: white;
-      }
+.primary:hover {
+  background: #1d4ed8;
+}
 
-      .primary:hover {
-        background: #1d4ed8;
-      }
+.secondary {
+  background: #10b981;
+  color: white;
+}
 
-      .secondary {
-        background: #10b981;
-        color: white;
-      }
+.secondary:hover {
+  background: #059669;
+}
 
-      .secondary:hover {
-        background: #059669;
-      }
+.register {
+  background: #7c3aed;
+  color: white;
+}
 
-      .register {
-        background: #7c3aed;
-        color: white;
-      }
+.register:hover {
+  background: #6d28d9;
+}
 
-      .register:hover {
-        background: #6d28d9;
-      }
+#otpSection {
+  display: none;
+  animation: fade .4s ease;
+}
 
-      #otpSection {
-        display: none;
-      }
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 
-      .message {
-        margin-top: 15px;
-        padding: 12px;
-        border-radius: 10px;
-        display: none;
-      }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-      .success {
-        background: #dcfce7;
-        color: #166534;
-      }
+.message {
+  width: 100%;
+  display: none;
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 500;
+  word-break: break-word;
+  animation: fade .3s ease;
+}
 
-      .error {
-        background: #fee2e2;
-        color: #991b1b;
-      }
+.success {
+  background: #dcfce7;
+  color: #166534;
+  border-left: 5px solid #16a34a;
+}
 
-      .login {
-        margin-top: 25px;
-        text-align: center;
-      }
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border-left: 5px solid #dc2626;
+}
 
-      .login a {
-        color: #2563eb;
-        font-weight: 600;
-        text-decoration: none;
-      }
+.loading {
+  pointer-events: none;
+  opacity: .7;
+}
 
-      .loading {
-        opacity: 0.6;
-        pointer-events: none;
-      }
+.login {
+  margin-top: 25px;
+  text-align: center;
+}
 
-      
+.login a {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login a:hover {
+  text-decoration: underline;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 20px;
+}
+
+@media (max-width: 900px) {
+
+  .container {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .left {
+    padding: 35px;
+  }
+
+  .left img {
+    max-width: 260px;
+  }
+
+  .right {
+    padding: 30px;
+  }
+
+}
+
+@media (max-width: 500px) {
+
+  body {
+    padding: 10px;
+  }
+
+  .left {
+    padding: 25px;
+  }
+
+  .right {
+    padding: 20px;
+  }
+
+  .form h2 {
+    font-size: 28px;
+  }
+
+  button {
+    font-size: 15px;
+  }
+
+}
     </style>
   </head>
   <body>
@@ -268,14 +355,19 @@
 
       const message = document.getElementById("message");
 
-      function showMessage(text, type) {
-        message.innerHTML = text;
+     function showMessage(text, type = "success") {
+    const message = document.getElementById("message");
 
-        message.className = "message " + type;
+    message.textContent = text;
+    message.className = `message ${type}`;
+    message.style.display = "block";
 
-        message.style.display = "block";
-      }
+    clearTimeout(message.timer);
 
+    message.timer = setTimeout(() => {
+        message.style.display = "none";
+    }, 5000);
+}
       function setLoading(btn, state) {
         if (state) {
           btn.classList.add("loading");
@@ -368,7 +460,7 @@
 
           const data = await response.json();
           console.log(data)
-          console.log(document.getElementById("registerBtn").disabled);
+          // console.log(document.getElementById("registerBtn").disabled);
           if (data.message) {
             otpVerified = true;
             if(otpVerified){
@@ -432,8 +524,10 @@
           const data = await response.json();
           console.log(data)
           showMessage(data.message || "Registration Successful", "success");
+      
+          // btn.innerHTML = "Registered";
+        window.location.href="login.html";
 
-          btn.innerHTML = "Registered";
         } catch (e) {
           showMessage("Registration Failed", "error");
 

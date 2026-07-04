@@ -6,35 +6,54 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 async function sendOtpForLogin(req, res) {
+
   const { phoneNumber } = req.body;
+  
   if (!phoneNumber ) {
-    return res.status(400).json({
+    return res.json({
+      status:400,
       message: "Please,Enter valid phone number",
     });
+
   }
+
   const isOtpExist = await otpModel.findOne({ phoneNumber });
   //This code for  check if user exist and try to generate another otp
+
   if (isOtpExist) {
+
     if (isOtpExist.howManyTimesOtpGenerated >= 5) {
+
       const waitUntil = isOtpExist.waitingForNextOtp;
 
       if (waitUntil && waitUntil < new Date()) {
+
         isOtpExist.howManyTimesOtpGenerated = 0;
         isOtpExist.waitingForNextOtp = null;
         await isOtpExist.save();
-      } else {
+
+      } 
+      else {
+
         if (!waitUntil) {
+
           isOtpExist.waitingForNextOtp = new Date(
             Date.now() + 5 * 60 * 1000,
           );
           await isOtpExist.save();
         }
-        return res.status(429).json({
+        
+        return res.json({
+          status:429,
           message: "OTP limit reached. Please try again after 5 minutes.",
         });
+
       }
+
     }
+
     const generatedOtp = randomize("0", 4);
+
     const hashedOtp = await bcrypt.hash(generatedOtp,10);
 
     isOtpExist.otp = hashedOtp;
@@ -44,13 +63,17 @@ async function sendOtpForLogin(req, res) {
 
     await sendOtp(generatedOtp, phoneNumber);
 
-    return res.status(200).json({
+    return res.json({
+      status:200,
       message: "Otp is successfully send to your phone number",
     });
+
   }
 
   const generatedOtp = randomize("0", 4);
+
   const hashedOtp = await bcrypt.hash(generatedOtp,10);
+
   await otpModel.create({
     phoneNumber,
     otp: hashedOtp,
@@ -61,8 +84,11 @@ async function sendOtpForLogin(req, res) {
 
   await sendOtp(generatedOtp, phoneNumber);
 
-  return res.status(200).json({
+  return res.json({
+    status:200,
     message: "Otp is successfully send to your phone number",
   });
+
 }
+
 module.exports = sendOtpForLogin;

@@ -14,13 +14,21 @@ const authRoute = require('./routes/auth.routes')
 const brokerRoute = require('./routes/broker.route')
 const propertyRoute = require('./routes/property.routes')
 const chatRoute = require('./routes/chat.routes');
+const getProfileRoute = require("./routes/profile.routes")
+
 const startSocketServer = require("./socket");
 const path = require('path');
+
+
+
 app.use(express.static(path.join(__dirname, 'msgFrontend')));
 //In-Built Middleware
 app.use(cookieParser())
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5500",
+    credentials: true
+}));
 app.use(helmet());
 //Manual Middleware
 app.get("/", (req, res) => {
@@ -39,21 +47,22 @@ app.get("/", (req, res) => {
   
     const ipAddress = req.ip;
     const UA = req.headers["user-agent"];
-    console.log(deviceCompany)
-    console.log(deviceModel)
-    console.log(deviceType)
-    console.log(OsName)
-    console.log(OsVersion)
-    console.log(browserName)
-    console.log(browserVersion)
-    console.log(result)
+    // console.log(deviceCompany)
+    // console.log(deviceModel)
+    // console.log(deviceType)
+    // console.log(OsName)
+    // console.log(OsVersion)
+    // console.log(browserName)
+    // console.log(browserVersion)
+    // console.log(result)
   res.send("Server is running")
 
 });
 
-app.use('/auth/',authRoute)
+app.use('/auth',authRoute)
 app.use('/broker',brokerRoute)
 app.use('/properties',propertyRoute)
+app.use('/api',getProfileRoute);
 // app.use('/chats',chatRoute)
 //Starting the server
 const port = process.env.PORT;
