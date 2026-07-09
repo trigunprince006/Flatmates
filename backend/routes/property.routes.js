@@ -7,7 +7,7 @@ const authMiddleware = require('../middleware/auth')
 const upload = require('../middleware/multer')
 const getAllPropertyController = require('../controllers/user/properties.controller')
 
-//Rouetes
+// Routes
 router.post('/list-property',authMiddleware,upload.array('images',20),propertyController);
 
 router.get('/property',getAllPropertyController)
