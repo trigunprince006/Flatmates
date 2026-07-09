@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 //Importing controllers
 const propertyController = require('../controllers/broker/createProperty.controller')
 const authMiddleware = require('../middleware/auth')

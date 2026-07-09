@@ -325,7 +325,7 @@
 
         <span id="username">Guest</span>
 
-        <img src="./assets/user.png" alt="" />
+        <img src="./assets/user.png" alt=""  id="image"/>
       </div>
     </header>
      
@@ -497,6 +497,7 @@
     const data = await response.json();
         document.getElementById("username").innerHTML = data.user.fullname;
     // console.log(data);
+    document.getElementById("image").src = data.user.userProfile.profilePhoto;
 }
 loadProfile()
   async function fetchProperty(){
@@ -592,7 +593,7 @@ loadProfile()
 
                         <div class="item">
                             <h4>Listed By</h4>
-                            <p>${property.listedBy}</p>
+                            <p>${property.brokerName}</p>
                         </div>
 
                     </div>

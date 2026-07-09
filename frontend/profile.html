@@ -193,13 +193,14 @@
           document.getElementById("occupation").innerText =
             user.occupation || "-";
           document.getElementById("relationship").innerText =
-            user.relationshipStatus || "-";
+            user.userProfile.relationshipStatus || "-";
           document.getElementById("email").innerText = user.email || "-";
           document.getElementById("contact").innerText =
             user.phoneNumber || "-";
 
-          if (user.profileImage) {
-            document.getElementById("profileImage").src = user.profileImage;
+          if (user.userProfile.profilePhoto) {
+            document.getElementById("profileImage").src = user.userProfile.profilePhoto;
+            // console.log(document.getElementById("profileImage"))
           }
         } catch (err) {
           console.log(err);

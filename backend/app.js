@@ -46,6 +46,8 @@ app.get("/", (req, res) => {
     const deviceCompany = result.device.vendor;
   
     const ipAddress = req.ip;
+    console.log("ipAddress --> ",ipAddress)
+    // console.log("Ip Headers",req.headers.authorization)
     const UA = req.headers["user-agent"];
     // console.log(deviceCompany)
     // console.log(deviceModel)
@@ -63,6 +65,7 @@ app.use('/auth',authRoute)
 app.use('/broker',brokerRoute)
 app.use('/properties',propertyRoute)
 app.use('/api',getProfileRoute);
+
 // app.use('/chats',chatRoute)
 //Starting the server
 const port = process.env.PORT;
