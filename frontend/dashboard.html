@@ -313,6 +313,57 @@
 .inactive{
     background:#dc3545;
 }
+.pagination{
+
+    margin:40px 0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+
+}
+
+.pagination button{
+
+    padding:10px 16px;
+    border:none;
+    background:#f1f1f1;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+.pagination button:hover{
+
+    background:#007bff;
+    color:white;
+
+}
+
+.pagination button.active{
+
+    background:#007bff;
+    color:white;
+    font-weight:bold;
+
+}
+
+.pagination button:disabled{
+
+    opacity:.5;
+    cursor:not-allowed;
+}
+.card{
+    cursor:pointer;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
+}
     </style>
   </head>
 
@@ -390,6 +441,8 @@
       <h2 class="section-title">Recent Properties</h2>
       <div id="loading">Loading Properties...</div>
       <div id="propertyContainer" class="property-grid"></div>
+      <div id="pagination" class="pagination"></div>
+
       <!-- <div class="property-list">
         <div class="property">
           <img
@@ -451,27 +504,17 @@
     </div>
 
     <script>
-      // Login Check
+     
 
-      // const token = localStorage.getItem("token");
-      // console.log(token)
-      // if (!token) {
-      //   alert("Please Login First");
-      //   window.location.href = "login.html";
-      // }
-
-      // Dummy Username
-
-      // document.getElementById("username").innerHTML =
-      //   localStorage.getItem("username") ;
-
-      function logout() {
-        localStorage.removeItem("token");
-
-        localStorage.removeItem("username");
-
-        alert("Logged Out Successfully");
-
+      async function logout() {
+        const response =  await fetch("http://localhost:4000/auth/logout",{
+          method:"POST",
+          credentials:"include",
+        });
+        const result = await response.json();
+        
+        console.log(result);
+        alert(result.message);
         window.location.href = "index.html";
       }
 
@@ -494,21 +537,35 @@
             credentials: "include"
         });
 
-    const data = await response.json();
+     const data = await response.json();
+     
+     if(data.success === false){
+      const response = await fetch(
+        "http://localhost:4000/auth/refresh-token",
+        {
+            method : "POST",
+            credentials: "include"
+        });
+     }
+
         document.getElementById("username").innerHTML = data.user.fullname;
     // console.log(data);
     document.getElementById("image").src = data.user.userProfile.profilePhoto;
 }
 loadProfile()
-  async function fetchProperty(){
+const API_URL = "http://localhost:4000/properties/property";
+ let currentPage = 1;
+ 
+ let limit = 10;
+
+ async function fetchProperty(page = 1){
 
     const loading=document.getElementById("loading");
     const container=document.getElementById("propertyContainer");
-    const API_URL = "http://localhost:4000/properties/property";
 
     try{
 
-        const response=await fetch(API_URL);
+        const response=await fetch(`${API_URL}?page=${page}&limit=${limit}`)
 
         if(!response.ok){
             throw new Error("Failed to fetch properties");
@@ -519,7 +576,6 @@ loadProfile()
         console.log(res);
 
         const properties=res.Property;
-        console.log(properties)
 
         loading.style.display="none";
 
@@ -591,7 +647,7 @@ loadProfile()
                             <p>${property.furnishingStatus}</p>
                         </div>
 
-                        <div class="item">
+                        <div class="item" id ="brokerDetails">
                             <h4>Listed By</h4>
                             <p>${property.brokerName}</p>
                         </div>
@@ -607,9 +663,12 @@ loadProfile()
             `;
 
             container.appendChild(card);
-
+            
+            card.onclick = () => {
+         window.location.href = `property.html?id=${property._id}`;
+};
         });
-
+       createPagination(res.pagination);
     }catch(error){
 
         loading.innerHTML=`
@@ -622,7 +681,58 @@ loadProfile()
 
 }
 
-fetchProperty();
+function createPagination(data) {
+
+    const pagination = document.getElementById("pagination");
+
+    pagination.innerHTML = "";
+
+    const { currentPage, totalRequiredPage } = data;
+    // console.log(data)
+    // Previous Button
+    const prev = document.createElement("button");
+    prev.innerText = "Previous";
+    prev.disabled = currentPage === 1;
+
+    prev.onclick = () => {
+        fetchProperty(currentPage - 1);
+    };
+
+    pagination.appendChild(prev);
+
+    // Page Numbers
+    for (let i = 1; i <= totalRequiredPage; i++) {
+
+        const btn = document.createElement("button");
+
+        btn.innerText = i;
+
+        if (i == currentPage) {
+            btn.classList.add("active");
+        }
+
+        btn.onclick = () => {
+            fetchProperty(i);
+        };
+
+        pagination.appendChild(btn);
+
+    }
+
+    // Next Button
+    const next = document.createElement("button");
+    next.innerText = "Next";
+    next.disabled = currentPage === totalRequiredPage;
+
+    next.onclick = () => {
+        fetchProperty(currentPage + 1);
+    };
+
+    pagination.appendChild(next);
+
+}
+fetchProperty(currentPage);
+
     </script>
   </body>
 </html>
