@@ -8,11 +8,11 @@ const jwt = require("jsonwebtoken");
 async function refreshToken(req, res) {
 
   const refreshToken = req.cookies.refreshToken;
-
+  
   if (!refreshToken) {
-    return res.json({
-      status:400,
-      message: "Please login first"
+    return res.status(400).json({
+      success:false,
+      message: "Please login first!!"
     });
   }
 

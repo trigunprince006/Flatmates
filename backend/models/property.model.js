@@ -38,6 +38,10 @@ const propertySchema = new mongoose.Schema({
     ref:'Brokers',
     required:true
   },
+  brokerName:{
+    type:String,
+    required:true
+  },
   status:{
     type:String,
     enum:['active','booked'],
