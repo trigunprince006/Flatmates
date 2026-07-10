@@ -11,6 +11,7 @@ const refreshTokenController = require('../controllers/broker/refreshToken.contr
 const changePasswordController = require('../controllers/broker/changepassword.controller');
 const sendOtpForResetPasswordController = require('../controllers/broker/sendOtpForResetPassword.controller');
 const resetPasswordController = require('../controllers/broker/resetpassword.controller');
+const getBrokerById = require('../controllers/broker/getbrokerdetails.controller')
 
 router.post('/register',brokerController.registerBroker);
 router.post('/send-otp',brokerController.generateOtp);
@@ -24,4 +25,8 @@ router.post('/reset-password',resetPasswordController)
 
 router.post('/refresh-token',refreshTokenController)
 
+
+//Getting Broker details by id 
+
+router.get('/broker-details/id',getBrokerById)
 module.exports=router;
