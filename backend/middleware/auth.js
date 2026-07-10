@@ -7,6 +7,7 @@ async function auth(req, res, next) {
 
     if (!accessToken) {
       return res.status(401).json({
+        success:false,
         message: "Please login first",
       });
     }
@@ -17,11 +18,11 @@ async function auth(req, res, next) {
     );
 
     req.user = decoded;
-    // console.log("Decoded",decoded)
-    // console.log("req.user",req.user)
+
     next();
   } catch (error) {
     return res.status(401).json({
+      success:false,
       message: "Invalid or expired access token",
     });
   }
