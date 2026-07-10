@@ -3,24 +3,25 @@ const cloudinary = require('../../config/cloudinary')
 
 async function getProfile(req, res) {
   try {
-    const id = req.user.userId;
+    const userId = req.user.userId;
 
-    const user = await userModel.findById(id);
+    const user = await userModel.findById(userId);
 
     if (!user) {
-      return res.json({
-        status: 400,
+      return res.status(400).json({
+        success : false,
         message: "User does not exist",
       });
     }
-    return res.json({
-      status: 200,
+    return res.status(200).json({
+      success: true,
       user,
     });
+
   } catch (error) {
     console.log(error);
-    return res.json({
-      status: 500,
+    return res.status(500).json({
+      success: false,
       message: "Server error happened",
     });
   }
@@ -33,9 +34,10 @@ async function updateUserInfo(req, res) {
     const id = req.user.userId;
 
     const user = await userModel.findById(id);
+
     if (!user) {
       return res.status(401).json({
-        status: 401,
+        success: false,
         message: "User is not verified",
       });
     }
@@ -46,7 +48,7 @@ async function updateUserInfo(req, res) {
     await user.save();
 
     return res.status(200).json({
-      status: 200,
+      success: true,
       message: "User info updated ",
     });
 
@@ -55,7 +57,7 @@ async function updateUserInfo(req, res) {
 
     console.log(error)
     return res.status(500).json({
-      status:500,
+      success:false,
       message:"Internal server error!"
     })
   }
@@ -71,7 +73,7 @@ async function updateProfileImg(req,res){
 
     if(!profileImg){
       return res.status(400).json({
-      status:400,
+      success:false,
       message:"Please provide image url"
      })
     }
@@ -79,17 +81,18 @@ async function updateProfileImg(req,res){
     const user = await userModel.findById(id)
     if(!user){
       return res.status(401).json({
-      status:401,
+      success:false,
       message:"Not authorized person"
      })
     }
+    
     const result = await cloudinary.uploader.upload(profileImg.path)
     
     user.userProfile.profilePhoto = result.secure_url;
     await user.save();
 
     return res.status(200).json({
-      status:200,
+      success:false,
       message:"Profile pic updated successfully!"
      })
 
@@ -98,7 +101,7 @@ async function updateProfileImg(req,res){
 
     console.log(error)
     return res.status(500).json({
-      status:500,
+      success:false,
       message:"Internal server error!"
     })
   }
