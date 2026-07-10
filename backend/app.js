@@ -1,4 +1,5 @@
 //Importing  libraries
+
 const express = require("express");
 const app = express();
 require("dotenv").config();
@@ -6,23 +7,25 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const UAParser = require("ua-parser-js");
 const helmet = require('helmet')
+const path = require('path');
 
 //Importing in-built files
+
 const connectDB = require("./db/db");
 connectDB();
+
 const authRoute = require('./routes/auth.routes')
 const brokerRoute = require('./routes/broker.route')
 const propertyRoute = require('./routes/property.routes')
 const chatRoute = require('./routes/chat.routes');
 const getProfileRoute = require("./routes/profile.routes")
-
 const startSocketServer = require("./socket");
-const path = require('path');
 
 
+
+//In-Built Middleware
 
 app.use(express.static(path.join(__dirname, 'msgFrontend')));
-//In-Built Middleware
 app.use(cookieParser())
 app.use(express.json());
 app.use(cors({
@@ -30,6 +33,7 @@ app.use(cors({
     credentials: true
 }));
 app.use(helmet());
+
 //Manual Middleware
 app.get("/", (req, res) => {
    const parser = new UAParser(req.headers["user-agent"]);
@@ -66,12 +70,14 @@ app.use('/broker',brokerRoute)
 app.use('/properties',propertyRoute)
 app.use('/api',getProfileRoute);
 
-// app.use('/chats',chatRoute)
+
 //Starting the server
+
 const port = process.env.PORT;
- const expressServer =  app.listen(port,()=>{
+
+const expressServer =  app.listen(port,()=>{
     console.log(`Server is running on http://localhost:${port}`)
-  })
+})
 
 //creating a socket.io server 
 startSocketServer(expressServer);
