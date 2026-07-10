@@ -5,12 +5,13 @@ const router = express.Router();
 const propertyController = require('../controllers/broker/createProperty.controller')
 const authMiddleware = require('../middleware/auth')
 const upload = require('../middleware/multer')
-const getAllPropertyController = require('../controllers/user/properties.controller')
+const {getAllProperty,getPropertyById} = require('../controllers/user/properties.controller')
 
 // Routes
 router.post('/list-property',authMiddleware,upload.array('images',20),propertyController);
 
-router.get('/property',getAllPropertyController)
+router.get('/property',getAllProperty)
 
+router.get("/house/id",getPropertyById);
 
 module.exports = router;

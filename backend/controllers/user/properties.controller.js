@@ -44,4 +44,28 @@ async function getAllProperty(req,res){
   console.log(error)
  }
 }
-module.exports = getAllProperty;
+
+async function getPropertyById(req,res) {
+  
+  console.log("This is get property by id ")
+  // console.log(req.query);
+
+  const propertyId = req.query.id;
+
+  const property = await propertyModel.findById(propertyId);
+
+  if(!property){
+    return res.status(400).json({
+      succuss:false,
+      message:"Property does not exist !!"
+    })
+
+  }
+  return res.status(200).json({
+      succuss:true,
+      property
+    });
+
+}
+
+module.exports = {getAllProperty,getPropertyById};
