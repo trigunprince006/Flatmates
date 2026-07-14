@@ -2,7 +2,7 @@ const brokerModel = require('../../models/broker.model')
 const jwt = require("jsonwebtoken");
 
 async function refreshToken(req, res) {
-  const refreshToken = req.cookies.refreshToken;
+  const refreshToken = req.cookies.brokerRefreshToken;
   // console.log("RefreshToken is:",refreshToken)
   if (!refreshToken) {
     return res.status(400).json({
@@ -38,7 +38,7 @@ async function refreshToken(req, res) {
         expiresIn: "15m",
       },
     );
-    res.cookie("accessToken", accessToken, {
+    res.cookie("brokerAccessToken", accessToken, {
       httpOnly: true,
       secure: false,
       sameSite: "strict",
