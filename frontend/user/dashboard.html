@@ -665,7 +665,7 @@ const API_URL = "http://localhost:4000/properties/property";
             container.appendChild(card);
             
             card.onclick = () => {
-         window.location.href = `property.html?id=${property._id}`;
+         window.location.href = `property-details.html?id=${property._id}`;
 };
         });
        createPagination(res.pagination);
