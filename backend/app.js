@@ -29,7 +29,8 @@ app.use(express.static(path.join(__dirname, 'msgFrontend')));
 app.use(cookieParser())
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:5500",
+    // origin: "http://localhost:5500",
+    // "origin":"https://4fjjxx4z-5500.inc1.devtunnels.ms",
     credentials: true
 }));
 app.use(helmet());
