@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Broker Profile</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        background: #f5f7fb;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 900px;
+        margin: 40px auto;
+      }
+
+      .profile-card {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        flex-wrap: wrap;
+      }
+
+      .header img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #4caf50;
+      }
+
+      .header h2 {
+        margin-bottom: 8px;
+      }
+
+      .info {
+        margin-top: 30px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .box {
+        background: #f8f9fa;
+        padding: 18px;
+        border-radius: 8px;
+      }
+
+      .box label {
+        color: #777;
+        display: block;
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
+
+      .box span {
+        font-size: 17px;
+        font-weight: bold;
+      }
+
+      .password-card {
+        margin-top: 35px;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      .password-card h3 {
+        margin-bottom: 20px;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+      }
+
+      button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 6px;
+        background: #4caf50;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background: #388e3c;
+      }
+
+      #message {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      @media (max-width: 600px) {
+        .header {
+          justify-content: center;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="profile-card">
+        <div class="header">
+          <img
+            id="profileImage"
+            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+          />
+
+          <div>
+            <h2 id="fullname">Loading...</h2>
+            <!-- <p id="occupation"></p> -->
+          </div>
+        </div>
+
+        <div class="info">
+          <div class="box">
+            <!-- <label>Relationship Status</label>
+            <span id="relationship">-</span> -->
+          </div>
+
+          <div class="box">
+            <label>Email</label>
+            <span id="email">-</span>
+          </div>
+
+          <div class="box">
+            <label>Contact</label>
+            <span id="contact">-</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="password-card">
+        <h3>Change Password</h3>
+
+        <input
+          type="password"
+          id="oldPassword"
+          placeholder="Current Password"
+        />
+
+        <input type="password" id="newPassword" placeholder="New Password" />
+
+        <button onclick="changePassword()">Change Password</button>
+
+        <p id="message"></p>
+      </div>
+    </div>
+
+    <script>
+      const PROFILE_API = "http://localhost:4000/broker/profile";
+      const reGenerateAccessTokenApi = "http://localhost:4000/broker/refresh-token";
+      const CHANGE_PASSWORD_API = "http://localhost:4000/broker/change-password";
+
+      async function loadProfile() {
+        try {
+          const res = await fetch(PROFILE_API, {
+            method: "GET",
+            credentials: "include",
+          });
+
+          const data = await res.json();
+          console.log(data);
+          if(data.success === false){
+            const res = await fetch(reGenerateAccessTokenApi, {
+            method: "POST",
+            credentials: "include",
+          });
+          const data = await res.json();
+          console.log(data)
+          }
+          // console.log(data);
+
+          const broker = data.broker || data;
+
+          document.getElementById("fullname").innerText = broker.fullname || "-"
+      
+          document.getElementById("email").innerText = broker.email || "-";
+          document.getElementById("contact").innerText =
+            broker.phoneNumber || "-";
+
+          
+        } catch (err) {
+          console.log(err);
+          alert("Unable to fetch profile");
+        }
+      }
+
+      loadProfile();
+
+    </script>
+  </body>
+</html>
