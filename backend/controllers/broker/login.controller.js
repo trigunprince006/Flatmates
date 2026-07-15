@@ -45,7 +45,7 @@ async function login(req, res) {
     },
   );
 
-  res.cookie("AccessToken", accessToken, {
+  res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: false,
     sameSite: "strict",
@@ -64,7 +64,7 @@ async function login(req, res) {
     },
   );
 
-  res.cookie("RefreshToken", refreshToken, {
+  res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: false,
     sameSite: "strict",
