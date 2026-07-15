@@ -1,10 +1,11 @@
-const brokerModel = require("../../models/user.model");
+const brokerModel = require("../../models/broker.model");
 
 async function logout(req, res) {
 
   try {
     
     const brokerId = req.user.brokerId;
+
 
     const broker = await brokerModel.findById(brokerId);
 
