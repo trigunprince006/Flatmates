@@ -4,7 +4,7 @@ async function myListedProperty(req, res) {
   try {
     const brokerId = req.user.brokerId;
 
-    const properties = await propertyModel.findOne({ listedBy: brokerId });
+    const properties = await propertyModel.find({ listedBy: brokerId });
 
     if (!properties) {
       return res.status(400).json({
