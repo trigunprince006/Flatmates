@@ -11,7 +11,9 @@ const refreshTokenController = require('../controllers/broker/refreshToken.contr
 const changePasswordController = require('../controllers/broker/changepassword.controller');
 const sendOtpForResetPasswordController = require('../controllers/broker/sendOtpForResetPassword.controller');
 const resetPasswordController = require('../controllers/broker/resetpassword.controller');
-const getBrokerById = require('../controllers/broker/getbrokerdetails.controller')
+const getBrokerById = require('../controllers/broker/getbrokerdetails.controller');
+const profile = require('../controllers/broker/brokerprofile.controller');
+const logout = require('../controllers/broker/logout.controller');
 
 router.post('/register',brokerController.registerBroker);
 router.post('/send-otp',brokerController.generateOtp);
@@ -21,11 +23,11 @@ router.post('/login',loginController);
 router.patch('/change-password',authMiddleware,changePasswordController);
 router.post('/send-otp-reset-password',sendOtpForResetPasswordController)
 router.post('/reset-password',resetPasswordController)
-// router.post('/logout',authMiddleware,logoutController)
+router.post('/logout',authMiddleware,logout)
 
 router.post('/refresh-token',refreshTokenController)
 
-
+router.get('/profile',authMiddleware,profile)
 //Getting Broker details by id 
 
 router.get('/broker-details/id',getBrokerById)
