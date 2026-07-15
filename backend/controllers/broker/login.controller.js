@@ -45,7 +45,7 @@ async function login(req, res) {
     },
   );
 
-  res.cookie("brokerAccessToken", accessToken, {
+  res.cookie("AccessToken", accessToken, {
     httpOnly: true,
     secure: false,
     sameSite: "strict",
@@ -64,7 +64,7 @@ async function login(req, res) {
     },
   );
 
-  res.cookie("brokerRefreshToken", refreshToken, {
+  res.cookie("RefreshToken", refreshToken, {
     httpOnly: true,
     secure: false,
     sameSite: "strict",
