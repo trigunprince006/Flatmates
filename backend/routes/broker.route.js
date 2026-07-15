@@ -14,6 +14,7 @@ const resetPasswordController = require('../controllers/broker/resetpassword.con
 const getBrokerById = require('../controllers/broker/getbrokerdetails.controller');
 const profile = require('../controllers/broker/brokerprofile.controller');
 const logout = require('../controllers/broker/logout.controller');
+const myListedProperty = require('../controllers/broker/getMyListedProperty.controller');
 
 router.post('/register',brokerController.registerBroker);
 router.post('/send-otp',brokerController.generateOtp);
@@ -28,6 +29,7 @@ router.post('/logout',authMiddleware,logout)
 router.post('/refresh-token',refreshTokenController)
 
 router.get('/profile',authMiddleware,profile)
+router.get('/my-listed-property',authMiddleware,myListedProperty)
 //Getting Broker details by id 
 
 router.get('/broker-details/id',getBrokerById)
