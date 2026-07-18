@@ -1,10 +1,23 @@
 const propertyModel = require("../../models/property.model");
-const cloudinary = require('../../config/cloudinary')
+const cloudinary = require('../../config/cloudinary');
+const { default: mongoose } = require("mongoose");
 
 async function editProperty(req,res){
 
   try {
     const {propertyId} = req.query;
+    if(!propertyId){
+      return res.status(400).json({
+        success: false,
+        message: "Id is not provided.",
+      });
+    }
+    if(!mongoose.isValidObjectId(propertyId)){
+      return res.status(400).json({
+        success: false,
+        message: "PropertyId is not Valid.",
+      });
+    }
 
     const {price,bhk,bedrooms,bathroom,furnishingStatus,type,address} = req.body;
     
