@@ -1,5 +1,5 @@
 const brokerModel = require("../../models/broker.model");
-
+const propertyModel = require("../../models/property.model")
 
 
 async function profile(req,res){
@@ -16,10 +16,14 @@ async function profile(req,res){
     })
   }
 
+  const totalListedProperty = await propertyModel.countDocuments({listedBy:brokerId});
+  // console.log(totalListedProperty)
+
   return res.status(200).json({
     success :true,
     message:"Broker profile",
-    broker
+    broker,
+    totalListedProperty
   })
   
 } 
