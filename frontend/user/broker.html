@@ -1,181 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Broker Details</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Broker Details</title>
+    <link rel="stylesheet" href="../stylesheets/user/broker.css" />
+  </head>
+  <body>
+    <div class="container">
+      <button onclick="history.back()">⬅ Back</button>
 
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-body{
-    background:#f4f4f4;
-    padding:30px;
-}
-
-.container{
-    max-width:700px;
-    margin:auto;
-    background:#fff;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,.1);
-}
-
-.profile{
-    text-align:center;
-    margin-bottom:30px;
-}
-
-.profile img{
-    width:150px;
-    height:150px;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid #007bff;
-}
-
-.profile h2{
-    margin-top:15px;
-}
-
-.info{
-    margin-top:20px;
-}
-
-.item{
-    margin-bottom:15px;
-}
-
-.item span{
-    font-weight:bold;
-}
-
-button{
-    margin-top:25px;
-    padding:10px 18px;
-    border:none;
-    background:#007bff;
-    color:white;
-    cursor:pointer;
-    border-radius:5px;
-}
-
-button:hover{
-    background:#0056b3;
-}
-
-</style>
-
-</head>
-<body>
-
-<div class="container">
-
-    <button onclick="history.back()">⬅ Back</button>
-
-    <div class="profile">
-
-        <img id="photo" src="" alt="Broker">
+      <div class="profile">
+        <img id="photo" src="" alt="Broker" />
 
         <h2 id="name">Loading...</h2>
+      </div>
 
+      <div class="info">
+        <div class="item">
+          <span>Email :</span>
+          <p id="email"></p>
+        </div>
+
+        <div class="item">
+          <span>Phone :</span>
+          <p id="phone"></p>
+        </div>
+
+        <div class="item">
+          <span>Experience :</span>
+          <p id="experience"></p>
+        </div>
+
+        <div class="item">
+          <span>Agency :</span>
+          <p id="agency"></p>
+        </div>
+
+        <div class="item">
+          <span>Address :</span>
+          <p id="address"></p>
+        </div>
+
+        <div class="item">
+          <span>About :</span>
+          <p id="about"></p>
+        </div>
+      </div>
     </div>
-
-    <div class="info">
-
-        <div class="item">
-            <span>Email :</span>
-            <p id="email"></p>
-        </div>
-
-        <div class="item">
-            <span>Phone :</span>
-            <p id="phone"></p>
-        </div>
-
-        <div class="item">
-            <span>Experience :</span>
-            <p id="experience"></p>
-        </div>
-
-        <div class="item">
-            <span>Agency :</span>
-            <p id="agency"></p>
-        </div>
-
-        <div class="item">
-            <span>Address :</span>
-            <p id="address"></p>
-        </div>
-
-        <div class="item">
-            <span>About :</span>
-            <p id="about"></p>
-        </div>
-
-    </div>
-
-</div>
-
-<script>
-
-const brokerId = new URLSearchParams(window.location.search).get("id");
-
-async function loadBroker(){
-
-    try{
-
-        const response = await fetch(`http://localhost:4000/broker/broker-details/id/?id=${brokerId}`);
-
-        if(!response.ok){
-            throw new Error("Broker not found");
-        }
-
-        const res = await response.json();
-        const{broker} = res;
-        document.getElementById("photo").src =
-            broker.profilePhoto || "https://www.flaticon.com/free-icon/user_9131590https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqE3e9RIK09-ejpr7BwnvNb4TpTjmXHGgrTTNc00vdtA&s=10";
-
-        document.getElementById("name").innerText =
-            broker.fullname;
-
-        document.getElementById("email").innerText =
-            broker.email;
-
-        document.getElementById("phone").innerText =
-            broker.phoneNumber;
-
-        document.getElementById("experience").innerText =
-            broker.experience || "N/A";
-
-        document.getElementById("agency").innerText =
-            broker.agency || "N/A";
-
-        document.getElementById("address").innerText =
-            broker.address || "N/A";
-
-        document.getElementById("about").innerText =
-            broker.about || "No description available.";
-
-    }
-    catch(error){
-
-        document.body.innerHTML = `<h2>${error.message}</h2>`;
-
-    }
-
-}
-
-loadBroker();
-
-</script>
-
-</body>
+    <script src="../scripts/user/broker.js"></script>
+  </body>
 </html>

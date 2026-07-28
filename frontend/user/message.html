@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message Broker</title>
+<link rel="stylesheet" href="../stylesheets/user/message.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <img id="profileImage"
+        src="https://via.placeholder.com/60"
+        alt="Broker">
+
+        <div class="info">
+            <h2 id="brokerName">Loading...</h2>
+            <p>Broker</p>
+        </div>
+
+    </div>
+
+    <div class="chat" id="chatBox">
+
+        <p style="color:gray;text-align:center">
+            Start your conversation.
+        </p>
+
+    </div>
+
+    <div class="input-area">
+
+        <input
+        type="text"
+        id="message"
+        placeholder="Type a message...">
+
+        <button id="sendBtn">
+            Send
+        </button>
+
+    </div>
+
+</div>
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+
+<script src="../scripts/user/message.js"></script>
+
+</body>
+</html>
