@@ -4,16 +4,19 @@ const brokerModel =  require("../../models/broker.model");
 async function getBrokerById(req,res){
 
   try {
- 
+
   const brokerId = req.query.id;
+
   // console.log("brokerId:",brokerId);
+
   if(!mongoose.isValidObjectId(brokerId)){
     return res.status(400).json({
       success:false,
       message:"Invalid broker id !!!"
     })
   }
-  const broker = await brokerModel.findById(brokerId);
+
+  const broker = await brokerModel.findById(brokerId).select("fullname email phoneNumber");
 
   if(!broker){
     return res.status(400).json({
