@@ -1,13 +1,11 @@
-async function saveClient(socket,data,users) {
+async function saveClient(socket,users) {
   
-  const {username} = data
   const  userId = socket.user.userId;
-  // console.log("UserId : ",userId)
-  const socketId = socket.id;
 
-  users[username]={
-    socketId
+  users[userId]={
+    socketId : socket.id
   }
-  console.log("users : ",users)
+  console.log("Online users : ",users)
+  return users;
 }
 module.exports = saveClient;

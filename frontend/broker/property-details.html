@@ -1,11 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <h1>Hello, World</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Property Details</title>
+
+    <link rel="stylesheet" href="../stylesheets/broker/property-details.css" />
+  </head>
+  <body>
+    <div class="container">
+      <button onclick="history.back()">⬅ Back</button>
+
+      <br /><br />
+
+      <img id="image" src="" alt="Property Image" />
+
+      <h1 id="address">Loading...</h1>
+
+      <div class="price" id="price"></div>
+
+      <div class="box">
+        <span class="label">Description:</span>
+        <p id="description"></p>
+      </div>
+
+      <div class="box">
+        <span class="label">Type:</span>
+        <span id="type"></span>
+      </div>
+
+      <div class="box">
+        <span class="label">BHK:</span>
+        <span id="bhk"></span>
+      </div>
+
+      <div class="box">
+        <span class="label">Bedrooms:</span>
+        <span id="bedrooms"></span>
+      </div>
+
+      <div class="box">
+        <span class="label">Bathrooms:</span>
+        <span id="bathroom"></span>
+      </div>
+
+      <div class="box">
+        <span class="label">Furnishing:</span>
+        <span id="furnishing"></span>
+      </div>
+
+      <div class="box" id="brokerBox">
+        <span class="label">Broker:</span>
+        <span id="broker"></span>
+      </div>
+
+      <div class="box">
+        <span class="label">Status:</span>
+        <span id="status"></span>
+      </div>
+    </div>
+
+    <script src="../scripts/broker/property-details.js"></script>
+  </body>
 </html>
