@@ -1,15 +1,11 @@
 const jwt = require("jsonwebtoken");
-
+const cookie = require("cookie")
 async function socketAuth(socket, next) {
 
   try {
-      // console.log("Middleware is working...")
-      // console.log("Handshake:", socket.handshake);
-
-    // console.log("Auth:", socket.handshake.auth);
-
-    // console.log("Token:", socket.handshake.auth.token);
-      const token = socket.handshake.auth.token;
+      
+      const cookies =  await cookie.parseCookie(socket.handshake.headers.cookie)
+      const token = cookies.accessToken;
 
       if (!token) {
         console.log("error")
@@ -21,8 +17,8 @@ async function socketAuth(socket, next) {
           process.env.ACCESS_JWT_SECRET_KEY
       );
       // console.log(decoded)
+      
       if(decoded.brokerId){
-        // console.log("decoded.brokerId is satisfied ")
         const newDecoded = {
         "userId" : decoded.brokerId,
         "role":decoded.role
@@ -30,7 +26,7 @@ async function socketAuth(socket, next) {
         socket.user = newDecoded;
         next();
         return 
-        // ye code isliye hai kyuki hmrara agar broker token bhejta hai to uske jab jwt.verify krenege to brokerId milega na ki userId so ye us brokerId ko userId me convert krega 
+        // In further controller we need userId not brokerId so that newDecode has userId as key for  brokerId
       }
       
       socket.user = decoded;
