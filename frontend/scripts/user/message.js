@@ -87,7 +87,7 @@ document.getElementById("sendBtn").addEventListener("click", () => {
 
   socket.emit("private-message", {
     receiverId: brokerId,
-    PropertyId : propertyId,
+    propertyId : propertyId,
     message: message,
   });
 
