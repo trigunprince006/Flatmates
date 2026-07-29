@@ -1,8 +1,7 @@
 let brokerId = null;
 const urlParams = new URLSearchParams(window.location.search);
-
 brokerId = urlParams.get('brokerId');
-
+let propertyId = urlParams.get('propertyId')
 console.log("ReceiverId : ",brokerId)
 
 const socket = io("http://localhost:4000", {
@@ -88,6 +87,7 @@ document.getElementById("sendBtn").addEventListener("click", () => {
 
   socket.emit("private-message", {
     receiverId: brokerId,
+    PropertyId : propertyId,
     message: message,
   });
 
