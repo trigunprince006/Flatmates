@@ -1,4 +1,4 @@
-const propertyId = new URLSearchParams(window.location.search).get("id");
+const propertyId = new URLSearchParams(window.location.search).get("propertyId");
 
 async function loadProperty() {
   try {
@@ -42,7 +42,7 @@ async function loadProperty() {
     const messageBox = document.getElementById("messageBox");
 
     messageBox.onclick = () => {
-      window.location.href = `message.html?brokerId=${property.listedBy}`;
+      window.location.href = `message.html?propertyId=${propertyId}&brokerId=${property.listedBy}`;
     };
   } catch (error) {
     document.body.innerHTML = `<h2>${error.message}</h2>`;

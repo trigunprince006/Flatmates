@@ -1,3 +1,9 @@
+let brokerId = null;
+const urlParams = new URLSearchParams(window.location.search);
+brokerId = urlParams.get('brokerId');
+let propertyId = urlParams.get('propertyId')
+console.log("ReceiverId : ",brokerId)
+
 const socket = io("http://localhost:4000", {
   withCredentials: true,
 });
@@ -13,6 +19,19 @@ socket.on("disconnect", () => {
 socket.on("connect_error", (err) => {
   console.log(err.message);
 });
+
+async function brokerDetails(){
+  const res = await fetch(`http://localhost:4000/broker/broker-details/id?id=${brokerId}`)
+
+  const data = await res.json();
+  // console.log(data);
+  document.getElementById("brokerName").innerText =data.broker.fullname;
+  document.getElementById("brokerName").style.textTransform = "capitalize";
+  
+  document.getElementById("profileImage").src = data.broker.profileImage || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKJnygMP2haczLT0OB9W-2G43Ta-wK6AbWTfw2sChr7w&s=10";
+
+}
+brokerDetails();
 
 const chatBox = document.getElementById("chatBox");
 
@@ -53,19 +72,24 @@ function addBrokerMessage(message) {
 
   chatBox.scrollTop = chatBox.scrollHeight;
 }
-document.getElementById("sendBtn").onclick = () => {
+
+
+
+
+document.getElementById("sendBtn").addEventListener("click", () => {
   const input = document.getElementById("message");
 
   const message = input.value.trim();
-
+  console.log("my Text : ", message)
   if (!message) return;
 
   addMyMessage(message);
 
   socket.emit("private-message", {
     receiverId: brokerId,
+    propertyId : propertyId,
     message: message,
   });
 
   input.value = "";
-};
+});

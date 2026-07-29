@@ -3,8 +3,7 @@ const mongoose = require('mongoose')
 const conversationSchema = new mongoose.Schema({
 
   senderId:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'Users',
+    type:String,
     required:true
   },
   receiverId:{
@@ -13,9 +12,12 @@ const conversationSchema = new mongoose.Schema({
     // ref:'Brokers',
     required:true
   },
+  propertyId:{
+    type:String,
+    required:true
+  },
   messages:{
     type:[String],
-    
   }
 },{timestamps:true});
 

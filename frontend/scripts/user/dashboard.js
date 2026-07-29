@@ -146,7 +146,7 @@ async function fetchProperty(page = 1) {
       container.appendChild(card);
 
       card.onclick = () => {
-        window.location.href = `property-details.html?id=${property._id}`;
+        window.location.href = `property-details.html?propertyId=${property._id}`;
       };
     });
     createPagination(res.pagination);
