@@ -4,7 +4,7 @@ const userModel = require("../../models/user.model");
 const getOnlineUsers = require("../../socket/saveClient");
 
 async function incomingMessage(socket, data, users, io) {
-  console.log(data);
+
   const userId = socket.user.userId; //Online user it may be act as sender or receiver.
 
   const onlineUsers = await getOnlineUsers(socket, users);
@@ -13,19 +13,22 @@ async function incomingMessage(socket, data, users, io) {
   const isConversationExist = await conversationModel.findOne({
     senderId: userId,
   });
-  // console.log(isConversationExist);
-  if (isConversationExist) {
-    isConversationExist.messages.push(message);
-    await isConversationExist.save();
-    const receiverSocket = onlineUsers[receiverId];
-    console.log(receiverSocket);
 
-    if (!receiverSocket) {
-      return console.log("Receiver is not online");
-    }
+  if (isConversationExist) {
+        
+        isConversationExist.propertyId = propertyId;
+        isConversationExist.messages.push(message);
+        await isConversationExist.save();
+
+        const receiverSocket = onlineUsers[receiverId];
+        // console.log(receiverSocket);
+
+        if (!receiverSocket) {
+            return console.log("Receiver is not online");
+        }
 
     const receiverSocketId = receiverSocket.socketId;
-    console.log("receiverSocketId : ", receiverSocketId);
+    // console.log("receiverSocketId : ", receiverSocketId);
 
     io.to(receiverSocketId).emit("receive-message", {
       sender: data.userId,
@@ -40,6 +43,7 @@ async function incomingMessage(socket, data, users, io) {
     propertyId,
     messages: message,
   });
+
   const receiverSocket = onlineUsers[receiverId];
   console.log(receiverSocket);
 
@@ -54,5 +58,6 @@ async function incomingMessage(socket, data, users, io) {
     sender: data.userId,
     message: data.message,
   });
+  
 }
 module.exports = incomingMessage;
