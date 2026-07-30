@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broker Messages</title>
+
+    <link rel="stylesheet" href="../stylesheets/broker/messages.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="header">
+            <h2>Messages</h2>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search property or user..."
+            >
+        </div>
+
+        <div id="conversationList"></div>
+
+    </aside>
+
+    <!-- RIGHT SIDE -->
+
+    <main class="chat">
+
+        <!-- Property Header -->
+        <div class="property" id="propertyInfo">
+
+            <img
+                class="header-property-image"
+                src="https://placehold.co/120x100"
+                alt=""
+            >
+
+            <div class="property-content">
+
+                <h2>Select a Conversation</h2>
+
+                <p>Please choose a conversation from the left.</p>
+
+            </div>
+
+        </div>
+
+        <!-- Messages -->
+        <div id="messages">
+
+            <div class="empty">
+                No conversation selected.
+            </div>
+
+        </div>
+
+        <!-- Bottom -->
+        <div class="bottom">
+
+            <input
+                id="messageInput"
+                type="text"
+                placeholder="Type a message..."
+            >
+
+            <button id="sendBtn">
+                Send
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="../scripts/broker/messages.js"></script>
+
+</body>
+</html>
